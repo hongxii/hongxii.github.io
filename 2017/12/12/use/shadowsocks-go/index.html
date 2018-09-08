@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="install,go,ss,use,shadowsocks," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;因被喝茶，shadowsocks 作者被迫停更了shadowsocks的python服务器版本， go语言版本开始被很多人使用。但python版本停更并非go版本使用频次增多的主要原因, 除了语言切换的限制，更多的是因为go语言中自带高并发的特性，使得其体验较好， 于是越来越多的同事都自行搭建go版本自用。本文尽可能详细说明shadowsocks的搭建使用细节。">
+<meta name="keywords" content="install,go,ss,use,shadowsocks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ShadowSocks-从入门到出门[go版本]">
+<meta property="og:url" content="http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/index.html">
+<meta property="og:site_name" content="虹西森林">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;因被喝茶，shadowsocks 作者被迫停更了shadowsocks的python服务器版本， go语言版本开始被很多人使用。但python版本停更并非go版本使用频次增多的主要原因, 除了语言切换的限制，更多的是因为go语言中自带高并发的特性，使得其体验较好， 于是越来越多的同事都自行搭建go版本自用。本文尽可能详细说明shadowsocks的搭建使用细节。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-31T08:33:23.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ShadowSocks-从入门到出门[go版本]">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;因被喝茶，shadowsocks 作者被迫停更了shadowsocks的python服务器版本， go语言版本开始被很多人使用。但python版本停更并非go版本使用频次增多的主要原因, 除了语言切换的限制，更多的是因为go语言中自带高并发的特性，使得其体验较好， 于是越来越多的同事都自行搭建go版本自用。本文尽可能详细说明shadowsocks的搭建使用细节。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/"/>
+
+
+
+
+
+  <title>ShadowSocks-从入门到出门[go版本] | 虹西森林</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/hongxii" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">虹西森林</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">林空鹿饮溪|复盘 实践 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西森林">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ShadowSocks-从入门到出门[go版本]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T13:00:00+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/use/" itemprop="url" rel="index">
+                    <span itemprop="name">use</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/12/use/shadowsocks-go/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/12/12/use/shadowsocks-go/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;因被喝茶，shadowsocks 作者被迫停更了shadowsocks的python服务器版本，
+go语言版本开始被很多人使用。但python版本停更并非go版本使用频次增多的主要原因,
+除了语言切换的限制，更多的是因为go语言中自带高并发的特性，使得其体验较好，
+于是越来越多的同事都自行搭建go版本自用。<br>本文尽可能详细说明shadowsocks的搭建使用细节。
+<a id="more"></a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><!-- TOC -->
+<ul>
+<li><a href="#目录">目录</a></li>
+<li><a href="#说明">说明</a></li>
+<li><a href="#服务器选择">服务器选择</a></li>
+<li><a href="#关于云服务">关于云服务</a></li>
+<li><a href="#开始">开始</a></li>
+<li><a href="#linux内核升级--linux4">Linux内核升级-&gt; linux4</a><ul>
+<li><a href="#检查当前系统内核版本">检查当前系统内核版本：</a></li>
+<li><a href="#检查当前tcp算法">检查当前tcp算法</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#使用elrepo仓库">使用ELRepo仓库：</a></li>
+<li><a href="#列出目前可用的linux内核包">列出目前可用的Linux内核包：</a></li>
+<li><a href="#安装最新主线稳定内核">安装最新主线稳定内核</a></li>
+<li><a href="#修改默认启动内核">修改默认启动内核</a><ul>
+<li><a href="#cnetos6">cnetos6</a></li>
+<li><a href="#centos7">centos7</a></li>
+</ul>
+</li>
+<li><a href="#重启">重启</a></li>
+<li><a href="#检测">检测</a></li>
+</ul>
+</li>
+<li><a href="#tcp算法改为bbr">tcp算法改为BBR</a><ul>
+<li><a href="#配置生效">配置生效</a></li>
+<li><a href="#检查">检查</a></li>
+</ul>
+</li>
+<li><a href="#安装go">安装go</a></li>
+<li><a href="#安装git">安装git</a></li>
+<li><a href="#安装shadowsocks">安装shadowsocks</a></li>
+<li><a href="#配置configjson文件">配置config.json文件</a></li>
+<li><a href="#开放端口">开放端口</a></li>
+<li><a href="#开启shadowsocks服务">开启shadowsocks服务</a></li>
+<li><a href="#使用客户端测试链接">使用客户端测试链接</a></li>
+<li><a href="#备注">备注</a><ul>
+<li><a href="#重置密码">重置密码</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>&emsp;&emsp;使用shadowsocks的前置条件。<br>&emsp;&emsp;首先，必须拥有一台境外服务器，如果不是自己的物理所有，则需租赁VPS服务器。<br>&emsp;&emsp;所谓VPS服务器，即Virtual Private Server -私有虚拟服务器。<br>&emsp;&emsp;关于租赁服务器，博主常用服务商为vultr、搬瓦工、cloudcone等，
+这也是目前广告和稳定性同时做的比较好的几家。<br>&emsp;&emsp;另随互联网产业不断增长，相关服务需求缺口逐渐呈现，越来越多的云服务商参与其中竞争，相对前面几家，有很多的小服务商也推出了性价比更高的vps服务，主要集中在俄国区，各位可以自由选择。
+大厂还有谷歌的云服务器、亚马逊的AWS,微软的Azure，各位均可一试。<br>&emsp;&emsp;本文搭建环境时VPS系统为centos。  </p>
+<h2 id="服务器选择"><a href="#服务器选择" class="headerlink" title="服务器选择"></a>服务器选择</h2><p>&ensp;&ensp;选择VPS服务商时需注意地理位置远近，测速工具检测结果，及其服务器架构，
+其中注意服务器最好选择Kvm,Xen等宽容度较高的架构方便网络层级的扩展，避免OpenVZ,
+另外也会有服务器厂家会挂Xen卖OpenVZ,在购买之后也要记得及时检测。<br>&ensp;&ensp;购买服务器之后还有及时ping 服务器ID，若ping不通则马上发工单换ip,
+不同服务商换IP的价格不同。<br>&ensp;&ensp;国内云服务器所售的境外机型不推荐选择，性价比太低。  </p>
+<h2 id="关于云服务"><a href="#关于云服务" class="headerlink" title="关于云服务"></a>关于云服务</h2><p>&ensp;&ensp;关于云服务厂商所提供的VPS服务，大多为基于OpenStack的云计算平台开源实现，
+国内的两大云服务厂商也是基于此，不久前滴滴和腾讯云业务分开后，也自行组建了滴滴云服务平台，也是基于OpenStack,但其刚起步不推荐。<br>OpenStack相关的云计算实现，国内学习资源不多，各位可自行搜索，主栈语言为Python。<br>此处提供OpenStack官方地址：<br>&ensp;&ensp;<a href="https://www.openstack.org/" target="_blank" rel="noopener">OpenStack 官网</a><br>&ensp;&ensp;<a href="https://github.com/openstack" target="_blank" rel="noopener">OpenStack github主页</a>  </p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>现在你已拥有了基于Xen架构的虚拟机(可ping通)，并已使用root账户登陆拥有管理员权限，接下来的步骤为：</p>
+<pre><code>* 升级Linux系统内核  
+* 更改Linux底层TCP协议算法[BBR 加速]  
+* 安装go  
+* 安装git  
+* 安装shadowsocks  
+* 配置config.json文件  
+* 防火墙开放端口  
+* 使用客户端测试链接  
+</code></pre><p>配置前两项后可使用谷歌Tcp bbr算法加速，bbr算法可基于ai智能控制数据包上下行数量，
+减少国际带宽拥堵。<br>前两步为提升网络性能，可直接从第三步开始。</p>
+<h2 id="Linux内核升级-gt-linux4"><a href="#Linux内核升级-gt-linux4" class="headerlink" title="Linux内核升级-&gt; linux4"></a>Linux内核升级-&gt; linux4</h2><p>###检查当前系统内核版本：
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@vultr_host /]</span># <span class="selector-tag">uname</span> <span class="selector-tag">-sr</span></span><br><span class="line"><span class="selector-tag">Linux</span> 3<span class="selector-class">.10</span><span class="selector-class">.0-693</span><span class="selector-class">.21</span><span class="selector-class">.1</span><span class="selector-class">.el7</span><span class="selector-class">.x86_64</span></span><br></pre></td></tr></table></figure></p>
+<p>###检查当前tcp算法
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@vultr_host</span> /]<span class="meta"># sysctl net.ipv4.tcp_available_congestion_control</span></span><br><span class="line">net.ipv4.tcp_available_congestion_control = cubic reno</span><br></pre></td></tr></table></figure></p>
+<p>此时系统内核使用的tcp算法内核为cubic/reno</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>在centos中升级内核需要注意：
+多数linux发行版提供了使用 yum 的包管理系统以及官方支持的内核升级方法，但这所有的仅仅为其仓库下最新可用内核，非
+<a href="https://www.kernel.org" target="_blank" rel="noopener">linux 最新版本</a>。
+而且，在centos中也无法使用red hat。</p>
+<p>但是，CentOS可以使用ELRepo!
+ELRepo是一个第三方仓库，可以将内核升级到最新版本。</p>
+<p>###使用ELRepo仓库：
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr_host /]# rpm --<span class="keyword">import</span> http:<span class="comment">//www.elrepo.org/RPM-GPG-KEY-elrepo.org</span></span><br><span class="line">[root@vultr_host /]# rpm -Uvh http:<span class="comment">//www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span></span><br><span class="line">Retrieving http:<span class="comment">//www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span></span><br><span class="line">Retrieving http:<span class="comment">//elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span></span><br><span class="line">Preparing...                          ################################# [<span class="number">100</span>%]</span><br><span class="line">Updating / installing...</span><br><span class="line">   <span class="number">1</span>:elrepo-release<span class="number">-7.0</span><span class="number">-3.</span>el7.elrepo  ################################# [<span class="number">100</span>%]</span><br></pre></td></tr></table></figure></p>
+<h3 id="列出目前可用的Linux内核包："><a href="#列出目前可用的Linux内核包：" class="headerlink" title="列出目前可用的Linux内核包："></a>列出目前可用的Linux内核包：</h3><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr_host /]# yum --disablerepo=<span class="string">"*"</span> --enablerepo=<span class="string">"elrepo-kernel"</span> list available</span><br><span class="line"></span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">elrepo-kernel                                                                                  | <span class="number">2.9</span> kB  <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line">elrepo-kernel/primary_db                                                                       | <span class="number">1.7</span> MB  <span class="number">00</span>:<span class="number">00</span>:<span class="number">01</span></span><br><span class="line">Determining fastest mirrors</span><br><span class="line"> * elrepo-kernel: mirrors.thzhost.com</span><br><span class="line">Available Packages</span><br><span class="line">kernel-lt.x86_64                                           <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-devel.x86_64                                     <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-doc.noarch                                       <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-headers.x86_64                                   <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-tools.x86_64                                     <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-tools-libs.x86_64                                <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-lt-tools-libs-devel.x86_64                          <span class="number">4.4</span><span class="meta">.138</span>-<span class="number">1.</span>el7.elrepo                          elrepo-kernel</span><br><span class="line">kernel-ml.x86_64                                           <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-devel.x86_64                                     <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-doc.noarch                                       <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-headers.x86_64                                   <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-tools.x86_64                                     <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-tools-libs.x86_64                                <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">kernel-ml-tools-libs-devel.x86_64                          <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">perf.x86_64                                                <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br><span class="line">python-perf.x86_64                                         <span class="number">4.17</span><span class="meta">.2</span>-<span class="number">1.</span>el7.elrepo                           elrepo-kernel</span><br></pre></td></tr></table></figure>
+<h3 id="安装最新主线稳定内核"><a href="#安装最新主线稳定内核" class="headerlink" title="安装最新主线稳定内核"></a>安装最新主线稳定内核</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr_host /]# yum --enablerepo=elrepo-kernel install kernel-<span class="keyword">ml</span></span><br><span class="line"></span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">base                                                                                           | 3.6 kB  00:00:00</span><br><span class="line">elrepo                                                                                         | 2.9 kB  00:00:00</span><br><span class="line">epel/x86_64/metalink                                                                           |  19 kB  00:00:00</span><br><span class="line">epel                                                                                           | 3.2 kB  00:00:00</span><br><span class="line">https:<span class="comment">//epel.mirror.constant.com/7/x86_64/repodata/repomd.xml: [Errno -1] repomd.xml does not match metalink for epel</span></span><br><span class="line">Trying other mirror.</span><br><span class="line">epel                                                                                           | 3.2 kB  00:00:00</span><br><span class="line">extras                                                                                         | 3.4 kB  00:00:00</span><br><span class="line">updates                                                                                        | 3.4 kB  00:00:00</span><br><span class="line">(1/8): base/7/x86_64/group_gz                                                                  | 166 kB  00:00:01</span><br><span class="line">(2/8): epel/x86_64/group_gz                                                                    |  88 kB  00:00:01</span><br><span class="line">(3/8): elrepo/primary_db                                                                       | 592 kB  00:00:01</span><br><span class="line">(4/8): extras/7/x86_64/primary_db                                                              | 149 kB  00:00:00</span><br><span class="line">epel/x86_64/primary            FAILED</span><br><span class="line">https:<span class="comment">//sjc.edge.kernel.org/fedora-buffet/epel/7/x86_64/repodata/e8475f9ad0cd11429e1cf75752a6dd6fe2b5357a523232eff56af83454c9a3cd-primary.xml.gz: [Errno 14] HTTPS Error 404 - Not Found</span></span><br><span class="line">Trying other mirror.</span><br><span class="line">To address this issue please refer to the below wiki article</span><br><span class="line"></span><br><span class="line">https:<span class="comment">//wiki.centos.org/yum-errors</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">If</span> above article doesn't <span class="keyword">help</span> to resolve this issue please <span class="keyword">use</span> https:<span class="comment">//bugs.centos.org/.</span></span><br><span class="line"></span><br><span class="line">(5/8): epel/x86_64/updateinfo                                                                  | 933 kB  00:00:02</span><br><span class="line">(6/8): updates/7/x86_64/primary_db                                                             | 2.7 MB  00:00:02</span><br><span class="line">(7/8): epel/x86_64/primary                                                                     | 3.5 MB  00:00:05</span><br><span class="line">(8/8): base/7/x86_64/primary_db                                                                | 5.9 MB  00:02:04</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"><span class="comment"> * base: mirror.fileplanet.com</span></span><br><span class="line"><span class="comment"> * elrepo: mirrors.thzhost.com</span></span><br><span class="line"><span class="comment"> * elrepo-kernel: mirrors.thzhost.com</span></span><br><span class="line"><span class="comment"> * epel: mirror.sjc02.svwh.net</span></span><br><span class="line"><span class="comment"> * extras: mirror.fileplanet.com</span></span><br><span class="line"><span class="comment"> * updates: mirror.fileplanet.com</span></span><br><span class="line">epel                                                                                                      12585/12585</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package kernel-<span class="keyword">ml</span>.x86_64 0:4.17.2-1.el7.elrepo will be installed</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">======================================================================================================================</span><br><span class="line"> Package                  <span class="keyword">Arch</span>                  <span class="keyword">Version</span>                            Repository                    Size</span><br><span class="line">======================================================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> kernel-<span class="keyword">ml</span>                x86_64                4.17.2-1.el7.elrepo                elrepo-kernel                 45 <span class="built_in">M</span></span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">======================================================================================================================</span><br><span class="line">Install  1 Package</span><br><span class="line"></span><br><span class="line"><span class="keyword">Total</span> download size: 45 <span class="built_in">M</span></span><br><span class="line">Installed size: 201 <span class="built_in">M</span></span><br><span class="line">Is this ok [y/<span class="keyword">d</span>/<span class="keyword">N</span>]: y                       <span class="comment">// Yes</span></span><br><span class="line"></span><br><span class="line">Downloading packages:</span><br><span class="line">kernel-<span class="keyword">ml</span>-4.17.2-1.el7.elrepo.x86_64.rpm                                                       |  45 MB  00:00:06</span><br><span class="line">Running transaction check</span><br><span class="line">Running transaction <span class="keyword">test</span></span><br><span class="line">Transaction <span class="keyword">test</span> succeeded</span><br><span class="line">Running transaction</span><br><span class="line">Warning: RPMDB altered outside of yum.</span><br><span class="line">  Installing : kernel-<span class="keyword">ml</span>-4.17.2-1.el7.elrepo.x86_64                                                               1/1</span><br><span class="line">  Verifying  : kernel-<span class="keyword">ml</span>-4.17.2-1.el7.elrepo.x86_64                                                               1/1</span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  kernel-<span class="keyword">ml</span>.x86_64 0:4.17.2-1.el7.elrepo</span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
+<h3 id="修改默认启动内核"><a href="#修改默认启动内核" class="headerlink" title="修改默认启动内核"></a>修改默认启动内核</h3><h4 id="cnetos6"><a href="#cnetos6" class="headerlink" title="cnetos6"></a>cnetos6</h4><p>如果是centos6,直接通过/etc/grub.conf文件修改启动顺序<br>使用vi 或者vim命令修改<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /boot/grub/grub.conf</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line"><span class="comment">#boot=/dev/sda</span></span><br><span class="line"><span class="attribute">default</span>=1</span><br><span class="line"><span class="attribute">timeout</span>=5</span><br><span class="line"><span class="built_in">..</span>.</span><br></pre></td></tr></table></figure></p>
+<p>其中default默认为0，将其修改为1即可  </p>
+<h4 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h4><p>centos 7中是通过grub2引导启动顺序。需要执行相关命令。<br>1.查看当前系统所有内核
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps /]# cat boot/grub2/grub.cfg |grep menuentry</span><br><span class="line">if [ x<span class="string">"$&#123;feature_menuentry_id&#125;"</span> = xy ]; then</span><br><span class="line">  menuentry_id_option=<span class="string">"--id"</span></span><br><span class="line">  menuentry_id_option=<span class="string">""</span></span><br><span class="line">export menuentry_id_option</span><br><span class="line">menuentry 'CentOS Linux <span class="number">7</span> Rescue cf9fbca3fb7842b4915d9cd81c418fb1 (<span class="number">4.17</span><span class="number">.3</span><span class="number">-1.</span>el7.elrepo.x86_64)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux (<span class="number">4.17</span><span class="number">.3</span><span class="number">-1.</span>el7.elrepo.x86_64) <span class="number">7</span> (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux <span class="number">7</span> Rescue <span class="number">5491904015</span>ae6a4d828c6acbbfc755b1 (<span class="number">3.10</span><span class="number">.0</span><span class="number">-862.3</span><span class="number">.3</span>.el7.x86_64)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux (<span class="number">3.10</span><span class="number">.0</span><span class="number">-862.3</span><span class="number">.3</span>.el7.x86_64) <span class="number">7</span> (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux (<span class="number">3.10</span><span class="number">.0</span><span class="number">-123.4</span><span class="number">.2</span>.el7.x86_64) <span class="number">7</span> (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux, with Linux <span class="number">3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">menuentry 'CentOS Linux, with Linux <span class="number">0</span>-rescue<span class="number">-11264912</span>be38456483e63dfd21d402f4' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux<span class="number">-0</span>-rescue<span class="number">-11264912</span>be38456483e63dfd21d402f4-advanced-fe0109f2<span class="number">-6</span>f34<span class="number">-48</span>ae-b51e<span class="number">-1</span>f5fa78305b5' &#123;</span><br><span class="line">[root@colinvps /]#</span><br></pre></td></tr></table></figure></p>
+<p>2.设置默认启动内核
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">grub2-set-default</span> "<span class="selector-tag">CentOS</span> <span class="selector-tag">Linux</span> (4<span class="selector-class">.17</span><span class="selector-class">.3-1</span><span class="selector-class">.el7</span><span class="selector-class">.elrepo</span><span class="selector-class">.x86_64</span>) 7 (<span class="selector-tag">Core</span>)"</span><br></pre></td></tr></table></figure></p>
+<p>3.检查结果
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[root@colinvps /]</span><span class="comment"># grub2-editenv list</span></span><br><span class="line"><span class="attr">saved_entry</span>=CentOS Linux (<span class="number">4.17</span>.<span class="number">3</span>-<span class="number">1</span>.el7.elrepo.x<span class="number">86_64</span>) <span class="number">7</span> (Core)</span><br></pre></td></tr></table></figure></p>
+<p>设置成功</p>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">reboot</span></span><br></pre></td></tr></table></figure>
+<p>如果在之上修改默认启动内核没有成功，可在VPS服务提供的网页console 界面下使用reboot命令重启<br>在网页端口重启可通过方向键选择将进入的系统内核，类似PC下的bios选择系统<br>一般选择第二个，主要选择对应安装号码的内核就好，“(4.17.3-1.el7.elrepo.x86_64) 7 (Core)”  </p>
+<h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><p>登陆后查看系统内核：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@vultr_host /]</span># <span class="selector-tag">uname</span> <span class="selector-tag">-sr</span></span><br><span class="line"><span class="selector-tag">Linux</span> 4<span class="selector-class">.17</span><span class="selector-class">.2-693</span><span class="selector-class">.21</span><span class="selector-class">.1</span><span class="selector-class">.el7</span><span class="selector-class">.x86_64</span></span><br></pre></td></tr></table></figure></p>
+<p>系统内核升级成功</p>
+<h2 id="tcp算法改为BBR"><a href="#tcp算法改为BBR" class="headerlink" title="tcp算法改为BBR"></a>tcp算法改为BBR</h2><p>编辑系统文件
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/sysctl.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>在该文件中加入以下两句
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net<span class="selector-class">.core</span><span class="selector-class">.default_qdisc</span> = fq</span><br><span class="line">net<span class="selector-class">.ipv4</span><span class="selector-class">.tcp_congestion_control</span> = bbr</span><br></pre></td></tr></table></figure></p>
+<p>添加结果
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr_host /]# cat /etc/sysctl.conf</span><br><span class="line"><span class="meta">#</span><span class="bash"> sysctl settings are defined through files <span class="keyword">in</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Vendors settings live <span class="keyword">in</span> /usr/lib/sysctl.d/.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To override a whole file, create a new file with the same <span class="keyword">in</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /etc/sysctl.d/ and put new settings there. To override</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> only specific settings, add a file with a lexically later</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> name <span class="keyword">in</span> /etc/sysctl.d/ and put new settings there.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> For more information, see sysctl.conf(5) and sysctl.d(5).</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Accept IPv6 advertisements when forwarding is enabled</span></span><br><span class="line">net.ipv6.conf.all.accept_ra = 2</span><br><span class="line">net.ipv6.conf.eth0.accept_ra = 2</span><br><span class="line">net.core.default_qdisc = fq</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置生效"><a href="#配置生效" class="headerlink" title="配置生效"></a>配置生效</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr_host /]# sysctl -p</span><br><span class="line"><span class="keyword">net</span>.ipv6.<span class="keyword">conf</span>.all.accept_ra = 2</span><br><span class="line"><span class="keyword">net</span>.ipv6.<span class="keyword">conf</span>.eth0.accept_ra = 2</span><br><span class="line"><span class="keyword">net</span>.core.default_qdisc = fq</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure>
+<h3 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@vultr_host</span> /]<span class="meta"># sysctl net.ipv4.tcp_available_congestion_control</span></span><br><span class="line">net.ipv4.tcp_available_congestion_control = reno cubic bbr</span><br></pre></td></tr></table></figure>
+<p>结果带有bbr  </p>
+<p>成功使用BBR算法
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@vultr_host</span> /]<span class="meta"># lsmod|grep bbr</span></span><br><span class="line">tcp_bbr                <span class="number">20480</span>  <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装go"><a href="#安装go" class="headerlink" title="安装go"></a>安装go</h2><p>下载
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@colinvps /]</span># <span class="selector-tag">cd</span> /<span class="selector-tag">usr</span>/<span class="selector-tag">local</span></span><br><span class="line"><span class="selector-attr">[root@colinvps local]</span># <span class="selector-tag">ls</span></span><br><span class="line"><span class="selector-tag">bin</span>  <span class="selector-tag">etc</span>  <span class="selector-tag">games</span>  <span class="selector-tag">include</span>  <span class="selector-tag">lib</span>  <span class="selector-tag">lib64</span>  <span class="selector-tag">libexec</span>  <span class="selector-tag">sbin</span>  <span class="selector-tag">share</span>  <span class="selector-tag">src</span></span><br><span class="line"><span class="selector-attr">[root@colinvps local]</span># <span class="selector-tag">wget</span> <span class="selector-tag">https</span>:<span class="comment">//storage.googleapis.com/golang/go1.6.3.linux-amd64.tar.gz</span></span><br><span class="line"><span class="selector-tag">--2018-07-03</span> <span class="selector-tag">00</span><span class="selector-pseudo">:06</span><span class="selector-pseudo">:49--</span>  <span class="selector-tag">https</span>:<span class="comment">//storage.googleapis.com/golang/go1.6.3.linux-amd64.tar.gz</span></span><br><span class="line"><span class="selector-tag">Resolving</span> <span class="selector-tag">storage</span><span class="selector-class">.googleapis</span><span class="selector-class">.com</span> (storage.googleapis.com)... <span class="selector-tag">172</span><span class="selector-class">.217</span><span class="selector-class">.14</span><span class="selector-class">.112</span>, <span class="selector-tag">2607</span><span class="selector-pseudo">:f8b0</span><span class="selector-pseudo">:4007</span><span class="selector-pseudo">:80e</span><span class="selector-pseudo">::2010</span></span><br><span class="line"><span class="selector-tag">Connecting</span> <span class="selector-tag">to</span> <span class="selector-tag">storage</span><span class="selector-class">.googleapis</span><span class="selector-class">.com</span> (storage.googleapis.com)|<span class="selector-tag">172</span><span class="selector-class">.217</span><span class="selector-class">.14</span><span class="selector-class">.112</span>|<span class="selector-pseudo">:443...</span> <span class="selector-tag">connected</span>.</span><br><span class="line"><span class="selector-tag">HTTP</span> <span class="selector-tag">request</span> <span class="selector-tag">sent</span>, <span class="selector-tag">awaiting</span> <span class="selector-tag">response</span>... <span class="selector-tag">200</span> <span class="selector-tag">OK</span></span><br><span class="line"><span class="selector-tag">Length</span>: <span class="selector-tag">84856920</span> (<span class="number">81</span>M) <span class="selector-attr">[application/x-gzip]</span></span><br><span class="line"><span class="selector-tag">Saving</span> <span class="selector-tag">to</span>: ‘<span class="selector-tag">go1</span><span class="selector-class">.6</span><span class="selector-class">.3</span><span class="selector-class">.linux-amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span>’</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">100%</span><span class="selector-attr">[===============================================================================================&gt;]</span> <span class="selector-tag">84</span>,<span class="selector-tag">856</span>,<span class="selector-tag">920</span>  <span class="selector-tag">52</span><span class="selector-class">.5MB</span>/<span class="selector-tag">s</span>   <span class="selector-tag">in</span> <span class="selector-tag">1</span><span class="selector-class">.5s</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">2018-07-03</span> <span class="selector-tag">00</span><span class="selector-pseudo">:06</span><span class="selector-pseudo">:51</span> (<span class="number">52.5</span> MB/s) <span class="selector-tag">-</span> ‘<span class="selector-tag">go1</span><span class="selector-class">.6</span><span class="selector-class">.3</span><span class="selector-class">.linux-amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span>’ <span class="selector-tag">saved</span> <span class="selector-attr">[84856920/84856920]</span></span><br></pre></td></tr></table></figure></p>
+<p>解压，这里日志比较长，只给命令
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@colinvps /]</span># <span class="selector-tag">tar</span> <span class="selector-tag">-xvf</span> <span class="selector-tag">go1</span><span class="selector-class">.6</span><span class="selector-class">.3linux-amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure></p>
+<p>添加环境变量，加入以下两行
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@colinvps /]# vi /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GOROOT</span>=/usr/local/go</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="variable">$PATH</span>:$GOROOT/bin</span><br></pre></td></tr></table></figure></p>
+<p>重载
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> /]<span class="meta"># source /etc/profile</span></span><br></pre></td></tr></table></figure></p>
+<p>在 ~ 目录设置自己的GOPATH
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps ~]# vi .bash_profile</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GOPATH</span>=<span class="variable">$HOME</span>/shadowsocks</span><br></pre></td></tr></table></figure></p>
+<p>重载
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> ~]<span class="meta"># source .bash_profile</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps ~]#  yum install git</span><br><span class="line">        </span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirror.san.fastserv.com</span><br><span class="line"> * elrepo: repos.lax-noc.com</span><br><span class="line"> * extras: mirrors.xmission.com</span><br><span class="line"> * updates: mirror.scalabledns.com</span><br><span class="line">Resolving Dependencies</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package git.x86_64 0:1.8.3.1<span class="string">-14</span>.el7_5 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl-Git = 1.8.3.1<span class="string">-14</span>.el7_5 for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl &gt;= 5.008 for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: rsync for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(warnings) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(vars) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(strict) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(lib) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Term::ReadKey) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Git) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Getopt::Long) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::stat) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Temp) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Spec) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Path) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Find) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Copy) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(File::Basename) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Exporter) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Error) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: /usr/bin/perl for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Processing Dependency: libgnome-keyring.so.0()(64bit) for package: git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package libgnome-keyring.x86_64 0:3.12.0<span class="string">-1</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl.x86_64 4:5.16.3<span class="string">-292</span>.el7 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl-libs = 4:5.16.3<span class="string">-292</span>.el7 for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Socket) &gt;= 1.3 for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Scalar::Util) &gt;= 1.10 for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl-macros for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl-libs for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(threads::shared) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(threads) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(constant) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Time::Local) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Time::HiRes) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Storable) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Socket) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Scalar::Util) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Filter::Util::Call) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: perl(Carp) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">--&gt; Processing Dependency: libperl.so()(64bit) for package: 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64</span><br><span class="line">---&gt; Package perl-Error.noarch 1:0.17020<span class="string">-2</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Exporter.noarch 0:5.68<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-File-Path.noarch 0:2.09<span class="string">-2</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-File-Temp.noarch 0:0.23.01<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Getopt-Long.noarch 0:2.40<span class="string">-3</span>.el7 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl(Pod::Usage) &gt;= 1.14 for package: perl-Getopt-Long<span class="string">-2</span>.40<span class="string">-3</span>.el7.noarch</span><br><span class="line">--&gt; Processing Dependency: perl(Text::ParseWords) for package: perl-Getopt-Long<span class="string">-2</span>.40<span class="string">-3</span>.el7.noarch</span><br><span class="line">---&gt; Package perl-Git.noarch 0:1.8.3.1<span class="string">-14</span>.el7_5 will be installed</span><br><span class="line">---&gt; Package perl-PathTools.x86_64 0:3.40<span class="string">-5</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-TermReadKey.x86_64 0:2.30<span class="string">-20</span>.el7 will be installed</span><br><span class="line">---&gt; Package rsync.x86_64 0:3.1.2<span class="string">-4</span>.el7 will be installed</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package perl-Carp.noarch 0:1.26<span class="string">-244</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Filter.x86_64 0:1.49<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Pod-Simple.noarch 1:3.28<span class="string">-4</span>.el7 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl(Pod::Escapes) &gt;= 1.04 for package: 1:perl-Pod-Simple<span class="string">-3</span>.28<span class="string">-4</span>.el7.noarch</span><br><span class="line">--&gt; Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple<span class="string">-3</span>.28<span class="string">-4</span>.el7.noarch</span><br><span class="line">---&gt; Package perl-Pod-Usage.noarch 0:1.63<span class="string">-3</span>.el7 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl(Pod::Text) &gt;= 3.15 for package: perl-Pod-Usage<span class="string">-1</span>.63<span class="string">-3</span>.el7.noarch</span><br><span class="line">--&gt; Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage<span class="string">-1</span>.63<span class="string">-3</span>.el7.noarch</span><br><span class="line">---&gt; Package perl-Scalar-List-Utils.x86_64 0:1.27<span class="string">-248</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Socket.x86_64 0:2.010<span class="string">-4</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Storable.x86_64 0:2.45<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Text-ParseWords.noarch 0:3.29<span class="string">-4</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Time-HiRes.x86_64 4:1.9725<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Time-Local.noarch 0:1.2300<span class="string">-2</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-constant.noarch 0:1.27<span class="string">-2</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-libs.x86_64 4:5.16.3<span class="string">-292</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-macros.x86_64 4:5.16.3<span class="string">-292</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-threads.x86_64 0:1.87<span class="string">-4</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-threads-shared.x86_64 0:1.43<span class="string">-6</span>.el7 will be installed</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package perl-Encode.x86_64 0:2.51<span class="string">-7</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Pod-Escapes.noarch 1:1.04<span class="string">-292</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-Pod-Perldoc.noarch 0:3.20<span class="string">-4</span>.el7 will be installed</span><br><span class="line">--&gt; Processing Dependency: perl(parent) for package: perl-Pod-Perldoc<span class="string">-3</span>.20<span class="string">-4</span>.el7.noarch</span><br><span class="line">--&gt; Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc<span class="string">-3</span>.20<span class="string">-4</span>.el7.noarch</span><br><span class="line">---&gt; Package perl-podlators.noarch 0:2.5.1<span class="string">-3</span>.el7 will be installed</span><br><span class="line">--&gt; Running transaction check</span><br><span class="line">---&gt; Package perl-HTTP-Tiny.noarch 0:0.033<span class="string">-3</span>.el7 will be installed</span><br><span class="line">---&gt; Package perl-parent.noarch 1:0.225<span class="string">-244</span>.el7 will be installed</span><br><span class="line">--&gt; Finished Dependency Resolution</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line"></span><br><span class="line">============================================================================================</span><br><span class="line"> Package                       Arch          Version                   Repository      Size</span><br><span class="line">============================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> git                           x86_64        1.8.3.1<span class="string">-14</span>.el7_5          updates        4.4 M</span><br><span class="line">Installing for dependencies:</span><br><span class="line"> libgnome-keyring              x86_64        3.12.0<span class="string">-1</span>.el7              base           109 k</span><br><span class="line"> perl                          x86_64        4:5.16.3<span class="string">-292</span>.el7          base           8.0 M</span><br><span class="line"> perl-Carp                     noarch        1.26<span class="string">-244</span>.el7              base            19 k</span><br><span class="line"> perl-Encode                   x86_64        2.51<span class="string">-7</span>.el7                base           1.5 M</span><br><span class="line"> perl-Error                    noarch        1:0.17020<span class="string">-2</span>.el7           base            32 k</span><br><span class="line"> perl-Exporter                 noarch        5.68<span class="string">-3</span>.el7                base            28 k</span><br><span class="line"> perl-File-Path                noarch        2.09<span class="string">-2</span>.el7                base            26 k</span><br><span class="line"> perl-File-Temp                noarch        0.23.01<span class="string">-3</span>.el7             base            56 k</span><br><span class="line"> perl-Filter                   x86_64        1.49<span class="string">-3</span>.el7                base            76 k</span><br><span class="line"> perl-Getopt-Long              noarch        2.40<span class="string">-3</span>.el7                base            56 k</span><br><span class="line"> perl-Git                      noarch        1.8.3.1<span class="string">-14</span>.el7_5          updates         54 k</span><br><span class="line"> perl-HTTP-Tiny                noarch        0.033<span class="string">-3</span>.el7               base            38 k</span><br><span class="line"> perl-PathTools                x86_64        3.40<span class="string">-5</span>.el7                base            82 k</span><br><span class="line"> perl-Pod-Escapes              noarch        1:1.04<span class="string">-292</span>.el7            base            51 k</span><br><span class="line"> perl-Pod-Perldoc              noarch        3.20<span class="string">-4</span>.el7                base            87 k</span><br><span class="line"> perl-Pod-Simple               noarch        1:3.28<span class="string">-4</span>.el7              base           216 k</span><br><span class="line"> perl-Pod-Usage                noarch        1.63<span class="string">-3</span>.el7                base            27 k</span><br><span class="line"> perl-Scalar-List-Utils        x86_64        1.27<span class="string">-248</span>.el7              base            36 k</span><br><span class="line"> perl-Socket                   x86_64        2.010<span class="string">-4</span>.el7               base            49 k</span><br><span class="line"> perl-Storable                 x86_64        2.45<span class="string">-3</span>.el7                base            77 k</span><br><span class="line"> perl-TermReadKey              x86_64        2.30<span class="string">-20</span>.el7               base            31 k</span><br><span class="line"> perl-Text-ParseWords          noarch        3.29<span class="string">-4</span>.el7                base            14 k</span><br><span class="line"> perl-Time-HiRes               x86_64        4:1.9725<span class="string">-3</span>.el7            base            45 k</span><br><span class="line"> perl-Time-Local               noarch        1.2300<span class="string">-2</span>.el7              base            24 k</span><br><span class="line"> perl-constant                 noarch        1.27<span class="string">-2</span>.el7                base            19 k</span><br><span class="line"> perl-libs                     x86_64        4:5.16.3<span class="string">-292</span>.el7          base           688 k</span><br><span class="line"> perl-macros                   x86_64        4:5.16.3<span class="string">-292</span>.el7          base            43 k</span><br><span class="line"> perl-parent                   noarch        1:0.225<span class="string">-244</span>.el7           base            12 k</span><br><span class="line"> perl-podlators                noarch        2.5.1<span class="string">-3</span>.el7               base           112 k</span><br><span class="line"> perl-threads                  x86_64        1.87<span class="string">-4</span>.el7                base            49 k</span><br><span class="line"> perl-threads-shared           x86_64        1.43<span class="string">-6</span>.el7                base            39 k</span><br><span class="line"> rsync                         x86_64        3.1.2<span class="string">-4</span>.el7               base           403 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">============================================================================================</span><br><span class="line">Install  1 Package (<span class="string">+32</span> Dependent packages)</span><br><span class="line"></span><br><span class="line">Total download size: 16 M</span><br><span class="line">Installed size: 60 M</span><br><span class="line">Is this ok [y/d/N]: y</span><br><span class="line">Downloading packages:</span><br><span class="line">(1/33): git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64.rpm                              | 4.4 MB  00:00:00</span><br><span class="line">(2/33): libgnome-keyring<span class="string">-3</span>.12.0<span class="string">-1</span>.el7.x86_64.rpm                     | 109 kB  00:00:00</span><br><span class="line">(3/33): perl-Carp<span class="string">-1</span>.26<span class="string">-244</span>.el7.noarch.rpm                            |  19 kB  00:00:00</span><br><span class="line">(4/33): perl-Encode<span class="string">-2</span>.51<span class="string">-7</span>.el7.x86_64.rpm                            | 1.5 MB  00:00:00</span><br><span class="line">(5/33): perl-Error<span class="string">-0</span>.17020<span class="string">-2</span>.el7.noarch.rpm                          |  32 kB  00:00:00</span><br><span class="line">(6/33): perl-Exporter<span class="string">-5</span>.68<span class="string">-3</span>.el7.noarch.rpm                          |  28 kB  00:00:00</span><br><span class="line">(7/33): perl-File-Path<span class="string">-2</span>.09<span class="string">-2</span>.el7.noarch.rpm                         |  26 kB  00:00:00</span><br><span class="line">(8/33): perl-File-Temp<span class="string">-0</span>.23.01<span class="string">-3</span>.el7.noarch.rpm                      |  56 kB  00:00:00</span><br><span class="line">(9/33): perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64.rpm                               | 8.0 MB  00:00:01</span><br><span class="line">(10/33): perl-Git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.noarch.rpm                        |  54 kB  00:00:00</span><br><span class="line">(11/33): perl-Filter<span class="string">-1</span>.49<span class="string">-3</span>.el7.x86_64.rpm                           |  76 kB  00:00:00</span><br><span class="line">(12/33): perl-Getopt-Long<span class="string">-2</span>.40<span class="string">-3</span>.el7.noarch.rpm                      |  56 kB  00:00:00</span><br><span class="line">(13/33): perl-HTTP-Tiny<span class="string">-0</span>.033<span class="string">-3</span>.el7.noarch.rpm                       |  38 kB  00:00:00</span><br><span class="line">(14/33): perl-Pod-Escapes<span class="string">-1</span>.04<span class="string">-292</span>.el7.noarch.rpm                    |  51 kB  00:00:00</span><br><span class="line">(15/33): perl-PathTools<span class="string">-3</span>.40<span class="string">-5</span>.el7.x86_64.rpm                        |  82 kB  00:00:00</span><br><span class="line">(16/33): perl-Pod-Perldoc<span class="string">-3</span>.20<span class="string">-4</span>.el7.noarch.rpm                      |  87 kB  00:00:00</span><br><span class="line">(17/33): perl-Pod-Usage<span class="string">-1</span>.63<span class="string">-3</span>.el7.noarch.rpm                        |  27 kB  00:00:00</span><br><span class="line">(18/33): perl-Pod-Simple<span class="string">-3</span>.28<span class="string">-4</span>.el7.noarch.rpm                       | 216 kB  00:00:00</span><br><span class="line">(19/33): perl-Scalar-List-Utils<span class="string">-1</span>.27<span class="string">-248</span>.el7.x86_64.rpm              |  36 kB  00:00:00</span><br><span class="line">(20/33): perl-Socket<span class="string">-2</span>.010<span class="string">-4</span>.el7.x86_64.rpm                          |  49 kB  00:00:00</span><br><span class="line">(21/33): perl-TermReadKey<span class="string">-2</span>.30<span class="string">-20</span>.el7.x86_64.rpm                     |  31 kB  00:00:00</span><br><span class="line">(22/33): perl-Storable<span class="string">-2</span>.45<span class="string">-3</span>.el7.x86_64.rpm                         |  77 kB  00:00:00</span><br><span class="line">(23/33): perl-Text-ParseWords<span class="string">-3</span>.29<span class="string">-4</span>.el7.noarch.rpm                  |  14 kB  00:00:00</span><br><span class="line">(24/33): perl-Time-HiRes<span class="string">-1</span>.9725<span class="string">-3</span>.el7.x86_64.rpm                     |  45 kB  00:00:00</span><br><span class="line">(25/33): perl-Time-Local<span class="string">-1</span>.2300<span class="string">-2</span>.el7.noarch.rpm                     |  24 kB  00:00:00</span><br><span class="line">(26/33): perl-constant<span class="string">-1</span>.27<span class="string">-2</span>.el7.noarch.rpm                         |  19 kB  00:00:00</span><br><span class="line">(27/33): perl-macros<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64.rpm                       |  43 kB  00:00:00</span><br><span class="line">(28/33): perl-parent<span class="string">-0</span>.225<span class="string">-244</span>.el7.noarch.rpm                        |  12 kB  00:00:00</span><br><span class="line">(29/33): perl-libs<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64.rpm                         | 688 kB  00:00:00</span><br><span class="line">(30/33): perl-podlators<span class="string">-2</span>.5.1<span class="string">-3</span>.el7.noarch.rpm                       | 112 kB  00:00:00</span><br><span class="line">(31/33): perl-threads<span class="string">-1</span>.87<span class="string">-4</span>.el7.x86_64.rpm                          |  49 kB  00:00:00</span><br><span class="line">(32/33): perl-threads-shared<span class="string">-1</span>.43<span class="string">-6</span>.el7.x86_64.rpm                   |  39 kB  00:00:00</span><br><span class="line">(33/33): rsync<span class="string">-3</span>.1.2<span class="string">-4</span>.el7.x86_64.rpm                                | 403 kB  00:00:00</span><br><span class="line">--------------------------------------------------------------------------------------------</span><br><span class="line">Total                                                       4.9 MB/s |  16 MB  00:00:03</span><br><span class="line">Running transaction check</span><br><span class="line">Running transaction test</span><br><span class="line">Transaction test succeeded</span><br><span class="line">Running transaction</span><br><span class="line">  Installing : 1:perl-parent<span class="string">-0</span>.225<span class="string">-244</span>.el7.noarch                                      1/33</span><br><span class="line">  Installing : perl-HTTP-Tiny<span class="string">-0</span>.033<span class="string">-3</span>.el7.noarch                                       2/33</span><br><span class="line">  Installing : perl-podlators<span class="string">-2</span>.5.1<span class="string">-3</span>.el7.noarch                                       3/33</span><br><span class="line">  Installing : perl-Pod-Perldoc<span class="string">-3</span>.20<span class="string">-4</span>.el7.noarch                                      4/33</span><br><span class="line">  Installing : 1:perl-Pod-Escapes<span class="string">-1</span>.04<span class="string">-292</span>.el7.noarch                                  5/33</span><br><span class="line">  Installing : perl-Text-ParseWords<span class="string">-3</span>.29<span class="string">-4</span>.el7.noarch                                  6/33</span><br><span class="line">  Installing : perl-Encode<span class="string">-2</span>.51<span class="string">-7</span>.el7.x86_64                                           7/33</span><br><span class="line">  Installing : perl-Pod-Usage<span class="string">-1</span>.63<span class="string">-3</span>.el7.noarch                                        8/33</span><br><span class="line">  Installing : 4:perl-macros<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                     9/33</span><br><span class="line">  Installing : 4:perl-libs<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                      10/33</span><br><span class="line">  Installing : 4:perl-Time-HiRes<span class="string">-1</span>.9725<span class="string">-3</span>.el7.x86_64                                  11/33</span><br><span class="line">  Installing : perl-Exporter<span class="string">-5</span>.68<span class="string">-3</span>.el7.noarch                                        12/33</span><br><span class="line">  Installing : perl-constant<span class="string">-1</span>.27<span class="string">-2</span>.el7.noarch                                        13/33</span><br><span class="line">  Installing : perl-Time-Local<span class="string">-1</span>.2300<span class="string">-2</span>.el7.noarch                                    14/33</span><br><span class="line">  Installing : perl-Socket<span class="string">-2</span>.010<span class="string">-4</span>.el7.x86_64                                         15/33</span><br><span class="line">  Installing : perl-Carp<span class="string">-1</span>.26<span class="string">-244</span>.el7.noarch                                          16/33</span><br><span class="line">  Installing : perl-Storable<span class="string">-2</span>.45<span class="string">-3</span>.el7.x86_64                                        17/33</span><br><span class="line">  Installing : perl-PathTools<span class="string">-3</span>.40<span class="string">-5</span>.el7.x86_64                                       18/33</span><br><span class="line">  Installing : perl-Scalar-List-Utils<span class="string">-1</span>.27<span class="string">-248</span>.el7.x86_64                             19/33</span><br><span class="line">  Installing : perl-File-Temp<span class="string">-0</span>.23.01<span class="string">-3</span>.el7.noarch                                    20/33</span><br><span class="line">  Installing : perl-File-Path<span class="string">-2</span>.09<span class="string">-2</span>.el7.noarch                                       21/33</span><br><span class="line">  Installing : perl-threads-shared<span class="string">-1</span>.43<span class="string">-6</span>.el7.x86_64                                  22/33</span><br><span class="line">  Installing : perl-threads<span class="string">-1</span>.87<span class="string">-4</span>.el7.x86_64                                         23/33</span><br><span class="line">  Installing : perl-Filter<span class="string">-1</span>.49<span class="string">-3</span>.el7.x86_64                                          24/33</span><br><span class="line">  Installing : 1:perl-Pod-Simple<span class="string">-3</span>.28<span class="string">-4</span>.el7.noarch                                    25/33</span><br><span class="line">  Installing : perl-Getopt-Long<span class="string">-2</span>.40<span class="string">-3</span>.el7.noarch                                     26/33</span><br><span class="line">  Installing : 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                           27/33</span><br><span class="line">  Installing : 1:perl-Error<span class="string">-0</span>.17020<span class="string">-2</span>.el7.noarch                                      28/33</span><br><span class="line">  Installing : perl-TermReadKey<span class="string">-2</span>.30<span class="string">-20</span>.el7.x86_64                                    29/33</span><br><span class="line">  Installing : rsync<span class="string">-3</span>.1.2<span class="string">-4</span>.el7.x86_64                                               30/33</span><br><span class="line">  Installing : libgnome-keyring<span class="string">-3</span>.12.0<span class="string">-1</span>.el7.x86_64                                   31/33</span><br><span class="line">  Installing : perl-Git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.noarch                                       32/33</span><br><span class="line">  Installing : git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64                                            33/33</span><br><span class="line">  Verifying  : perl-HTTP-Tiny<span class="string">-0</span>.033<span class="string">-3</span>.el7.noarch                                       1/33</span><br><span class="line">  Verifying  : libgnome-keyring<span class="string">-3</span>.12.0<span class="string">-1</span>.el7.x86_64                                    2/33</span><br><span class="line">  Verifying  : perl-threads-shared<span class="string">-1</span>.43<span class="string">-6</span>.el7.x86_64                                   3/33</span><br><span class="line">  Verifying  : 4:perl-Time-HiRes<span class="string">-1</span>.9725<span class="string">-3</span>.el7.x86_64                                   4/33</span><br><span class="line">  Verifying  : perl-Exporter<span class="string">-5</span>.68<span class="string">-3</span>.el7.noarch                                         5/33</span><br><span class="line">  Verifying  : perl-constant<span class="string">-1</span>.27<span class="string">-2</span>.el7.noarch                                         6/33</span><br><span class="line">  Verifying  : perl-PathTools<span class="string">-3</span>.40<span class="string">-5</span>.el7.x86_64                                        7/33</span><br><span class="line">  Verifying  : 4:perl-macros<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                     8/33</span><br><span class="line">  Verifying  : 1:perl-parent<span class="string">-0</span>.225<span class="string">-244</span>.el7.noarch                                      9/33</span><br><span class="line">  Verifying  : 4:perl<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                           10/33</span><br><span class="line">  Verifying  : perl-TermReadKey<span class="string">-2</span>.30<span class="string">-20</span>.el7.x86_64                                    11/33</span><br><span class="line">  Verifying  : perl-File-Temp<span class="string">-0</span>.23.01<span class="string">-3</span>.el7.noarch                                    12/33</span><br><span class="line">  Verifying  : 1:perl-Pod-Simple<span class="string">-3</span>.28<span class="string">-4</span>.el7.noarch                                    13/33</span><br><span class="line">  Verifying  : perl-Time-Local<span class="string">-1</span>.2300<span class="string">-2</span>.el7.noarch                                    14/33</span><br><span class="line">  Verifying  : 4:perl-libs<span class="string">-5</span>.16.3<span class="string">-292</span>.el7.x86_64                                      15/33</span><br><span class="line">  Verifying  : perl-Socket<span class="string">-2</span>.010<span class="string">-4</span>.el7.x86_64                                         16/33</span><br><span class="line">  Verifying  : git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.x86_64                                            17/33</span><br><span class="line">  Verifying  : perl-Carp<span class="string">-1</span>.26<span class="string">-244</span>.el7.noarch                                          18/33</span><br><span class="line">  Verifying  : 1:perl-Error<span class="string">-0</span>.17020<span class="string">-2</span>.el7.noarch                                      19/33</span><br><span class="line">  Verifying  : perl-Storable<span class="string">-2</span>.45<span class="string">-3</span>.el7.x86_64                                        20/33</span><br><span class="line">  Verifying  : perl-Scalar-List-Utils<span class="string">-1</span>.27<span class="string">-248</span>.el7.x86_64                             21/33</span><br><span class="line">  Verifying  : 1:perl-Pod-Escapes<span class="string">-1</span>.04<span class="string">-292</span>.el7.noarch                                 22/33</span><br><span class="line">  Verifying  : rsync<span class="string">-3</span>.1.2<span class="string">-4</span>.el7.x86_64                                               23/33</span><br><span class="line">  Verifying  : perl-Pod-Usage<span class="string">-1</span>.63<span class="string">-3</span>.el7.noarch                                       24/33</span><br><span class="line">  Verifying  : perl-Git<span class="string">-1</span>.8.3.1<span class="string">-14</span>.el7_5.noarch                                       25/33</span><br><span class="line">  Verifying  : perl-Encode<span class="string">-2</span>.51<span class="string">-7</span>.el7.x86_64                                          26/33</span><br><span class="line">  Verifying  : perl-Pod-Perldoc<span class="string">-3</span>.20<span class="string">-4</span>.el7.noarch                                     27/33</span><br><span class="line">  Verifying  : perl-podlators<span class="string">-2</span>.5.1<span class="string">-3</span>.el7.noarch                                      28/33</span><br><span class="line">  Verifying  : perl-File-Path<span class="string">-2</span>.09<span class="string">-2</span>.el7.noarch                                       29/33</span><br><span class="line">  Verifying  : perl-threads<span class="string">-1</span>.87<span class="string">-4</span>.el7.x86_64                                         30/33</span><br><span class="line">  Verifying  : perl-Filter<span class="string">-1</span>.49<span class="string">-3</span>.el7.x86_64                                          31/33</span><br><span class="line">  Verifying  : perl-Getopt-Long<span class="string">-2</span>.40<span class="string">-3</span>.el7.noarch                                     32/33</span><br><span class="line">  Verifying  : perl-Text-ParseWords<span class="string">-3</span>.29<span class="string">-4</span>.el7.noarch                                 33/33</span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  git.x86_64 0:1.8.3.1<span class="string">-14</span>.el7_5</span><br><span class="line"></span><br><span class="line">Dependency Installed:</span><br><span class="line">  libgnome-keyring.x86_64 0:3.12.0<span class="string">-1</span>.el7     perl.x86_64 4:5.16.3<span class="string">-292</span>.el7</span><br><span class="line">  perl-Carp.noarch 0:1.26<span class="string">-244</span>.el7            perl-Encode.x86_64 0:2.51<span class="string">-7</span>.el7</span><br><span class="line">  perl-Error.noarch 1:0.17020<span class="string">-2</span>.el7          perl-Exporter.noarch 0:5.68<span class="string">-3</span>.el7</span><br><span class="line">  perl-File-Path.noarch 0:2.09<span class="string">-2</span>.el7         perl-File-Temp.noarch 0:0.23.01<span class="string">-3</span>.el7</span><br><span class="line">  perl-Filter.x86_64 0:1.49<span class="string">-3</span>.el7            perl-Getopt-Long.noarch 0:2.40<span class="string">-3</span>.el7</span><br><span class="line">  perl-Git.noarch 0:1.8.3.1<span class="string">-14</span>.el7_5         perl-HTTP-Tiny.noarch 0:0.033<span class="string">-3</span>.el7</span><br><span class="line">  perl-PathTools.x86_64 0:3.40<span class="string">-5</span>.el7         perl-Pod-Escapes.noarch 1:1.04<span class="string">-292</span>.el7</span><br><span class="line">  perl-Pod-Perldoc.noarch 0:3.20<span class="string">-4</span>.el7       perl-Pod-Simple.noarch 1:3.28<span class="string">-4</span>.el7</span><br><span class="line">  perl-Pod-Usage.noarch 0:1.63<span class="string">-3</span>.el7         perl-Scalar-List-Utils.x86_64 0:1.27<span class="string">-248</span>.el7</span><br><span class="line">  perl-Socket.x86_64 0:2.010<span class="string">-4</span>.el7           perl-Storable.x86_64 0:2.45<span class="string">-3</span>.el7</span><br><span class="line">  perl-TermReadKey.x86_64 0:2.30<span class="string">-20</span>.el7      perl-Text-ParseWords.noarch 0:3.29<span class="string">-4</span>.el7</span><br><span class="line">  perl-Time-HiRes.x86_64 4:1.9725<span class="string">-3</span>.el7      perl-Time-Local.noarch 0:1.2300<span class="string">-2</span>.el7</span><br><span class="line">  perl-constant.noarch 0:1.27<span class="string">-2</span>.el7          perl-libs.x86_64 4:5.16.3<span class="string">-292</span>.el7</span><br><span class="line">  perl-macros.x86_64 4:5.16.3<span class="string">-292</span>.el7        perl-parent.noarch 1:0.225<span class="string">-244</span>.el7</span><br><span class="line">  perl-podlators.noarch 0:2.5.1<span class="string">-3</span>.el7        perl-threads.x86_64 0:1.87<span class="string">-4</span>.el7</span><br><span class="line">  perl-threads-shared.x86_64 0:1.43<span class="string">-6</span>.el7    rsync.x86_64 0:3.1.2<span class="string">-4</span>.el7</span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
+<h2 id="安装shadowsocks"><a href="#安装shadowsocks" class="headerlink" title="安装shadowsocks"></a>安装shadowsocks</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> ~]<span class="meta"># go get github.com/shadowsocks/shadowsocks-go/cmd/shadowsocks-server</span></span><br><span class="line"></span><br><span class="line">[root<span class="symbol">@colinvps</span> ~]<span class="meta"># cd shadowsocks</span></span><br><span class="line">[root<span class="symbol">@colinvps</span> shadowsocks]<span class="meta"># ls</span></span><br><span class="line">bin  pkg  src</span><br></pre></td></tr></table></figure>
+<p>切换到bin目录下，使shadowsocks-server有可执行权限
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> shadowsocks]<span class="meta"># cd bin</span></span><br><span class="line">./shadowsocks-server -h</span><br><span class="line"></span><br><span class="line">[root<span class="symbol">@colinvps</span> bin]<span class="meta"># chmod +x shadowsocks-server</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="配置config-json文件"><a href="#配置config-json文件" class="headerlink" title="配置config.json文件"></a>配置config.json文件</h2><p>在bin目录下
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> bin]<span class="meta"># vi config.json</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"port_password"</span>:&#123;</span><br><span class="line">         <span class="string">"7973"</span>:<span class="string">"123456"</span>,</span><br><span class="line">         <span class="string">"7884"</span>:<span class="string">"abcdef"</span>,</span><br><span class="line">         <span class="string">"7987"</span>:<span class="string">"1212112"</span>,</span><br><span class="line">         <span class="string">"7938"</span>:<span class="string">"1445566"</span>,</span><br><span class="line">        <span class="string">"7999"</span>:<span class="string">"345123"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">600</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-128-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="string">"workers"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>config文件参数配置：</p>
+<h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>将以上config文件的端口添加到防火墙<br>这里使用firewall命令  </p>
+<p>查看所有打开的端口： 
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps /]# firewall-cmd --zone=public --<span class="type">list</span>-ports</span><br><span class="line"><span class="number">7884</span>/tcp <span class="number">7987</span>/tcp <span class="number">7999</span>/tcp <span class="number">7938</span>/tcp <span class="number">7973</span>/tcp</span><br></pre></td></tr></table></figure></p>
+<p>添加端口
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps /]# firewall-cmd --zone=public --add-port=80/tcp --permanent </span><br><span class="line">success</span><br><span class="line"></span><br><span class="line">[root@colinvps /]# firewall-cmd --zone=public --list-ports</span><br><span class="line">7884/tcp 7987/tcp 7999/tcp 7938/tcp 7973/tcp  80/tcp</span><br></pre></td></tr></table></figure></p>
+<p>载入生效
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@colinvps</span> /]<span class="meta"># firewall-cmd --reload</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="开启shadowsocks服务"><a href="#开启shadowsocks服务" class="headerlink" title="开启shadowsocks服务"></a>开启shadowsocks服务</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">root@colinvps /</span>]<span class="meta"># ./shadowsocks-server &gt; log &amp;</span></span><br><span class="line">[<span class="meta">1</span>] <span class="number">1642</span></span><br></pre></td></tr></table></figure>
+<p>已成功开启<br>关闭服务
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps ~]<span class="comment"># ps aux|grep shadowsocks-server</span></span><br><span class="line">root     <span class="number"> 1642 </span> 0.1  1.0<span class="number"> 187916 </span><span class="number"> 5124 </span>pts/0    Sl   02:11   0:08 ./shadowsocks-server</span><br><span class="line">root     <span class="number"> 4749 </span> 0.0  0.4<span class="number"> 112716 </span><span class="number"> 2380 </span>pts/0    S+   04:31   0:00 grep --color=auto shadowsocks-server</span><br><span class="line"></span><br><span class="line">[root@colinvps ~]<span class="comment"># kill -9 4749</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用客户端测试链接"><a href="#使用客户端测试链接" class="headerlink" title="使用客户端测试链接"></a>使用客户端测试链接</h2><p>在<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">shadowsocks-windows</a>中下载客户端
+shadowsocks-windows客户端配置同服务器config.json文件一致就好，可根据不同端口配置不同密码<br>配置好相关的内容进行测试，启用系统代理，右键点开帮助-&gt;显示日志
+查看链接情况<br>点击<a href="https://www.google.com/" target="_blank" rel="noopener">谷歌</a>测试   </p>
+<p>##备注</p>
+<p>###重置密码
+VPS重启镜像后重置密码<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@colinvps ~]# passwd root</span><br><span class="line"><span class="keyword">New</span> password:</span><br><span class="line">Retype <span class="keyword">new</span> password:</span><br><span class="line">passwd: <span class="keyword">all</span> authentication tokens updated successfully.</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+          
+            
+    <div class="my_post_copyright">
+      <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+      <!-- JS库 sweetalert 可修改路径 -->
+      <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <p><span>本文标题:</span><a href="/2017/12/12/use/shadowsocks-go/">ShadowSocks-从入门到出门[go版本]</a></p>
+      <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+      <p><span>发布时间:</span>2017年12月12日 - 13:12</p>
+      <p><span>最后更新:</span>2018年08月31日 - 16:08</p>
+      <p><span>原始链接:</span><a href="/2017/12/12/use/shadowsocks-go/" title="ShadowSocks-从入门到出门[go版本]">http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/</a>
+        <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/"  aria-label="复制成功！"></i></span>
+      </p>
+      <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+    </div>
+    <script>
+        var clipboard = new Clipboard('.fa-clipboard');
+          $(".fa-clipboard").click(function(){
+          clipboard.on('success', function(){
+            swal({
+              title: "",
+              text: '复制成功',
+              icon: "success",
+              showConfirmButton: true
+              });
+            });
+        });
+    </script>
+
+
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/install/" rel="tag"><i class="fa fa-tag"></i> install</a>
+          
+            <a href="/tags/go/" rel="tag"><i class="fa fa-tag"></i> go</a>
+          
+            <a href="/tags/ss/" rel="tag"><i class="fa fa-tag"></i> ss</a>
+          
+            <a href="/tags/use/" rel="tag"><i class="fa fa-tag"></i> use</a>
+          
+            <a href="/tags/shadowsocks/" rel="tag"><i class="fa fa-tag"></i> shadowsocks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/algorithm/game/麻将胡牌算法/" rel="next" title="麻将胡牌算法">
+                <i class="fa fa-chevron-left"></i> 麻将胡牌算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/base/base_01_StringCode/" rel="prev" title="字符串编码 StringCode">
+                字符串编码 StringCode <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTA2Ni8xNTU5Mw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+              <p class="site-description motion-element" itemprop="description">持续性踌躇满志  间歇性混吃等死</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hongxii" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hongxiii@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器选择"><span class="nav-number">3.</span> <span class="nav-text">服务器选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于云服务"><span class="nav-number">4.</span> <span class="nav-text">关于云服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">5.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux内核升级-gt-linux4"><span class="nav-number">6.</span> <span class="nav-text">Linux内核升级-&gt; linux4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">6.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出目前可用的Linux内核包："><span class="nav-number">6.2.</span> <span class="nav-text">列出目前可用的Linux内核包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装最新主线稳定内核"><span class="nav-number">6.3.</span> <span class="nav-text">安装最新主线稳定内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改默认启动内核"><span class="nav-number">6.4.</span> <span class="nav-text">修改默认启动内核</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cnetos6"><span class="nav-number">6.4.1.</span> <span class="nav-text">cnetos6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#centos7"><span class="nav-number">6.4.2.</span> <span class="nav-text">centos7</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启"><span class="nav-number">6.5.</span> <span class="nav-text">重启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测"><span class="nav-number">6.6.</span> <span class="nav-text">检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp算法改为BBR"><span class="nav-number">7.</span> <span class="nav-text">tcp算法改为BBR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置生效"><span class="nav-number">7.1.</span> <span class="nav-text">配置生效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查"><span class="nav-number">7.2.</span> <span class="nav-text">检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装go"><span class="nav-number">8.</span> <span class="nav-text">安装go</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装git"><span class="nav-number">9.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装shadowsocks"><span class="nav-number">10.</span> <span class="nav-text">安装shadowsocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置config-json文件"><span class="nav-number">11.</span> <span class="nav-text">配置config.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开放端口"><span class="nav-number">12.</span> <span class="nav-text">开放端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启shadowsocks服务"><span class="nav-number">13.</span> <span class="nav-text">开启shadowsocks服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用客户端测试链接"><span class="nav-number">14.</span> <span class="nav-text">使用客户端测试链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://gitmmp.com">Gitmmp</a> 个人站点</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash; <a class="theme-link" target="_blank" href="https://hongxii.github.io">Blog</a> v5.1.4</div>
+
+
+
+hex
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+        appKey: 'tK5voXTFX0mLH426PkiDHTBY',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
