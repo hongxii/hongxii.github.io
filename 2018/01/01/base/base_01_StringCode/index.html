@@ -839,9 +839,9 @@ Unicode转换成UTF-8非只要一张转换表：</p>
 <h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>RFC3986中规定了URI中不能出现</p>
 <pre><code>: / ? # [ ] @ ! $ &amp; &apos; ( ) * + , ; = 
 </code></pre><p>当表示这些时，使用%加该字符的16进制UTF-8编码表示，出现非ASCII表的字符也一样，例如在浏览器输入</p>
-<pre><code>https://hongxi.io/你好
+<pre><code>https://io.hongxi.io/你好
 </code></pre><p>浏览器会自动把不合规定的字符转换成%加UTF-8编码再进行请求（地址栏还是显示原本”你好”），当你粘贴在文本编辑器的时候就可以看到原本的URL变成：</p>
-<pre><code>https://hongxi.io/%E4%BD%A0%E5%A5%BD
+<pre><code>https://io.hongxi.io/%E4%BD%A0%E5%A5%BD
 </code></pre><p>这里可以看到”你好”使用了它的UTF-8编码表示</p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>单纯从二进制数据是无法判断用什么编码存储的。但也有用AI来判断的，结果很出色。</p>
 
