@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.gitmmp.com/2018/08/08/jvm/java/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM/</loc>
+    
+    <lastmod>2020-03-09T07:39:20.095Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.gitmmp.com/2018/08/08/jvm/java/JVM/</loc>
+    
+    <lastmod>2019-08-27T13:40:46.470Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/</loc>
     
-    <lastmod>2018-09-08T12:16:53.456Z</lastmod>
+    <lastmod>2018-11-12T11:35:44.955Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.gitmmp.com/2018/01/01/base/base_01_StringCode/</loc>
+    
+    <lastmod>2018-09-10T06:05:57.045Z</lastmod>
     
   </url>
   
@@ -26,13 +47,6 @@
     <loc>http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/</loc>
     
     <lastmod>2018-08-31T08:33:23.174Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.gitmmp.com/2018/01/01/base/base_01_StringCode/</loc>
-    
-    <lastmod>2018-08-28T08:53:16.184Z</lastmod>
     
   </url>
   

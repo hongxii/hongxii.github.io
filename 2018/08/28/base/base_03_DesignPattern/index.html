@@ -6,10 +6,10 @@
 
 
 <html class="theme-next gemini use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="base,architect,Design,pattern," />
+  <meta name="keywords" content="base,architect,Design,pattern,">
 
 
 
@@ -84,7 +84,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式233|Design pattern">
 <meta property="og:url" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/index.html">
-<meta property="og:site_name" content="虹西森林">
+<meta property="og:site_name" content="虹西博客">
 <meta property="og:description" content="当朝大学士，总共有3位，朕不得不罢免4位看看你们这些人啊单一职责,开放封闭,依赖倒转,迪米特看你们一个个站在干岸上，设计模式你们还记得多少吗–">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/计算器的简单工厂结构.png">
@@ -94,7 +94,10 @@
 <meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/生成器模式.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/观察者模式.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/具体场景-老板回来了.png">
-<meta property="og:updated_time" content="2018-09-08T12:16:53.456Z">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/切换数据库-简单工厂模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/切换数据库-抽象工厂模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/抽象工厂结构图.png">
+<meta property="og:updated_time" content="2018-11-12T11:35:44.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式233|Design pattern">
 <meta name="twitter:description" content="当朝大学士，总共有3位，朕不得不罢免4位看看你们这些人啊单一职责,开放封闭,依赖倒转,迪米特看你们一个个站在干岸上，设计模式你们还记得多少吗–">
@@ -128,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/"/>
+  <link rel="canonical" href="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/">
 
 
 
 
 
-  <title>设计模式233|Design pattern | 虹西森林</title>
+  <title>设计模式233|Design pattern | 虹西博客</title>
   
 
 
@@ -146,7 +149,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -155,21 +158,21 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
-    <a href="https://github.com/hongxii" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <a href="https://github.com/hongxii" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">虹西森林</span>
+        <span class="site-title">虹西博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">林空鹿饮溪|复盘 实践 分享</p>
+        <p class="site-subtitle">林空鹿饮溪 | 霜落熊升树</p>
       
   </div>
 
@@ -192,7 +195,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -202,7 +205,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -212,7 +215,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -222,7 +225,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -232,7 +235,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -245,7 +248,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -266,9 +269,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -300,21 +301,21 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="虹西/Hongxii">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="虹西森林">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
     </span>
 
     
@@ -345,7 +346,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -356,7 +357,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Base/" itemprop="url" rel="index">
                     <span itemprop="name">Base</span>
                   </a>
@@ -505,9 +506,87 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
 <p>场景：
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> builder=ConcreteBuilder0()</span><br><span class="line">    <span class="keyword">val</span> builder1=ConcreteBuilder1()</span><br><span class="line">    <span class="keyword">val</span> director=Director(builder)</span><br><span class="line">    </span><br><span class="line">    director.Construct(builder)</span><br><span class="line">    <span class="keyword">val</span> p0=builder.GetResult()</span><br><span class="line">    p0.Show()</span><br><span class="line"></span><br><span class="line">    director.Construct(builder1)</span><br><span class="line">    <span class="keyword">val</span> p1=builder.GetResult()</span><br><span class="line">    p1.Show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>建造者模式是在<br>当<br>创建复杂对象的算法<br>    应该独立于该对象的组成部分及它们装配方式时<br>    适用的模式</p>
-<h1 id="观察者模式-Publish-Subscribe"><a href="#观察者模式-Publish-Subscribe" class="headerlink" title="观察者模式 | Publish/Subscribe"></a>观察者模式 | Publish/Subscribe</h1><p>观察者模式帝国一了一种一对多的依赖关系，让多个观察者同时监听某一个主题对象。
+<h1 id="观察者模式-Publish-Subscribe"><a href="#观察者模式-Publish-Subscribe" class="headerlink" title="观察者模式 | Publish/Subscribe"></a>观察者模式 | Publish/Subscribe</h1><p>观察者模式是一种一对多的依赖关系，让多个观察者同时监听某一个主题对象。
 这个主题对象在状态发生变化时，会通知所有观察者对象,使它们能够自动更新自己。<br><img src="/2018/08/28/base/base_03_DesignPattern/观察者模式.png" alt="观察者模式"><br>具体的场景：老板回来了，前台通知同事别玩了<br><img src="/2018/08/28/base/base_03_DesignPattern/具体场景-老板回来了.png" alt="老板回来了"></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>Object:抽象观察者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>(</span><br><span class="line">    <span class="keyword">protected</span>  <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">protected</span>  <span class="keyword">val</span> sub: 主题通知</span><br><span class="line">)&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Subject: 主题,通知
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> 主题通知 </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 增加观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 移除观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 通知<span class="params">()</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> 通知内容:String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Boss: 通知者之一(可为前台或老板)
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boss</span>:<span class="type">主题通知 &#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> 观察者列表=MutableList&lt;Observer&gt;(<span class="number">0</span>,&#123;ObserverStoker(<span class="string">""</span>,Boss())&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 增加观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span> &#123;</span><br><span class="line">        观察者列表.add(观察者)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 移除观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span> &#123;</span><br><span class="line">        观察者列表.remove(观察者)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 通知<span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (ob <span class="keyword">in</span> 观察者列表) ob.更新()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> 通知内容=<span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体观察者:股民同事,球迷同事
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 股民同事</span>(name:String, sub: 主题通知): Observer(name, sub) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span> &#123;</span><br><span class="line">        println(<span class="string">"<span class="subst">$&#123;sub.通知内容&#125;</span> + <span class="variable">$name</span> 关闭股票行情,继续工作"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> 球迷同事</span>(name:String, sub: 主题通知): Observer(name,sub) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span> &#123;</span><br><span class="line">        println(<span class="string">"<span class="subst">$&#123;sub.通知内容&#125;</span> + <span class="variable">$name</span> 关闭NBA直播,继续工作"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通知实现
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> 大BOSS=Boss()     <span class="comment">//老板</span></span><br><span class="line">    <span class="keyword">val</span> 韭菜=股民同事(<span class="string">"韭菜"</span>,大BOSS)  <span class="comment">//股民同事</span></span><br><span class="line">    <span class="keyword">val</span> 林书豪=股民同事(<span class="string">"林书豪"</span>,大BOSS)   <span class="comment">//NBA同事</span></span><br><span class="line"></span><br><span class="line">    大BOSS.增加观察者(林书豪)</span><br><span class="line">    大BOSS.增加观察者(韭菜)</span><br><span class="line"></span><br><span class="line">    大BOSS.移除观察者(韭菜)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//老板回来了</span></span><br><span class="line">    大BOSS.通知内容=<span class="string">"大BOSS回来了"</span></span><br><span class="line">    <span class="comment">//通知</span></span><br><span class="line">    大BOSS.通知()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果:
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"D:\Program Files\Java\jdk1.8.0_144\bin\java.exe"</span> </span><br><span class="line">大BOSS回来了 , 林书豪 关闭NBA直播,继续工作</span><br><span class="line"></span><br><span class="line">Process finished with <span class="keyword">exit</span> code <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h2><p>抽象通知者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> observers= MutableList&lt;Observer&gt;(<span class="number">0</span>,&#123;Observer1(Subject1(<span class="string">""</span>),<span class="string">""</span>)&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Attach</span><span class="params">(ob: <span class="type">Observer</span>)</span></span>&#123;</span><br><span class="line">        observers.add(ob)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Detach</span><span class="params">(ob: <span class="type">Observer</span>)</span></span>&#123;</span><br><span class="line">        observers.remove(ob)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Notify</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (o <span class="keyword">in</span> observers)</span><br><span class="line">            o.update()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象观察者
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span>&#123;</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span></span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体通知者
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Subject1(var <span class="keyword">state</span>:String) :Subject()</span><br></pre></td></tr></table></figure></p>
+<p>具体观察者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer1</span></span>(</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">val</span> subject: Subject1,</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">val</span> name:String        ):Observer() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> observerDo:String=<span class="string">""</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">()</span></span> &#123;</span><br><span class="line">            observerDo=subject.state</span><br><span class="line">            println(<span class="string">"观察者<span class="variable">$name</span> 的新状态是 <span class="variable">$observerDo</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体使用
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> s=Subject1(<span class="string">"ABC"</span>)</span><br><span class="line"></span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"X"</span>))</span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"Y"</span>))</span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"Z"</span>))</span><br><span class="line"></span><br><span class="line">    s.Notify()</span><br><span class="line">&#125;</span><br><span class="line">****Out:</span><br><span class="line">    观察者X 的新状态是 ABC</span><br><span class="line">    观察者Y 的新状态是 ABC</span><br><span class="line">    观察者Z 的新状态是 ABC</span><br><span class="line">****</span><br></pre></td></tr></table></figure></p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>   将一个系统分割成一系列相互协作的类有一个副作用,即需要维护相关对象的一致性,
+   如果我们为了维护一致性使各类紧密耦合,会给维护,扩展,重用带来不便.<br>   &emsp;&emsp;
+   观察者模式中,一个通知者可以有任意数目的观察者,并可以及时被通知.<br>   &emsp;&emsp;
+   Subject发出通知时不必知道谁是观察者,一个具体观察者也不需要知道其他观察者<br>场景:<br>    &emsp;&emsp;
+    1.当一个对象改变需要同时改变其他对象时,且不知道集体多少对象需要改变<br>    &emsp;&emsp;
+    2.当一个抽象模型有两方面,一方面依赖另一方面,此时观察者模式可以将这两者封装在独立的对象中使其独自改变和复用</p>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><p>   &emsp;&emsp;
+   观察者模式即解除耦合.让耦合的双方依赖抽象而非具体,从而使各自的变化都不会影响到另一边. </p>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>&emsp;&emsp;
+    委托是一种引用方法的类型。一旦位委托分配了方法,委托将与该方法具有完全相同的行为。
+委托方法的使用可以像其他任何方法一样,具有参数和返回值。
+委托可以看作是对函数的抽象,是函数的’类,委托的实力将代表一个具体的函数。  </p>
+<p>&emsp;&emsp;
+    一个委托可以搭载多个方法，所有方法被一次唤起，可以使得委托对象所搭载的方法并不需要属于同一个类。</p>
+<h1 id="抽象工厂-AbstractFactory"><a href="#抽象工厂-AbstractFactory" class="headerlink" title="抽象工厂 | AbstractFactory"></a>抽象工厂 | AbstractFactory</h1><p>抽象工厂模式(Abstract Factory)：<br>&emsp;&emsp;
+    提供一个创建一系列相关或互相依赖对象的接口，而无需指定他们具体的类。</p>
+<h2 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h2><p>&emsp;&emsp;
+    SQL读写数据场景<br>    不同sql数据库的sql语句不一，导致更换数据库和架构时的兼容改写<br>    使用简单工厂模式在两个数据库之间切换（SqlServer,Access）</p>
+<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p><img src="/2018/08/28/base/base_03_DesignPattern/切换数据库-简单工厂模式.png" alt="数据库切换-简单工厂">  </p>
+<p>IUser- 用于客户端访问，解除于具体数据库访问耦合<br>两个User用于 访问不同数据库的User</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">var</span> id:<span class="built_in">Int</span>, <span class="keyword">var</span> name:String)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user:<span class="type">User</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserSqlserver</span>:<span class="type">IUser&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中给User表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中根据ID得到User表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAccess</span>:<span class="type">IUser&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中给User表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中根据ID得到User表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IFactory -定义一个创建访问User表对象的抽象工厂接口<br>两个不同的Factory用于实例化上面对应的User
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>:IUser</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySqlServer</span>:<span class="type">IFactory&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserSqlserver()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryAcess</span>:<span class="type">IFactory&#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserAccess()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user=User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> factory=FactorySqlServer()</span><br><span class="line"><span class="keyword">val</span> iu=factory.CreateUser()</span><br><span class="line"></span><br><span class="line">iu.Insert(user)</span><br><span class="line">iu.GetUser(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<pre><code>输出
+在SQL Server中给User表加一条记录
+在SQL Server中根据ID得到User表一条记录
+</code></pre><h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><p><img src="/2018/08/28/base/base_03_DesignPattern/切换数据库-抽象工厂模式.png" alt="数据库切换-抽象工厂">  </p>
+<p>IDepartment- 客户端访问，解除具体数据库耦合<br>两个不同的Depart用于访问具体的数据库
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span></span>(<span class="keyword">var</span> id: <span class="built_in">Int</span>, <span class="keyword">var</span> name: String)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DepartmentSqlServer</span> : <span class="type">IDepartment &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中给Department表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中根据ID得到Department表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DepartmentAccess</span> : <span class="type">IDepartment &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中给Department表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中根据ID得到Department表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在IFactory中加入了Department工厂
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySqlServer</span> : <span class="type">IFactory &#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserSqlserver()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment &#123;</span><br><span class="line">        <span class="keyword">return</span> DepartmentSqlServer()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryAcess</span> : <span class="type">IFactory &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserAccess()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment &#123;</span><br><span class="line">        <span class="keyword">return</span> DepartmentAccess()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>处理端代码
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    <span class="keyword">val</span> department = Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> factory = FactoryAcess()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//以下已与具体的数据库访问解除了依赖</span></span><br><span class="line">    <span class="keyword">val</span> iu = factory.CreateUser()</span><br><span class="line">    iu.Insert(user)</span><br><span class="line">    iu.GetUser(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> id = factory.CreateDepartment()</span><br><span class="line">    id.Insert(department)</span><br><span class="line">    id.GetDepartment(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>最终输出：  </p>
+<pre><code>在Access Server中给User表加一条记录
+在Access Server中根据ID得到User表一条记录
 
+在Access Server中给Department表加一条记录
+在Access Server中根据ID得到Department表一条记录
+</code></pre><h2 id="结构-2"><a href="#结构-2" class="headerlink" title="结构"></a>结构</h2><p><img src="/2018/08/28/base/base_03_DesignPattern/抽象工厂结构图.png" alt="抽象工厂结构图"> 
+&emsp;&emsp;
+    AbstractProductA与AbstractProductB是两个抽象产品，
+    因为他们都可能有几种不同实现，如场景中的User和Department；
+    ProductA1,ProductA2及ProductB1,ProductB2是对两个抽象产品的具体分类实现。    </p>
+<p>&emsp;&emsp;
+    IFactory时抽象工厂接口，其内包含所有的产品创建抽象方法；
+    而ConcreteFactory1和ConcreteFactory2是具体的工厂，同场景中的FactoryAccess和FactorySqlServer。  </p>
+<p>&emsp;&emsp;
+    通常在运行时创建具体工厂类，具体工厂类在创建具体特定实现的产品对象。
+    为了创建不同产品对象，可以使用不同具体工厂。    </p>
+<h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><p>易于交换产品系列：<br>    每个具体工厂类只会在初始化时出现一次，故改变具体工厂十分容易。
+    只需改变具体工厂的即可使用不同的工厂配置。<br>实例化过程与controler分离：
+    controler通过其抽象接口草丛实例，产品具体类名由具体工厂实现分离。  </p>
+<p>缺点：每增加一个抽象工厂，需在大部分文件中添加关系代码，工厂数量变大后难以管理。</p>
+<h2 id="依赖注入-Dependency-Injection"><a href="#依赖注入-Dependency-Injection" class="headerlink" title="依赖注入 | Dependency Injection"></a>依赖注入 | Dependency Injection</h2>
       
     </div>
     
@@ -526,9 +605,9 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
       <p><span>本文标题:</span><a href="/2018/08/28/base/base_03_DesignPattern/">设计模式233|Design pattern</a></p>
       <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
       <p><span>发布时间:</span>2018年08月28日 - 13:08</p>
-      <p><span>最后更新:</span>2018年09月08日 - 20:09</p>
+      <p><span>最后更新:</span>2018年11月12日 - 19:11</p>
       <p><span>原始链接:</span><a href="/2018/08/28/base/base_03_DesignPattern/" title="设计模式233|Design pattern">http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/</a>
-        <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/"  aria-label="复制成功！"></i></span>
+        <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/" aria-label="复制成功！"></i></span>
       </p>
       <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
     </div>
@@ -656,7 +735,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
               <p class="site-description motion-element" itemprop="description">持续性踌躇满志  间歇性混吃等死</p>
@@ -669,7 +748,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -680,7 +759,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -691,7 +770,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -746,7 +825,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则"><span class="nav-number">1.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则-SRP"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则|SRP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开放-封闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开放-封闭原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖倒转原则"><span class="nav-number">1.3.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迪米特法则-最少知识原则-LoD"><span class="nav-number">1.4.</span> <span class="nav-text">迪米特法则(最少知识原则)[LoD]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#体现"><span class="nav-number">1.4.1.</span> <span class="nav-text">体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.5.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#活字印刷"><span class="nav-number">1.5.1.</span> <span class="nav-text">活字印刷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-number">1.5.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务封装"><span class="nav-number">1.5.3.</span> <span class="nav-text">业务封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端封装"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">服务端封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作界面封装"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">操作界面封装</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单工厂模式-Simple-factory"><span class="nav-number">2.</span> <span class="nav-text">简单工厂模式|Simple factory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式封装"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#松紧耦合"><span class="nav-number">2.2.</span> <span class="nav-text">松紧耦合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML类图"><span class="nav-number">2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy-Mode"><span class="nav-number">3.</span> <span class="nav-text">策略模式|Strategy Mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂实现"><span class="nav-number">3.1.</span> <span class="nav-text">简单工厂实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">3.2.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">3.3.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰模式-Decoration-mode"><span class="nav-number">4.</span> <span class="nav-text">装饰模式|Decoration mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-1"><span class="nav-number">4.1.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-proxy"><span class="nav-number">5.</span> <span class="nav-text">代理模式 | proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-2"><span class="nav-number">5.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">5.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法-Factory-Method"><span class="nav-number">6.</span> <span class="nav-text">工厂方法 | Factory Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂VS工厂方法"><span class="nav-number">6.1.</span> <span class="nav-text">简单工厂VS工厂方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">7.</span> <span class="nav-text">原型模式 | Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅复制"><span class="nav-number">7.1.</span> <span class="nav-text">深浅复制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法"><span class="nav-number">8.</span> <span class="nav-text">模板方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-试卷复用与答案返回"><span class="nav-number">8.1.</span> <span class="nav-text">Example-试卷复用与答案返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-3"><span class="nav-number">8.2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">8.3.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">9.</span> <span class="nav-text">外观模式 | Facade</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">9.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-4"><span class="nav-number">9.2.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式-生成器模式-Builder"><span class="nav-number">10.</span> <span class="nav-text">建造者模式 | 生成器模式 Builder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">10.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">10.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Publish-Subscribe"><span class="nav-number">11.</span> <span class="nav-text">观察者模式 | Publish/Subscribe</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则"><span class="nav-number">1.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则-SRP"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则|SRP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开放-封闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开放-封闭原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖倒转原则"><span class="nav-number">1.3.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迪米特法则-最少知识原则-LoD"><span class="nav-number">1.4.</span> <span class="nav-text">迪米特法则(最少知识原则)[LoD]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#体现"><span class="nav-number">1.4.1.</span> <span class="nav-text">体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.5.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#活字印刷"><span class="nav-number">1.5.1.</span> <span class="nav-text">活字印刷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-number">1.5.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务封装"><span class="nav-number">1.5.3.</span> <span class="nav-text">业务封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端封装"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">服务端封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作界面封装"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">操作界面封装</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单工厂模式-Simple-factory"><span class="nav-number">2.</span> <span class="nav-text">简单工厂模式|Simple factory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式封装"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#松紧耦合"><span class="nav-number">2.2.</span> <span class="nav-text">松紧耦合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML类图"><span class="nav-number">2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy-Mode"><span class="nav-number">3.</span> <span class="nav-text">策略模式|Strategy Mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂实现"><span class="nav-number">3.1.</span> <span class="nav-text">简单工厂实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">3.2.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">3.3.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰模式-Decoration-mode"><span class="nav-number">4.</span> <span class="nav-text">装饰模式|Decoration mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-1"><span class="nav-number">4.1.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-proxy"><span class="nav-number">5.</span> <span class="nav-text">代理模式 | proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-2"><span class="nav-number">5.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">5.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法-Factory-Method"><span class="nav-number">6.</span> <span class="nav-text">工厂方法 | Factory Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂VS工厂方法"><span class="nav-number">6.1.</span> <span class="nav-text">简单工厂VS工厂方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">7.</span> <span class="nav-text">原型模式 | Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅复制"><span class="nav-number">7.1.</span> <span class="nav-text">深浅复制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法"><span class="nav-number">8.</span> <span class="nav-text">模板方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-试卷复用与答案返回"><span class="nav-number">8.1.</span> <span class="nav-text">Example-试卷复用与答案返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-3"><span class="nav-number">8.2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">8.3.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">9.</span> <span class="nav-text">外观模式 | Facade</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">9.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-4"><span class="nav-number">9.2.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式-生成器模式-Builder"><span class="nav-number">10.</span> <span class="nav-text">建造者模式 | 生成器模式 Builder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">10.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">10.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Publish-Subscribe"><span class="nav-number">11.</span> <span class="nav-text">观察者模式 | Publish/Subscribe</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">11.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构-1"><span class="nav-number">11.2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">11.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-2"><span class="nav-number">11.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件委托"><span class="nav-number">11.5.</span> <span class="nav-text">事件委托</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象工厂-AbstractFactory"><span class="nav-number">12.</span> <span class="nav-text">抽象工厂 | AbstractFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景-1"><span class="nav-number">12.1.</span> <span class="nav-text">场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂"><span class="nav-number">12.1.1.</span> <span class="nav-text">简单工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂"><span class="nav-number">12.1.2.</span> <span class="nav-text">抽象工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构-2"><span class="nav-number">12.2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点-1"><span class="nav-number">12.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入-Dependency-Injection"><span class="nav-number">12.4.</span> <span class="nav-text">依赖注入 | Dependency Injection</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -767,7 +846,7 @@ A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
