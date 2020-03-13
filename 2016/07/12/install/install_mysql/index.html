@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="mysql,install,">
+  <meta name="keywords" content="install,mysql,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="Linux下安装MySql遇到的坑和问题">
-<meta name="keywords" content="mysql,install">
+<meta name="keywords" content="install,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql安装[Linux]">
 <meta property="og:url" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/index.html">
@@ -88,15 +88,15 @@
 <meta property="og:description" content="Linux下安装MySql遇到的坑和问题">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/1.check.png">
-<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/1.check.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/07/12/install/install_mysql/1.check.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/2.remove1.png">
-<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/2.remove1.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/07/12/install/install_mysql/2.remove1.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/3.getdep.png">
-<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/3.getdep.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/07/12/install/install_mysql/3.getdep.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/4.findfiles.png">
-<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/4.findfiles.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/07/12/install/install_mysql/4.findfiles.png">
 <meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/5.del.png">
-<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/5.del.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2016/07/12/install/install_mysql/07/12/install/install_mysql/5.del.png">
 <meta property="og:updated_time" content="2018-08-21T01:43:01.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql安装[Linux]">
@@ -172,7 +172,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">林空鹿饮溪 | 霜落熊升树</p>
+        <p class="site-subtitle">霜落熊升树 | 林空鹿饮溪</p>
       
   </div>
 
@@ -598,22 +598,22 @@ mysql&gt;flush privileges;
 </code></pre><h3 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h3><p>1.查看已安装的mysql
 命令：rpm -qa | grep -i mysql
 <img src="/2016/07/12/install/install_mysql/1.check.png" alt="avatar">
-<img src="/2016/07/12/install/install_mysql/1.check.png" title="check"></p>
+<img src="/2016/07/12/install/install_mysql/07/12/install/install_mysql/1.check.png" title="check"></p>
 <p>2.卸载mysql
 命令：yum remove mysql-community-server-5.6.36-2.el7.x86_64
 <img src="/2016/07/12/install/install_mysql/2.remove1.png" alt="avatar">
-<img src="/2016/07/12/install/install_mysql/2.remove1.png" title="remove1"></p>
+<img src="/2016/07/12/install/install_mysql/07/12/install/install_mysql/2.remove1.png" title="remove1"></p>
 <p>查看mysql的其它依赖：rpm -qa | grep -i mysql
 使用yum remove mysql-xxx依次卸载，知道mysql的其它依赖全部卸载掉为止
 <img src="/2016/07/12/install/install_mysql/3.getdep.png" alt="avatar">
-<img src="/2016/07/12/install/install_mysql/3.getdep.png" title="3.getdep"></p>
+<img src="/2016/07/12/install/install_mysql/07/12/install/install_mysql/3.getdep.png" title="3.getdep"></p>
 <p>3.删除mysql文件目录
 使用命令查看mysql相关的文件目录：find / -name mysql
 <img src="/2016/07/12/install/install_mysql/4.findfiles.png" alt="avatar">
-<img src="/2016/07/12/install/install_mysql/4.findfiles.png" title="4.findfiles"></p>
+<img src="/2016/07/12/install/install_mysql/07/12/install/install_mysql/4.findfiles.png" title="4.findfiles"></p>
 <p>使用rm -rf 命令删除mysql的文件目录
 <img src="/2016/07/12/install/install_mysql/5.del.png" alt="avatar">
-<img src="/2016/07/12/install/install_mysql/5.del.png" title="5.del"></p>
+<img src="/2016/07/12/install/install_mysql/07/12/install/install_mysql/5.del.png" title="5.del"></p>
 <p>至此mysql已成功卸载</p>
 
       
@@ -668,9 +668,9 @@ mysql&gt;flush privileges;
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
-          
             <a href="/tags/install/" rel="tag"><i class="fa fa-tag"></i> install</a>
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
           
         </div>
       
@@ -683,18 +683,14 @@ mysql&gt;flush privileges;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/12/install/install_jvm&tomcat/" rel="next" title="Jvm&Tomcat 安装">
-                <i class="fa fa-chevron-left"></i> Jvm&Tomcat 安装
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/10/setting/setting-hexo/" rel="prev" title="Hexo-Next 设置|备忘">
-                Hexo-Next 设置|备忘 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/12/install/install_jvm&tomcat/" rel="prev" title="Jvm&Tomcat 安装">
+                Jvm&Tomcat 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
