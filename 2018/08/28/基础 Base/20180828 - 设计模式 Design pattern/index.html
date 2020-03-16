@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,R,ML,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="当朝大学士，总共有3位，朕不得不罢免4位看看你们这些人啊单一职责,开放封闭,依赖倒转,迪米特看你们一个个站在干岸上，设计模式你们还记得多少吗–">
+<meta name="keywords" content="Java,R,ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式 Design pattern">
+<meta property="og:url" content="http://blog.gitmmp.com/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/index.html">
+<meta property="og:site_name" content="虹西博客">
+<meta property="og:description" content="当朝大学士，总共有3位，朕不得不罢免4位看看你们这些人啊单一职责,开放封闭,依赖倒转,迪米特看你们一个个站在干岸上，设计模式你们还记得多少吗–">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/计算器的简单工厂结构.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/计算器的工厂方法结构.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/原型模式结构图.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/外观模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/生成器模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/观察者模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/具体场景-老板回来了.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/切换数据库-简单工厂模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/切换数据库-抽象工厂模式.png">
+<meta property="og:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/抽象工厂结构图.png">
+<meta property="og:updated_time" content="2020-03-16T13:13:10.522Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式 Design pattern">
+<meta name="twitter:description" content="当朝大学士，总共有3位，朕不得不罢免4位看看你们这些人啊单一职责,开放封闭,依赖倒转,迪米特看你们一个个站在干岸上，设计模式你们还记得多少吗–">
+<meta name="twitter:image" content="http://blog.gitmmp.com/2018/08/28/基础%20Base/20180828%20-%20设计模式%20Design%20pattern/计算器的简单工厂结构.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.gitmmp.com/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/">
+
+
+
+
+
+  <title>设计模式 Design pattern | 虹西博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/hongxii" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">虹西博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">霜落熊升树 | 林空鹿饮溪</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式 Design pattern</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T00:00:00+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础-Base/" itemprop="url" rel="index">
+                    <span itemprop="name">基础 Base</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当朝大学士，总共有3位，朕不得不罢免4位<br>看看你们这些人啊<br>单一职责,开放封闭,依赖倒转,迪米特<br>看你们一个个站在干岸上，设计模式你们还记得多少吗–<br><a id="more"></a></p>
+<h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1><h2 id="单一职责原则-SRP"><a href="#单一职责原则-SRP" class="headerlink" title="单一职责原则|SRP"></a>单一职责原则|SRP</h2><p>就一个类而言，应该仅有一个引起它变化的原因<br>如果一个类承担的之策过多，等于将这些职责耦合再一起，
+单个职责变化会削弱或抑制这个类完成其他职责的能力。
+该种耦合会导致设计脆弱，甚至产生意外破坏(ASD);  </p>
+<h2 id="开放-封闭原则"><a href="#开放-封闭原则" class="headerlink" title="开放-封闭原则"></a>开放-封闭原则</h2><p>对扩展开放(Open for extension)<br>对更改封闭(Closed for modification)<br>要对频繁变化的模块进行抽象，但全部抽象也不好  </p>
+<h2 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h2><p>强内聚，松耦合<br>抽象不应依赖细节，细节应依赖于抽象<br>针对接口编程，不要对实现编程
+A.高层模块不应该依赖低层模块，两个都应该依赖抽象<br>B.抽象不应该依赖细节。细节应该依赖抽象。</p>
+<h2 id="迪米特法则-最少知识原则-LoD"><a href="#迪米特法则-最少知识原则-LoD" class="headerlink" title="迪米特法则(最少知识原则)[LoD]"></a>迪米特法则(最少知识原则)[LoD]</h2><p>如果两个类不必彼此直接通信，那么这两个类不该发生直接相互作用。
+如果一个类需要调用另一个类的某个方法，可通过第三者转发这个调用。[J&amp;DP]</p>
+<h3 id="体现"><a href="#体现" class="headerlink" title="体现"></a>体现</h3><p>每个类应当尽量降低成员的访问权限。<br>强调类之间的松耦合，类与类之间耦合越弱，越有利于复用。单个弱耦合的类被修改，不会波及现有的关系类。</p>
+<p>里氏代换原则  —&gt;<br>一个软件实体如果使用的是一个父类，那么一定适用于其子类，而软件无法察觉其变化。<br>里氏代换原则(LSP)：子类型必须能够替换掉它们的父类型[ASD]。<br>由于子类型的可替换性才使得父类的模块再无需修改时就可扩展。  </p>
+<p>依赖倒转是面向对象设计的标志，如果编写时考虑的是如何针对抽象编程而不是针对编程细节，
+即程序中的依赖关系都是终于抽象类和接口，那就是面向对象设计，反之为过程化的设计。  </p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="活字印刷"><a href="#活字印刷" class="headerlink" title="活字印刷"></a>活字印刷</h3><p>例子++</p>
+<p>1.可维护；【只改需改之字】<br>2.可复用；<br>3.可扩展；【可加字】<br>4.灵活性；【横排换竖排】  </p>
+<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>通过封装、继承、多态将程序的耦合性降低<br>设计模式使得其更加灵活，容易修改且易于复用  </p>
+<h3 id="业务封装"><a href="#业务封装" class="headerlink" title="业务封装"></a>业务封装</h3><p>火星车程序的分离<br>将客户端和服务端分离  </p>
+<p>题目：<br>一队机器人漫游车将被美国宇航局降落在火星高原上。
+漫游车将在这个奇怪的长方形高原上巡游，
+以便他们的机载摄像头可以获得周围地形的完整视图，并将其发送回地球。
+漫游者的坐标和位置由x和y坐标的组合以及代表四个方向（E, S, W, N）的字母表示。
+高原划分为网格以简化导航。比如位置0，0，N，表示漫游车位于左下角并面向北。
+为了控制漫游车，美国宇航局发送一串简单的字母。
+指令字母是’L’，’R’和’M’。 ‘L’和’R’使漫游车分别向左或向右旋转90度，而不会从当前地点移动。
+‘M’表示前进一个网格点，并保持相同的方向。
+假设从（x，y）直接向北移动，就到了（x，y + 1）。</p>
+<p>INPUT：<br>第一行输入是平台的右上角坐标，左下角坐标被假定为0,0。
+其余的输入是有关已部署的漫游车的信息。每个漫游车都有两行输入。
+第一行给出了漫游车的位置，第二行是告诉漫游车如何探索高原的一系列指令。
+位置由两个整数和一个由空格分隔的字母组成，对应于x和y坐标以及漫游车当前的方向。
+每个漫游车将按顺序完成，这意味着第二个漫游车在第一个漫游车完成移动之前不会开始移动。</p>
+<p>OUTPUT:<br>每个漫游车的输出应该是其最终的坐标和位置。
+输入输出例子:<br>IN:<br>5 5<br>1 2 N<br>LMLMLMLMM<br>3 3 E<br>MMRMMRMRRM  </p>
+<p>OUT：<br>1 3 N<br>5 1 E  </p>
+<h4 id="服务端封装"><a href="#服务端封装" class="headerlink" title="服务端封装"></a>服务端封装</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rover</span> <span class="keyword">constructor</span></span>(<span class="keyword">var</span> x:<span class="built_in">Long</span>, <span class="keyword">var</span> y:<span class="built_in">Long</span>, <span class="keyword">var</span> z:String)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rangez= arrayListOf(<span class="string">"e"</span>,<span class="string">"s"</span>,<span class="string">"w"</span>,<span class="string">"n"</span>)</span><br><span class="line">    <span class="keyword">val</span> rangeZ= arrayListOf(<span class="string">"E"</span>,<span class="string">"S"</span>,<span class="string">"W"</span>,<span class="string">"N"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">numL</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">0</span>) <span class="number">3</span> <span class="keyword">else</span> z<span class="number">-1</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">numR</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">3</span>) <span class="number">0</span> <span class="keyword">else</span> z+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doL</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">val</span> i1=rangeZ.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> i2=rangez.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> i= intArrayOf(i1,i2).max()</span><br><span class="line">        <span class="keyword">val</span> ii=numL(i!!)</span><br><span class="line">        z=rangeZ[ii]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doR</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">val</span> i1=rangeZ.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> i2=rangez.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> i= intArrayOf(i1,i2).max()</span><br><span class="line">        <span class="keyword">val</span> ii=numR(i!!)</span><br><span class="line">        z=rangeZ[ii]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doM</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">when</span>(z)&#123;</span><br><span class="line">            <span class="string">"E"</span> -&gt;  x++</span><br><span class="line">            <span class="string">"S"</span> -&gt;  y--</span><br><span class="line">            <span class="string">"W"</span> -&gt;  x--</span><br><span class="line">            <span class="string">"N"</span> -&gt;  y++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="操作界面封装"><a href="#操作界面封装" class="headerlink" title="操作界面封装"></a>操作界面封装</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> Rovers= MutableList(<span class="number">0</span>,&#123; Rover(<span class="number">1</span>, <span class="number">1</span>, <span class="string">"N"</span>) &#125;)</span><br><span class="line"><span class="keyword">val</span> sc = Scanner(System.`<span class="keyword">in</span>`)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> boderX=<span class="number">0</span>L</span><br><span class="line"><span class="keyword">var</span> boderY=<span class="number">0</span>L</span><br><span class="line"><span class="keyword">val</span> rangeZ= arrayListOf(<span class="string">"E"</span>,<span class="string">"S"</span>,<span class="string">"W"</span>,<span class="string">"N"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">InputSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">    println(<span class="string">"please input map size:'x y'"</span>)</span><br><span class="line">    <span class="keyword">val</span> mapSize = sc.nextLine()</span><br><span class="line">    WashSize(mapSize)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">RoverSet</span><span class="params">()</span></span>&#123;</span><br><span class="line">    InputLocation()</span><br><span class="line">    InputCommand()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">InputLocation</span><span class="params">()</span></span>&#123;</span><br><span class="line">    println(<span class="string">"please input io.io.hongxi.simpleFactory.encapsulation.Rover's location:'x y z',example:'1 1 N','2 2 W'..  z in ['E','S','W','N']"</span>)</span><br><span class="line">    <span class="keyword">val</span> location = sc.nextLine()</span><br><span class="line">    WashLocation(location)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">InputCommand</span><span class="params">()</span></span>&#123;</span><br><span class="line">    println(<span class="string">"please input command,example:'LMLMLMLMM'..  char in ['L','R','M']"</span>)</span><br><span class="line">    <span class="keyword">val</span> command = sc.nextLine()</span><br><span class="line">    <span class="keyword">for</span> (cmd <span class="keyword">in</span> command)</span><br><span class="line">        <span class="keyword">when</span>(cmd)&#123;</span><br><span class="line">            <span class="string">'l'</span> -&gt; Rovers.last().doL()</span><br><span class="line">            <span class="string">'L'</span> -&gt; Rovers.last().doL()</span><br><span class="line">            <span class="string">'r'</span> -&gt; Rovers.last().doR()</span><br><span class="line">            <span class="string">'R'</span> -&gt; Rovers.last().doR()</span><br><span class="line">            <span class="string">'m'</span> -&gt; Rovers.last().doM()</span><br><span class="line">            <span class="string">'M'</span> -&gt; Rovers.last().doM()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"enter to add rovers more,else input 'end' to end"</span>)</span><br><span class="line">    <span class="keyword">val</span> cmd = sc.nextLine()</span><br><span class="line">    <span class="keyword">if</span> (cmd==<span class="string">"END"</span>|| cmd==<span class="string">"end"</span>)&#123;</span><br><span class="line">        doResult()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">        RoverSet()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">WashSize</span><span class="params">(mapSize:<span class="type">String</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> list=mapSize.split(<span class="string">' '</span>).toMutableList()</span><br><span class="line">    list.removeAll(Array(<span class="number">99</span>,&#123;<span class="string">""</span>&#125;))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (list.size!=<span class="number">2</span>)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please input again:'x y'"</span>)</span><br><span class="line">        InputSize()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        boderX =list[<span class="number">0</span>].toLong()</span><br><span class="line">        boderY =list[<span class="number">1</span>].toLong()</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please input again:'x y'"</span>)</span><br><span class="line">        InputSize()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (boderX &lt;<span class="number">1</span> || boderY &lt;<span class="number">1</span>)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please input again:'x y'"</span>)</span><br><span class="line">        InputSize()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"mapSize=<span class="variable">$list</span>"</span>)</span><br><span class="line">    RoverSet()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">WashLocation</span><span class="params">(location:<span class="type">String</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> list=location.split(<span class="string">' '</span>).toMutableList()</span><br><span class="line">    list.removeAll(Array(<span class="number">99</span>,&#123;<span class="string">""</span>&#125;))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> x:<span class="built_in">Long</span></span><br><span class="line">    <span class="keyword">val</span> y:<span class="built_in">Long</span></span><br><span class="line">    <span class="keyword">val</span> z:String</span><br><span class="line">    <span class="keyword">if</span> (list.size!=<span class="number">3</span>)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please input again:'x y z',example:'1 1 N','2 2 W'..  z in ['E','S','W','N']"</span>)</span><br><span class="line">        InputLocation()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        x=list[<span class="number">0</span>].toLong()</span><br><span class="line">        y=list[<span class="number">1</span>].toLong()</span><br><span class="line">        z=list[<span class="number">2</span>]</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please input again:'x y z',example:'1 1 N','2 2 W'..  z in ['E','S','W','N']"</span>)</span><br><span class="line">        InputLocation()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x !<span class="keyword">in</span> <span class="number">0.</span>.boderX || y !<span class="keyword">in</span> <span class="number">0.</span>.boderY || z !<span class="keyword">in</span> rangeZ)&#123;</span><br><span class="line">        System.err.println(<span class="string">"wrong input,please make x in 0..<span class="variable">$boderX</span>, y in 0..<span class="variable">$boderY</span> and z in ['E','S','W','N']"</span>)</span><br><span class="line">        InputLocation()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Rovers.add(Rover(x, y, z))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">doResult</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (rover <span class="keyword">in</span> Rovers)</span><br><span class="line">        println(<span class="string">"<span class="subst">$&#123;rover.x&#125;</span> <span class="subst">$&#123;rover.y&#125;</span> <span class="subst">$&#123;rover.z&#125;</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    InputSize()</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    Input</span></span><br><span class="line"><span class="comment">    5 5</span></span><br><span class="line"><span class="comment">    1 2 N</span></span><br><span class="line"><span class="comment">    LMLMLMLMM</span></span><br><span class="line"><span class="comment">    3 3 E</span></span><br><span class="line"><span class="comment">    MMRMMRMRRM</span></span><br><span class="line"><span class="comment">    OutPut：</span></span><br><span class="line"><span class="comment">    1 3 N</span></span><br><span class="line"><span class="comment">    5 1 E*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="简单工厂模式-Simple-factory"><a href="#简单工厂模式-Simple-factory" class="headerlink" title="简单工厂模式|Simple factory"></a>简单工厂模式|Simple factory</h1><h2 id="简单工厂模式封装"><a href="#简单工厂模式封装" class="headerlink" title="简单工厂模式封装"></a>简单工厂模式封装</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Do</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> x:<span class="built_in">Int</span></span><br><span class="line">    <span class="keyword">var</span> y:<span class="built_in">Int</span></span><br><span class="line">    <span class="keyword">var</span> z:<span class="built_in">Char</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">numL</span><span class="params">(z:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">numR</span><span class="params">(z:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rangeZ:List&lt;<span class="built_in">Char</span>&gt;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">DoResult</span><span class="params">()</span></span>: Rover</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">DoL</span></span>(<span class="keyword">override</span> <span class="keyword">var</span> x:<span class="built_in">Int</span>,</span><br><span class="line">                <span class="keyword">override</span> <span class="keyword">var</span> y:<span class="built_in">Int</span>,</span><br><span class="line">                <span class="keyword">override</span> <span class="keyword">var</span> z:<span class="built_in">Char</span>) :Do&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numL</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">0</span>) <span class="number">3</span> <span class="keyword">else</span> z<span class="number">-1</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numR</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">3</span>) <span class="number">0</span> <span class="keyword">else</span> z+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> rangeZ=arrayListOf(<span class="string">'E'</span>,<span class="string">'S'</span>,<span class="string">'W'</span>,<span class="string">'N'</span>)</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">DoResult</span><span class="params">()</span></span>: Rover &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> i=rangeZ.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> ii=numL(i)</span><br><span class="line">        z=rangeZ[ii]</span><br><span class="line">        <span class="keyword">return</span> Rover(x,y,z)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">DoM</span></span>(<span class="keyword">override</span> <span class="keyword">var</span> x:<span class="built_in">Int</span>,</span><br><span class="line">          <span class="keyword">override</span> <span class="keyword">var</span> y:<span class="built_in">Int</span>,</span><br><span class="line">          <span class="keyword">override</span> <span class="keyword">var</span> z:<span class="built_in">Char</span>) :Do&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numL</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">0</span>) <span class="number">3</span> <span class="keyword">else</span> z<span class="number">-1</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numR</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">3</span>) <span class="number">0</span> <span class="keyword">else</span> z+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> rangeZ=arrayListOf(<span class="string">'E'</span>,<span class="string">'S'</span>,<span class="string">'W'</span>,<span class="string">'N'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">DoResult</span><span class="params">()</span></span>: Rover &#123;</span><br><span class="line">        <span class="keyword">when</span>(z)&#123;</span><br><span class="line">            <span class="string">'E'</span> -&gt;  x++</span><br><span class="line">            <span class="string">'S'</span> -&gt;  y--</span><br><span class="line">            <span class="string">'W'</span> -&gt;  x--</span><br><span class="line">            <span class="string">'N'</span> -&gt;  y++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Rover(x,y,z)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoR</span></span>(<span class="keyword">override</span> <span class="keyword">var</span> x:<span class="built_in">Int</span>,</span><br><span class="line">          <span class="keyword">override</span> <span class="keyword">var</span> y:<span class="built_in">Int</span>,</span><br><span class="line">          <span class="keyword">override</span> <span class="keyword">var</span> z:<span class="built_in">Char</span>) :Do&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numL</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">0</span>) <span class="number">3</span> <span class="keyword">else</span> z<span class="number">-1</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">numR</span><span class="params">(z:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span> (z==<span class="number">3</span>) <span class="number">0</span> <span class="keyword">else</span> z+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> rangeZ=arrayListOf(<span class="string">'E'</span>,<span class="string">'S'</span>,<span class="string">'W'</span>,<span class="string">'N'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">DoResult</span><span class="params">()</span></span>: Rover &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> i=rangeZ.indexOf(z)</span><br><span class="line">        <span class="keyword">val</span> ii=numR(i)</span><br><span class="line">        z=rangeZ[ii]</span><br><span class="line">        <span class="keyword">return</span> Rover(x,y,z)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="松紧耦合"><a href="#松紧耦合" class="headerlink" title="松紧耦合"></a>松紧耦合</h2><p>紧耦合：<br>Rover对象的L,R,M方法写在一起，需求改变时需要需直接改变方法<br>松耦合：<br>解耦函数架构，将每个方法抽象成功能类</p>
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>分三层<br>1.类名(抽象类用斜体)<br>2.字段属性<br>3.方法行为  </p>
+<h1 id="策略模式-Strategy-Mode"><a href="#策略模式-Strategy-Mode" class="headerlink" title="策略模式|Strategy Mode"></a>策略模式|Strategy Mode</h1><p>商场收银系统   </p>
+<h2 id="简单工厂实现"><a href="#简单工厂实现" class="headerlink" title="简单工厂实现"></a>简单工厂实现</h2><p>现金收费对象下有多个实现子类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 收费对象</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 收费<span class="params">(money:<span class="type">Money</span>)</span></span>=money</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> 正常收费：收费对象</span>&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 收费<span class="params">(money:<span class="type">Money</span>)</span></span>=money</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> 折扣收费</span>(折扣倍率：折扣)：收费对象&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 收费<span class="params">(money:<span class="type">Money</span>)</span></span>=money*折扣倍率</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> 返利收费</span>(返利条件，返利值)：收费对象&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 收费<span class="params">(money:<span class="type">Money</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(返利条件) money-=返利值</span><br><span class="line">        <span class="keyword">return</span> money</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object  收费工厂&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 收费对象生成<span class="params">(type)</span></span>:收费对象&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">when</span>(type)&#123;</span><br><span class="line">            <span class="string">"正常收费"</span>  -&gt; <span class="keyword">return</span> 正常收费()</span><br><span class="line">            <span class="string">"折扣收费"</span>  -&gt; <span class="keyword">return</span> 折扣收费(折扣倍率)</span><br><span class="line">            <span class="string">"返利收费"</span>  -&gt; <span class="keyword">return</span> 返利收费(返利条件，返利值)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义了算法家族，将其分别封装，之间可相互替换，不影响算法使用者<br>将上面的收费对象定义为接口即可，在需要的时候继承再new生成创建对象实例<br>策略者模式将所有算法封装在接口中，调用时取用其子类生成的实例  </p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>优点：<br>策略类层配合Const常量定义了可重用的方法，助于析取公共方法<br>简化单元测试</p>
+<h1 id="装饰模式-Decoration-mode"><a href="#装饰模式-Decoration-mode" class="headerlink" title="装饰模式|Decoration mode"></a>装饰模式|Decoration mode</h1><p>动态的给一个对象添加一些额外的职责<br>//比生成子类更灵活  </p>
+<p>通过继承原始类，覆写部分功能来实现</p>
+<p>Component类
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">ComPonent</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Operation</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ConcreteComponent 类
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteComponent</span>:<span class="title">Component</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Operation</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"具体操作"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Decorator 类
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Decorator</span>:<span class="title">Component</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> Compenent component;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetComponent</span>(<span class="params">Compenent component</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.component=component;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Operation</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(component!=<span class="literal">null</span>)</span><br><span class="line">        component.Operation();<span class="comment">//实际执行我们放入的component的operation</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ConcreteDecoratorA-装饰实体类
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteSecoratorA</span>:<span class="title">Decorator</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String addedState;          <span class="comment">//该类独有功能，不同于ConcreteSecoratorB</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Operation</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">base</span>.Operation();               <span class="comment">//先执行原component的operation,再执行本类的功能</span></span><br><span class="line">        addedState= <span class="string">"new star"</span>;</span><br><span class="line">        Console.WriteLine(<span class="string">"装饰对象A操作"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h2><p>装饰模式是为已有功能动态添加更多功能的方式。<br>每个装饰的功能再单独的类中，并包装了他所装饰的对象，可自由处理。</p>
+<h1 id="代理模式-proxy"><a href="#代理模式-proxy" class="headerlink" title="代理模式 | proxy"></a>代理模式 | proxy</h1><p>代理接口
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">intface GiveGift&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GiveDolls</span></span>()</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GiveFlowers</span></span>()</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GiveChocolate</span></span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>追求者类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pursuit</span></span>(<span class="keyword">val</span> girls: Girl):GiveGift &#123; </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveDolls</span><span class="params">()</span></span> = println(<span class="string">"<span class="subst">$&#123;girls.name&#125;</span>  送你洋娃娃"</span>)</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveFlowers</span><span class="params">()</span></span>= println(<span class="string">"<span class="subst">$&#123;girls.name&#125;</span>  送你洋鲜花"</span>)</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveChocolate</span><span class="params">()</span></span> = println(<span class="string">"<span class="subst">$&#123;girls.name&#125;</span>  送你巧克力"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Proxy</span></span>(girl: Girl):GiveGift &#123;</span><br><span class="line">    <span class="keyword">val</span> gg=Pursuit(girl)</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveDolls</span><span class="params">()</span></span>=gg.GiveDolls()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveFlowers</span><span class="params">()</span></span> =gg.GiveFlowers()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveChocolate</span><span class="params">()</span></span>=gg.GiveChocolate()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Proxy</span></span>(girl: Girl):GiveGift &#123;</span><br><span class="line">    <span class="keyword">val</span> gg=Pursuit(girl)</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveDolls</span><span class="params">()</span></span>=gg.GiveDolls()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveFlowers</span><span class="params">()</span></span> =gg.GiveFlowers()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GiveChocolate</span><span class="params">()</span></span>=gg.GiveChocolate()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>阿珍不认识追她的人，但是通过代理拿到了礼物</p>
+<h2 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h2><p>代理模式为其他对象提供了一种代理以控制这个对象的访问</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>1.远程代理：为一个对象再不同地址空间提供局部代表。
+同时隐藏一个对象存在不同地址空间的事实。<br>2.虚拟代理：按需创建大开销对象，来预缓存真实对象。(如预加载缓存框)<br>3.安全代理：控制真实对象访问时权限。
+4.智能指引：调用当前实例对象时，同时代理处理一些别的事。</p>
+<h1 id="工厂方法-Factory-Method"><a href="#工厂方法-Factory-Method" class="headerlink" title="工厂方法 | Factory Method"></a>工厂方法 | Factory Method</h1><h2 id="简单工厂VS工厂方法"><a href="#简单工厂VS工厂方法" class="headerlink" title="简单工厂VS工厂方法"></a>简单工厂VS工厂方法</h2><p>简单工厂下的计算器实现
+<img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/计算器的简单工厂结构.png" alt="avatar"></p>
+<p>工厂方法下的计算器实现
+<img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/计算器的工厂方法结构.png" alt="avatar"></p>
+<p>简单工厂的优点在于工厂类中包含了必要的判断逻辑，由客户端的条件去选择动态实例化。<br>例如计算器，如果只有‘+’，将‘+’给具体工厂，工厂会很快给出实例。<br>但是如果”求M数的N次方”功能，那么在运算工厂里需要加入case分支，违背了开放-封闭原则。<br>所以才有了工厂方法模式。<br>工厂方法克服了简单工厂违反开放-封闭原则的特点，又保持了封装对象创建过程的优点。<br>但是每加一个产品，就要加一个产品工厂的类，有额外的开发量增加。  </p>
+<h1 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 | Prototype"></a>原型模式 | Prototype</h1><p>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。<br>其实就是从一个对象再创建另外一个可定制的对象，且不需知道创建细节。<br><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/原型模式结构图.png" alt="原型模式结构图"></p>
+<h2 id="深浅复制"><a href="#深浅复制" class="headerlink" title="深浅复制"></a>深浅复制</h2><p>.Clone()方法会复制对象DataSet解构但不复制数据。(对象中的对象引用还是引用)<br>.Copy() 不止复制结构，也复制数据。<br>//kotlin中的clone需要原类型继承kotlin.Cloneable<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> : <span class="type">Cloneable &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">clone</span><span class="params">()</span></span>: Any &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h1><h2 id="Example-试卷复用与答案返回"><a href="#Example-试卷复用与答案返回" class="headerlink" title="Example-试卷复用与答案返回"></a>Example-试卷复用与答案返回</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">calss TestPaper&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">TestQuestion1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        plint(<span class="string">"第1题题干 选项：A,B,C,D"</span>)</span><br><span class="line">        plint(<span class="string">"答案=<span class="subst">$&#123;::Answer()&#125;</span>"</span>)   <span class="comment">//Answer来自以下方法</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">fun</span> <span class="title">Answer1</span><span class="params">()</span></span>=<span class="string">"C"</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="说明-3"><a href="#说明-3" class="headerlink" title="说明"></a>说明</h2><p> 模板方法模式：定义一个操作中算法的骨架，将一些步骤延迟到子类中。<br> 模板方法使得子类可以不改变一个算法的结构即可重定义算法的某些特征步骤</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>原始类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractClass</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">PrimitiveOperation1</span><span class="params">()</span></span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">PrimitiveOperation2</span><span class="params">()</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">TemplateMethond</span><span class="params">()</span></span>&#123;      <span class="comment">//模板方法-逻辑骨架，具体由子类去实现</span></span><br><span class="line">        PrimitiveOperation1()</span><br><span class="line">        PrimitiveOperation2()</span><br><span class="line">        plint(<span class="string">"done"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteClassA</span>:<span class="type">AbstractClass&#123;</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">PrimitiveOperation1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">PrimitiveOperation2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">TemplateMethond</span><span class="params">()</span></span>&#123;</span><br><span class="line">        PrimitiveOperation1()</span><br><span class="line">        PrimitiveOperation2()</span><br><span class="line">        plint(<span class="string">"done"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模板方法通过把不变行为搬移到超类，去除子类重复代码。<br>提供很好的代码复用平台。<br>当不变行为和可变行为再方法子类实现中混合在一起，不变行为会在子类中重复出现。
+模板方法可以将这些行为搬移到单一的地方，帮助子类摆脱重复不变形为的纠缠。</p>
+<h1 id="外观模式-Facade"><a href="#外观模式-Facade" class="headerlink" title="外观模式 | Facade"></a>外观模式 | Facade</h1><p>为系统中一组接口提供一个一致的界面，此模式定义了一个高层接口，使得子系统增加易用。<br><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/外观模式.png" alt="外观模式"></p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>子系统类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem1</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Method1</span><span class="params">()</span></span>=print(<span class="string">"子系统方法1"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Method2</span><span class="params">()</span></span>=print(<span class="string">"子系统方法2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem3</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Method3</span><span class="params">()</span></span>=print(<span class="string">"子系统方法3"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem4</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Method4</span><span class="params">()</span></span>=print(<span class="string">"子系统方法4"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>外观类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Facade</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> subSystem1:SubSystem1</span><br><span class="line">    <span class="keyword">val</span> subSystem2:SubSystem2</span><br><span class="line">    <span class="keyword">val</span> subSystem3:SubSystem3</span><br><span class="line">    <span class="keyword">val</span> subSystem4:SubSystem4</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">MethodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">        subSystem1.Method1()</span><br><span class="line">        subSystem2.Method2()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">MethodB</span><span class="params">()</span></span>&#123;</span><br><span class="line">        subSystem3.Method3()</span><br><span class="line">        subSystem4.Method4()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="说明-4"><a href="#说明-4" class="headerlink" title="说明"></a>说明</h2><p>外观模式，完美体现了依赖倒转原则和迪米特法则思想，是常用的设计模式。<br>1.设计初期，有意识的将不同层分离。(在数据访问层，业务逻辑层，表示层)进行外观逻辑包装。<br>2.开发阶段，因子系统太复杂可使用外观模式提供简单接口。<br>3.维护大型遗留系统，开发新的外观结构类，为老代码提供方便清晰的接口。  </p>
+<h1 id="建造者模式-生成器模式-Builder"><a href="#建造者模式-生成器模式-Builder" class="headerlink" title="建造者模式 | 生成器模式 Builder"></a>建造者模式 | 生成器模式 Builder</h1><p><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/生成器模式.png" alt="建造者模式结构图"></p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>Product -产品，由多个部件组成
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="keyword">val</span> parts= MutableList&lt;String&gt;(<span class="number">0</span>,&#123;<span class="string">""</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Add</span><span class="params">(part:<span class="type">String</span>)</span></span>=parts.add(part)</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        println(<span class="string">"产品创建"</span>)</span><br><span class="line">        <span class="keyword">for</span> (part <span class="keyword">in</span> parts)</span><br><span class="line">            print(part+<span class="string">" |"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Builder - 抽象建造者 确定产品由A和B组成，声明得到产品建造后结果的方法
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> &#123;</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartA</span></span>()</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartB</span></span>()</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetResult</span></span>():Product</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ConcreteBuilder0,1 - 具体建造者类
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteBuilder0</span>:<span class="type">Builder</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> product=Product()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartA</span><span class="params">()</span></span>&#123;</span><br><span class="line">        product.Add(<span class="string">"partA"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartB</span><span class="params">()</span></span> &#123;</span><br><span class="line">        product.Add(<span class="string">"partB"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetResult</span><span class="params">()</span></span>=product</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteBuilder1</span>:<span class="type">Builder</span></span>() &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> product=Product()</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartA</span><span class="params">()</span></span>&#123;</span><br><span class="line">        product.Add(<span class="string">"partX"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">BuildPartB</span><span class="params">()</span></span> &#123;</span><br><span class="line">        product.Add(<span class="string">"partY"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetResult</span><span class="params">()</span></span>=product</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Director - 指挥者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span></span>(builder:Builder) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Construct</span><span class="params">(builder:<span class="type">Builder</span>)</span></span>&#123;</span><br><span class="line">        builder.BuildPartA()</span><br><span class="line">        builder.BuildPartB()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>场景：
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> builder=ConcreteBuilder0()</span><br><span class="line">    <span class="keyword">val</span> builder1=ConcreteBuilder1()</span><br><span class="line">    <span class="keyword">val</span> director=Director(builder)</span><br><span class="line">    </span><br><span class="line">    director.Construct(builder)</span><br><span class="line">    <span class="keyword">val</span> p0=builder.GetResult()</span><br><span class="line">    p0.Show()</span><br><span class="line"></span><br><span class="line">    director.Construct(builder1)</span><br><span class="line">    <span class="keyword">val</span> p1=builder.GetResult()</span><br><span class="line">    p1.Show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>建造者模式是在<br>当<br>创建复杂对象的算法<br>    应该独立于该对象的组成部分及它们装配方式时<br>    适用的模式</p>
+<h1 id="观察者模式-Publish-Subscribe"><a href="#观察者模式-Publish-Subscribe" class="headerlink" title="观察者模式 | Publish/Subscribe"></a>观察者模式 | Publish/Subscribe</h1><p>观察者模式是一种一对多的依赖关系，让多个观察者同时监听某一个主题对象。
+这个主题对象在状态发生变化时，会通知所有观察者对象,使它们能够自动更新自己。<br><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/观察者模式.png" alt="观察者模式"><br>具体的场景：老板回来了，前台通知同事别玩了<br><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/具体场景-老板回来了.png" alt="老板回来了"></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>Object:抽象观察者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>(</span><br><span class="line">    <span class="keyword">protected</span>  <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">protected</span>  <span class="keyword">val</span> sub: 主题通知</span><br><span class="line">)&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Subject: 主题,通知
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> 主题通知 </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 增加观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 移除观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> 通知<span class="params">()</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> 通知内容:String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Boss: 通知者之一(可为前台或老板)
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boss</span>:<span class="type">主题通知 &#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> 观察者列表=MutableList&lt;Observer&gt;(<span class="number">0</span>,&#123;ObserverStoker(<span class="string">""</span>,Boss())&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 增加观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span> &#123;</span><br><span class="line">        观察者列表.add(观察者)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 移除观察者<span class="params">(观察者: <span class="type">Observer</span>)</span></span> &#123;</span><br><span class="line">        观察者列表.remove(观察者)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 通知<span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (ob <span class="keyword">in</span> 观察者列表) ob.更新()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> 通知内容=<span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体观察者:股民同事,球迷同事
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 股民同事</span>(name:String, sub: 主题通知): Observer(name, sub) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span> &#123;</span><br><span class="line">        println(<span class="string">"<span class="subst">$&#123;sub.通知内容&#125;</span> + <span class="variable">$name</span> 关闭股票行情,继续工作"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> 球迷同事</span>(name:String, sub: 主题通知): Observer(name,sub) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> 更新<span class="params">()</span></span> &#123;</span><br><span class="line">        println(<span class="string">"<span class="subst">$&#123;sub.通知内容&#125;</span> + <span class="variable">$name</span> 关闭NBA直播,继续工作"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通知实现
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> 大BOSS=Boss()     <span class="comment">//老板</span></span><br><span class="line">    <span class="keyword">val</span> 韭菜=股民同事(<span class="string">"韭菜"</span>,大BOSS)  <span class="comment">//股民同事</span></span><br><span class="line">    <span class="keyword">val</span> 林书豪=股民同事(<span class="string">"林书豪"</span>,大BOSS)   <span class="comment">//NBA同事</span></span><br><span class="line"></span><br><span class="line">    大BOSS.增加观察者(林书豪)</span><br><span class="line">    大BOSS.增加观察者(韭菜)</span><br><span class="line"></span><br><span class="line">    大BOSS.移除观察者(韭菜)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//老板回来了</span></span><br><span class="line">    大BOSS.通知内容=<span class="string">"大BOSS回来了"</span></span><br><span class="line">    <span class="comment">//通知</span></span><br><span class="line">    大BOSS.通知()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果:
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"D:\Program Files\Java\jdk1.8.0_144\bin\java.exe"</span> </span><br><span class="line">大BOSS回来了 , 林书豪 关闭NBA直播,继续工作</span><br><span class="line"></span><br><span class="line">Process finished with <span class="keyword">exit</span> code <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h2><p>抽象通知者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> observers= MutableList&lt;Observer&gt;(<span class="number">0</span>,&#123;Observer1(Subject1(<span class="string">""</span>),<span class="string">""</span>)&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Attach</span><span class="params">(ob: <span class="type">Observer</span>)</span></span>&#123;</span><br><span class="line">        observers.add(ob)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Detach</span><span class="params">(ob: <span class="type">Observer</span>)</span></span>&#123;</span><br><span class="line">        observers.remove(ob)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Notify</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (o <span class="keyword">in</span> observers)</span><br><span class="line">            o.update()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象观察者
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span>&#123;</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span></span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体通知者
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Subject1(var <span class="keyword">state</span>:String) :Subject()</span><br></pre></td></tr></table></figure></p>
+<p>具体观察者
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer1</span></span>(</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">val</span> subject: Subject1,</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">val</span> name:String        ):Observer() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> observerDo:String=<span class="string">""</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">()</span></span> &#123;</span><br><span class="line">            observerDo=subject.state</span><br><span class="line">            println(<span class="string">"观察者<span class="variable">$name</span> 的新状态是 <span class="variable">$observerDo</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体使用
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> s=Subject1(<span class="string">"ABC"</span>)</span><br><span class="line"></span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"X"</span>))</span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"Y"</span>))</span><br><span class="line">    s.Attach(Observer1(s,<span class="string">"Z"</span>))</span><br><span class="line"></span><br><span class="line">    s.Notify()</span><br><span class="line">&#125;</span><br><span class="line">****Out:</span><br><span class="line">    观察者X 的新状态是 ABC</span><br><span class="line">    观察者Y 的新状态是 ABC</span><br><span class="line">    观察者Z 的新状态是 ABC</span><br><span class="line">****</span><br></pre></td></tr></table></figure></p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>   将一个系统分割成一系列相互协作的类有一个副作用,即需要维护相关对象的一致性,
+   如果我们为了维护一致性使各类紧密耦合,会给维护,扩展,重用带来不便.<br>   &emsp;&emsp;
+   观察者模式中,一个通知者可以有任意数目的观察者,并可以及时被通知.<br>   &emsp;&emsp;
+   Subject发出通知时不必知道谁是观察者,一个具体观察者也不需要知道其他观察者<br>场景:<br>    &emsp;&emsp;
+    1.当一个对象改变需要同时改变其他对象时,且不知道集体多少对象需要改变<br>    &emsp;&emsp;
+    2.当一个抽象模型有两方面,一方面依赖另一方面,此时观察者模式可以将这两者封装在独立的对象中使其独自改变和复用</p>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><p>   &emsp;&emsp;
+   观察者模式即解除耦合.让耦合的双方依赖抽象而非具体,从而使各自的变化都不会影响到另一边. </p>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>&emsp;&emsp;
+    委托是一种引用方法的类型。一旦位委托分配了方法,委托将与该方法具有完全相同的行为。
+委托方法的使用可以像其他任何方法一样,具有参数和返回值。
+委托可以看作是对函数的抽象,是函数的’类,委托的实力将代表一个具体的函数。  </p>
+<p>&emsp;&emsp;
+    一个委托可以搭载多个方法，所有方法被一次唤起，可以使得委托对象所搭载的方法并不需要属于同一个类。</p>
+<h1 id="抽象工厂-AbstractFactory"><a href="#抽象工厂-AbstractFactory" class="headerlink" title="抽象工厂 | AbstractFactory"></a>抽象工厂 | AbstractFactory</h1><p>抽象工厂模式(Abstract Factory)：<br>&emsp;&emsp;
+    提供一个创建一系列相关或互相依赖对象的接口，而无需指定他们具体的类。</p>
+<h2 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h2><p>&emsp;&emsp;
+    SQL读写数据场景<br>    不同sql数据库的sql语句不一，导致更换数据库和架构时的兼容改写<br>    使用简单工厂模式在两个数据库之间切换（SqlServer,Access）</p>
+<h3 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h3><p><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/切换数据库-简单工厂模式.png" alt="数据库切换-简单工厂">  </p>
+<p>IUser- 用于客户端访问，解除于具体数据库访问耦合<br>两个User用于 访问不同数据库的User</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">var</span> id:<span class="built_in">Int</span>, <span class="keyword">var</span> name:String)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user:<span class="type">User</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserSqlserver</span>:<span class="type">IUser&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中给User表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中根据ID得到User表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAccess</span>:<span class="type">IUser&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中给User表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetUser</span><span class="params">(id:<span class="type">Int</span>)</span></span>:User &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中根据ID得到User表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IFactory -定义一个创建访问User表对象的抽象工厂接口<br>两个不同的Factory用于实例化上面对应的User
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>:IUser</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySqlServer</span>:<span class="type">IFactory&#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserSqlserver()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryAcess</span>:<span class="type">IFactory&#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserAccess()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user=User(<span class="number">0</span>,<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> factory=FactorySqlServer()</span><br><span class="line"><span class="keyword">val</span> iu=factory.CreateUser()</span><br><span class="line"></span><br><span class="line">iu.Insert(user)</span><br><span class="line">iu.GetUser(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<pre><code>输出
+在SQL Server中给User表加一条记录
+在SQL Server中根据ID得到User表一条记录
+</code></pre><h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><p><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/切换数据库-抽象工厂模式.png" alt="数据库切换-抽象工厂">  </p>
+<p>IDepartment- 客户端访问，解除具体数据库耦合<br>两个不同的Depart用于访问具体的数据库
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span></span>(<span class="keyword">var</span> id: <span class="built_in">Int</span>, <span class="keyword">var</span> name: String)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DepartmentSqlServer</span> : <span class="type">IDepartment &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中给Department表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department &#123;</span><br><span class="line">        println(<span class="string">"在SQL Server中根据ID得到Department表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DepartmentAccess</span> : <span class="type">IDepartment &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">Insert</span><span class="params">(department: <span class="type">Department</span>)</span></span> &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中给Department表加一条记录"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">GetDepartment</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Department &#123;</span><br><span class="line">        println(<span class="string">"在Access Server中根据ID得到Department表一条记录"</span>)</span><br><span class="line">        <span class="keyword">return</span> Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在IFactory中加入了Department工厂
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySqlServer</span> : <span class="type">IFactory &#123;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserSqlserver()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment &#123;</span><br><span class="line">        <span class="keyword">return</span> DepartmentSqlServer()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryAcess</span> : <span class="type">IFactory &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateUser</span><span class="params">()</span></span>: IUser &#123;</span><br><span class="line">        <span class="keyword">return</span> UserAccess()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">CreateDepartment</span><span class="params">()</span></span>: IDepartment &#123;</span><br><span class="line">        <span class="keyword">return</span> DepartmentAccess()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>处理端代码
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line">    <span class="keyword">val</span> department = Department(<span class="number">0</span>, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> factory = FactoryAcess()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//以下已与具体的数据库访问解除了依赖</span></span><br><span class="line">    <span class="keyword">val</span> iu = factory.CreateUser()</span><br><span class="line">    iu.Insert(user)</span><br><span class="line">    iu.GetUser(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> id = factory.CreateDepartment()</span><br><span class="line">    id.Insert(department)</span><br><span class="line">    id.GetDepartment(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>最终输出：  </p>
+<pre><code>在Access Server中给User表加一条记录
+在Access Server中根据ID得到User表一条记录
+
+在Access Server中给Department表加一条记录
+在Access Server中根据ID得到Department表一条记录
+</code></pre><h2 id="结构-2"><a href="#结构-2" class="headerlink" title="结构"></a>结构</h2><p><img src="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/抽象工厂结构图.png" alt="抽象工厂结构图"> 
+&emsp;&emsp;
+    AbstractProductA与AbstractProductB是两个抽象产品，
+    因为他们都可能有几种不同实现，如场景中的User和Department；
+    ProductA1,ProductA2及ProductB1,ProductB2是对两个抽象产品的具体分类实现。    </p>
+<p>&emsp;&emsp;
+    IFactory时抽象工厂接口，其内包含所有的产品创建抽象方法；
+    而ConcreteFactory1和ConcreteFactory2是具体的工厂，同场景中的FactoryAccess和FactorySqlServer。  </p>
+<p>&emsp;&emsp;
+    通常在运行时创建具体工厂类，具体工厂类在创建具体特定实现的产品对象。
+    为了创建不同产品对象，可以使用不同具体工厂。    </p>
+<h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><p>易于交换产品系列：<br>    每个具体工厂类只会在初始化时出现一次，故改变具体工厂十分容易。
+    只需改变具体工厂的即可使用不同的工厂配置。<br>实例化过程与controler分离：
+    controler通过其抽象接口草丛实例，产品具体类名由具体工厂实现分离。  </p>
+<p>缺点：每增加一个抽象工厂，需在大部分文件中添加关系代码，工厂数量变大后难以管理。</p>
+<h2 id="依赖注入-Dependency-Injection"><a href="#依赖注入-Dependency-Injection" class="headerlink" title="依赖注入 | Dependency Injection"></a>依赖注入 | Dependency Injection</h2>
+      
+    </div>
+    
+    
+    
+
+    <div>
+          
+            
+    <div class="my_post_copyright">
+      <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+      <!-- JS库 sweetalert 可修改路径 -->
+      <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <p><span>本文标题:</span><a href="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/">设计模式 Design pattern</a></p>
+      <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+      <p><span>发布时间:</span>2018年08月28日 - 00:08</p>
+      <p><span>最后更新:</span>2020年03月16日 - 21:03</p>
+      <p><span>原始链接:</span><a href="/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/" title="设计模式 Design pattern">http://blog.gitmmp.com/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/</a>
+        <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/08/28/基础 Base/20180828 - 设计模式 Design pattern/" aria-label="复制成功！"></i></span>
+      </p>
+      <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+    </div>
+    <script>
+        var clipboard = new Clipboard('.fa-clipboard');
+          $(".fa-clipboard").click(function(){
+          clipboard.on('success', function(){
+            swal({
+              title: "",
+              text: '复制成功',
+              icon: "success",
+              showConfirmButton: true
+              });
+            });
+        });
+    </script>
+
+
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/R/" rel="tag"><i class="fa fa-tag"></i> R</a>
+          
+            <a href="/tags/ML/" rel="tag"><i class="fa fa-tag"></i> ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/08/虚拟机 Jvm/20180808-kotlin隐性优化 Kotlin's hidden costs/" rel="next" title="kotlin隐性优化 Kotlin's hidden costs">
+                <i class="fa fa-chevron-left"></i> kotlin隐性优化 Kotlin's hidden costs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTA2Ni8xNTU5Mw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+              <p class="site-description motion-element" itemprop="description">持续性踌躇满志  间歇性混吃等死</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hongxii" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hongxiii@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则"><span class="nav-number">1.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则-SRP"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则|SRP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开放-封闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开放-封闭原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖倒转原则"><span class="nav-number">1.3.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迪米特法则-最少知识原则-LoD"><span class="nav-number">1.4.</span> <span class="nav-text">迪米特法则(最少知识原则)[LoD]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#体现"><span class="nav-number">1.4.1.</span> <span class="nav-text">体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.5.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#活字印刷"><span class="nav-number">1.5.1.</span> <span class="nav-text">活字印刷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-number">1.5.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务封装"><span class="nav-number">1.5.3.</span> <span class="nav-text">业务封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端封装"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">服务端封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作界面封装"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">操作界面封装</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单工厂模式-Simple-factory"><span class="nav-number">2.</span> <span class="nav-text">简单工厂模式|Simple factory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式封装"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#松紧耦合"><span class="nav-number">2.2.</span> <span class="nav-text">松紧耦合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML类图"><span class="nav-number">2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy-Mode"><span class="nav-number">3.</span> <span class="nav-text">策略模式|Strategy Mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂实现"><span class="nav-number">3.1.</span> <span class="nav-text">简单工厂实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">3.2.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">3.3.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰模式-Decoration-mode"><span class="nav-number">4.</span> <span class="nav-text">装饰模式|Decoration mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-1"><span class="nav-number">4.1.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-proxy"><span class="nav-number">5.</span> <span class="nav-text">代理模式 | proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-2"><span class="nav-number">5.1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">5.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法-Factory-Method"><span class="nav-number">6.</span> <span class="nav-text">工厂方法 | Factory Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂VS工厂方法"><span class="nav-number">6.1.</span> <span class="nav-text">简单工厂VS工厂方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">7.</span> <span class="nav-text">原型模式 | Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅复制"><span class="nav-number">7.1.</span> <span class="nav-text">深浅复制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法"><span class="nav-number">8.</span> <span class="nav-text">模板方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-试卷复用与答案返回"><span class="nav-number">8.1.</span> <span class="nav-text">Example-试卷复用与答案返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-3"><span class="nav-number">8.2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">8.3.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">9.</span> <span class="nav-text">外观模式 | Facade</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">9.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-4"><span class="nav-number">9.2.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式-生成器模式-Builder"><span class="nav-number">10.</span> <span class="nav-text">建造者模式 | 生成器模式 Builder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">10.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">10.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Publish-Subscribe"><span class="nav-number">11.</span> <span class="nav-text">观察者模式 | Publish/Subscribe</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">11.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构-1"><span class="nav-number">11.2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">11.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-2"><span class="nav-number">11.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件委托"><span class="nav-number">11.5.</span> <span class="nav-text">事件委托</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象工厂-AbstractFactory"><span class="nav-number">12.</span> <span class="nav-text">抽象工厂 | AbstractFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景-1"><span class="nav-number">12.1.</span> <span class="nav-text">场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂"><span class="nav-number">12.1.1.</span> <span class="nav-text">简单工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂"><span class="nav-number">12.1.2.</span> <span class="nav-text">抽象工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构-2"><span class="nav-number">12.2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点-1"><span class="nav-number">12.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入-Dependency-Injection"><span class="nav-number">12.4.</span> <span class="nav-text">依赖注入 | Dependency Injection</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://gitmmp.com">Gitmmp</a> 个人站点</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash; <a class="theme-link" target="_blank" href="https://hongxii.github.io">Blog</a> v5.1.4</div>
+
+
+
+hex
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+        appKey: 'tK5voXTFX0mLH426PkiDHTBY',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

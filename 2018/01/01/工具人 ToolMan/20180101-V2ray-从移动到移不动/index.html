@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="R,ML,Android,Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础执行脚本该脚本自动安装unzip和daemon(go.sh)[https://install.direct/go.sh] 配置及使用12345配置修改：vim /etc/v2ray/config.json  运行：service v2ray start|stop|status|reload|restart|force-reload 重新执行一遍安装脚本就可以更新了 多用户更改clients中的">
+<meta name="keywords" content="R,ML,Android,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V2ray-从移动到移不动">
+<meta property="og:url" content="http://blog.gitmmp.com/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/index.html">
+<meta property="og:site_name" content="虹西博客">
+<meta property="og:description" content="基础执行脚本该脚本自动安装unzip和daemon(go.sh)[https://install.direct/go.sh] 配置及使用12345配置修改：vim /etc/v2ray/config.json  运行：service v2ray start|stop|status|reload|restart|force-reload 重新执行一遍安装脚本就可以更新了 多用户更改clients中的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-16T13:26:46.074Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="V2ray-从移动到移不动">
+<meta name="twitter:description" content="基础执行脚本该脚本自动安装unzip和daemon(go.sh)[https://install.direct/go.sh] 配置及使用12345配置修改：vim /etc/v2ray/config.json  运行：service v2ray start|stop|status|reload|restart|force-reload 重新执行一遍安装脚本就可以更新了 多用户更改clients中的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.gitmmp.com/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/">
+
+
+
+
+
+  <title>V2ray-从移动到移不动 | 虹西博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/hongxii" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">虹西博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">霜落熊升树 | 林空鹿饮溪</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">V2ray-从移动到移不动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T00:00:00+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具人-ToolMan/" itemprop="url" rel="index">
+                    <span itemprop="name">工具人 ToolMan</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h2><p>该脚本自动安装unzip和daemon<br>(go.sh)[<a href="https://install.direct/go.sh]" target="_blank" rel="noopener">https://install.direct/go.sh]</a></p>
+<h2 id="配置及使用"><a href="#配置及使用" class="headerlink" title="配置及使用"></a>配置及使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">配置修改：</span><br><span class="line">vim /etc/v2ray/config.json  </span><br><span class="line"></span><br><span class="line">运行：</span><br><span class="line">service v2ray start|stop|status|reload|restart|force-reload</span><br></pre></td></tr></table></figure>
+<p>重新执行一遍安装脚本就可以更新了</p>
+<h2 id="多用户"><a href="#多用户" class="headerlink" title="多用户"></a>多用户</h2><p>更改clients中的json 对象数</p>
+<h2 id="Linux检查json-格式"><a href="#Linux检查json-格式" class="headerlink" title="Linux检查json 格式"></a>Linux检查json 格式</h2><p>jq . config.json</p>
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 1080, // 监听端口</span><br><span class="line">      "protocol": "socks", // 入口协议为 SOCKS 5</span><br><span class="line">      "sniffing": &#123;</span><br><span class="line">        "enabled": true,</span><br><span class="line">        "destOverride": ["http", "tls"]</span><br><span class="line">      &#125;,</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "auth": "noauth"  //socks的认证设置，noauth 代表不认证，由于 socks 通常在客户端使用，所以这里不认证</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "vmess", // 出口协议</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "serveraddr.com", // 服务器地址，请修改为你自己的服务器 IP 或域名</span><br><span class="line">            "port": 16823,  // 服务器端口</span><br><span class="line">            "users": [</span><br><span class="line">              &#123;</span><br><span class="line">                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，必须与服务器端配置相同</span><br><span class="line">                "alterId": 64 // 此处的值也应当与服务器相同</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端配置中的 inbounds，port 为 1080，即 V2Ray 监听了一个端口 1080，协议是 socks。
+之前我们已经把浏览器的代理设置好了（SOCKS Host: 127.0.0.1，Port: 1080），
+假如访问了 google.com，浏览器就会发出一个数据包打包成 socks 协议发送到本机（127.0.0.1指的本机，localhost）的 1080 端口，
+这个时候数据包就会被 V2Ray 接收到。  </p>
+<p>再看 outbounds，protocol 是 vmess，说明 V2Ray 接收到数据包之后，
+要将数据包打包成 VMess 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），
+然后发往服务器地址为 serveraddr.com 的 16823 端口。
+服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
+在客户端配置的 inbounds 中，有一个 “sniffing” 字段，V2Ray 手册解释为“流量探测，根据指定的流量类型，重置所请求的目标”。
+这话不太好理解，简单说这东西就是从网络流量中识别出域名。这个 sniffing 有两个用处：</p>
+<p>1.解决 DNS 污染；
+2.对于 IP 流量可以应用后文提到的域名路由规则；
+识别 BT 协议，根据自己的需要拦截或者直连 BT 流量(后文有一节专门提及)。
+如果这段话不懂，没关系，照着写吧。</p>
+<p>##服务器配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 16823, // 服务器监听端口</span><br><span class="line">      "protocol": "vmess",    // 主传入协议</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，客户端与服务器必须相同</span><br><span class="line">            "alterId": 64</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "freedom",  // 主传出协议</span><br><span class="line">      "settings": &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着看服务器，服务器配置的 id 是 b831381d-6324-4d53-ad4f-8cda48b30811，
+所以 V2Ray 服务器接收到客户端发来的数据包时就会尝试用 b831381d-6324-4d53-ad4f-8cda48b30811 解密，
+如果解密成功再看一下时间对不对，对的话就把数据包发到 outbound 去。  </p>
+<p>outbound.protocol 是 freedom（freedom 的中文意思是自由，在这里姑且将它理解成直连吧），数据包就直接发到 google.com 了。  </p>
+<p>实际上数据包的流向就是：<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;浏览器&#125; &lt;--<span class="function"><span class="params">(socks)</span>--&gt;</span> &#123;V2Ray 客户端 inbound &lt;<span class="function">-&gt;</span> V2Ray 客户端 outbound&#125; &lt;--<span class="function"><span class="params">(VMess)</span>--&gt;</span>  &#123;V2Ray 服务器 inbound &lt;<span class="function">-&gt;</span> V2Ray 服务器 outbound&#125; &lt;--<span class="function"><span class="params">(Freedom)</span>--&gt;</span> &#123;目标网站&#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置中还有一个 alterId 参数，这个参数主要是为了加强防探测能力。<br>理论上 alterId 越大越好，但越大就约占内存(只针对服务器，客户端不占内存)，所以折中之下设一个中间值才是最好的。
+那么设多大才是最好的？其实这个是分场景的，我没有严格测试过这个，不过根据经验，alterId 的值设为 30 到 100 之间应该是比较合适的。
+alterId 的大小要保证客户端的小于等于服务器的。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>无论是客户端还是服务器，配置文件都由两部分内容组成： inbounds 和 outbounds。<br>V2Ray 没有使用常规代理软件的 C/S（即客户端/服务器）结构，它既可以当做服务器也可以作为客户端。<br>于是我们可以从另一个角度来理解，认为每一个 V2Ray 都是一个节点，
+inbound 是关于如何与上一个节点连接的配置，outbound 是关于如何与下一个节点连接的配置。<br>对于第一个节点，inbound 与浏览器连接；对于最后一个节点，outbound与目标网站连接。<br>inbounds 和 outbounds 是 inbound 和 outbound 的集合，意味着每一个 V2Ray 节点都可以有多个入口和出口。<br>本例当中的入口和出口都只有一个，这是为了便于说明和理解。</p>
+<p>##注意
+id 为 UUID 格式，请使用软件生成，不要尝试自己造一个，否则很大程度上造出一个错误的格式来。
+VMess 协议可以设定加密方式，但 VMess 不同的加密方式对于过墙没有明显差别，
+本节没有给出相关配置方式（因为这不重要，默认情况下 VMess 会自己选择一种比较合适的加密方式），具体配置可见 V2Ray 手册，不同加密方式的性能可参考性能测试。</p>
+<h2 id="shadowsocks的客户端和服务端设置"><a href="#shadowsocks的客户端和服务端设置" class="headerlink" title="shadowsocks的客户端和服务端设置"></a>shadowsocks的客户端和服务端设置</h2><p>因为协议漏洞，Shadowsocks 已放弃 OTA(一次认证) 转而使用 AEAD，
+V2Ray 的 Shadowsocks 协议已经跟进 AEAD，但是仍然兼容 OTA。
+建议使用 AEAD (method 为 aes-256-gcm、aes-128-gcm、chacha20-poly1305 即可开启 AEAD), 使用 AEAD 时 OTA 会失效。  </p>
+<p>可以使用 V2Ray 的传输层配置（详见高级篇），但如果这么设置了将与原版 Shadowsocks 不兼容（兼容 Shadowsocks 新增的 v2ray-plugin插件)。</p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 1080, // 监听端口</span><br><span class="line">      "protocol": "socks", // 入口协议为 SOCKS 5</span><br><span class="line">      "sniffing": &#123;</span><br><span class="line">        "enabled": true,</span><br><span class="line">        "destOverride": ["http", "tls"]</span><br><span class="line">      &#125;,</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "auth": "noauth"  // 不认证</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"shadowsocks"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"servers"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "serveraddr.com", // Shadowsocks 的服务器地址</span><br><span class="line">            "method": "aes-128-gcm", // Shadowsocks 的加密方式</span><br><span class="line">            "ota": true, // 是否开启 OTA，true 为开启</span><br><span class="line">            "password": "sspasswd", // Shadowsocks 的密码</span><br><span class="line">            "port": 1024  </span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 1024, // 监听端口</span><br><span class="line">      "protocol": "shadowsocks",</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "method": "aes-128-gcm",</span><br><span class="line">        "ota": true, // 是否开启 OTA</span><br><span class="line">        "password": "sspasswd"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,  </span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h2><p>在与 “inbounds” 与 “outbounds” 同级元素中加入以下json对象<br>客户端与服务端均可加入<br>windows路径：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"log": &#123;</span><br><span class="line">    "loglevel": "warning", // 日志级别</span><br><span class="line">    "access": "D:\\v2ray\\access.log",  // 这是 Windows 系统的路径</span><br><span class="line">    "error": "D:\\v2ray\\error.log"</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>linux路径：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"log": &#123;</span><br><span class="line">    "loglevel": "warning",</span><br><span class="line">    "access": "/var/log/v2ray/access.log", // 这是 Linux 的路径</span><br><span class="line">    "error": "/var/log/v2ray/error.log"</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="log选项"><a href="#log选项" class="headerlink" title="log选项"></a>log选项</h3><p>　loglevel：日志级别，分别有5个，本例中设定的是 warning　　
+　debug：最详细的日志信息，专用于软件调试　　
+　info：比较详细的日志信息，可以看到 V2Ray 详细的连接信息　　
+　warning：警告信息。轻微的问题信息，经我观察 warning 级别的信息大多是网络错误。推荐使用 warning　　
+　error：错误信息。比较严重的错误信息。当出现 error 时该问题足以影响 V2Ray 的正常运行　　
+　none：空。不记录任何信息　　
+　access：将访问的记录保存到文件中，这个选项的值是要保存到的文件的路径　　
+　error：将错误的记录保存到文件中，这个选项的值是要保存到的文件的路径　　
+　error、access 字段留空，并且在手动执行 V2Ray 时，V2Ray 会将日志输出在 stdout 即命令行中（terminal、cmd 等），便于排错　　</p>
+<h2 id="路由功能（客户端）"><a href="#路由功能（客户端）" class="headerlink" title="路由功能（客户端）"></a>路由功能（客户端）</h2><p>转向V2ray的outbounds
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">"outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">16823</span>,  </span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,  </span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
+<p>直连的outbounds
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">"outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "freedom", //原来是 VMess，现在改成 freedom</span><br><span class="line">      "settings": &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>原有的流向
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;浏览器&#125; &lt;--(socks)--&gt; &#123;V2Ray 客户端 inbound &lt;-&gt; V2Ray 客户端 outbound&#125; &lt;--(VMess)--&gt;  &#123;V2Ray 服务器 inbound &lt;-&gt; V2Ray 服务器 outbound&#125; &lt;--(Freedom)--&gt; &#123;目标网站&#125;</span><br></pre></td></tr></table></figure></p>
+<p>直连的流向
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;浏览器&#125; &lt;--(socks)--&gt; &#123;V2Ray 客户端 inbound &lt;-&gt; V2Ray 客户端 outbound&#125; &lt;--(Freedom)--&gt; &#123;目标网站&#125;</span><br></pre></td></tr></table></figure></p>
+<p>阻止用的outbounds - 来什么吞掉什么
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">"outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>多个出口配置<br>同时配置多个出口时会默认使用第一个出口设置<br>下文会讲如何有选择地进行路由配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span>: &#123;</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span>,</span><br><span class="line">    <span class="attr">"access"</span>: <span class="string">"D:\\v2ray\\access.log"</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"D:\\v2ray\\error.log"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span>  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [ </span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "vmess", // 出口协议</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "serveraddr.com", // 服务器 IP 地址</span><br><span class="line">            "port": 16823,  // 服务器端口</span><br><span class="line">            "users": [</span><br><span class="line">              &#123;</span><br><span class="line">                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，须与服务器端配置相同</span><br><span class="line">                "alterId": 64</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="国内直连"><a href="#国内直连" class="headerlink" title="国内直连"></a>国内直连</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span>: &#123;</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span>,</span><br><span class="line">    <span class="attr">"access"</span>: <span class="string">"D:\\v2ray\\access.log"</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"D:\\v2ray\\error.log"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span>,</span><br><span class="line">        <span class="attr">"udp"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">16823</span>,  </span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"direct"</span> //如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了</span><br><span class="line">    &#125;    </span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"routing"</span>: &#123;</span><br><span class="line">    <span class="attr">"domainStrategy"</span>: <span class="string">"IPOnDemand"</span>,</span><br><span class="line">    <span class="attr">"rules"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [<span class="string">"geosite:cn"</span>] // 中国大陆主流网站的域名</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"ip"</span>: [</span><br><span class="line">          <span class="string">"geoip:cn"</span>, // 中国大陆的 IP</span><br><span class="line">          <span class="string">"geoip:private"</span> // 私有地址 IP，如路由器等</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点在 rules，我们要设置的路由规则就放在这里，
+注意这是一个数组，也就是说可以设置多个路由规则
+当访问一个网站，数据包进入 V2Ray 之后路由就会先看看有没有能够匹配的规则，然后执行规则。  </p>
+<p>在rules 数组中的每个规则由一组大括号{ }扩起来。规则中的 type 是固定的(也就是照抄就行)， 
+两个规则分别有 “domain”: [“geosite:cn”] 和 “ip”: [“geoip:cn”]，这两个分别包含了中国大陆主流网站大部分域名和几乎所有的 ip。
+两个规则的 outboundTag 都是 direct （outbounds 中 tag 为 direct 的是 freedom）
+那么如果访问了国内的网站路由就会将这个数据包发往 freedom，也就是直连了。  </p>
+<p>这个例子当中路由规则仍然可以访问 google.com、twitter.com 这类等众多被墙的网站的。
+因为 outbounds 中的第一个出口协议是作为默认的出口，当一个数据包没有匹配的规则时，路由就会把数据包发往默认出口.
+在本例中 VMess 位于 outbounds 中的第一个，即不是访问中国大陆网站的数据包将通过 VPS 代理。  </p>
+<h3 id="广告过滤"><a href="#广告过滤" class="headerlink" title="广告过滤"></a>广告过滤</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span>: &#123;</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span>,</span><br><span class="line">    <span class="attr">"access"</span>: <span class="string">"D:\\v2ray\\access.log"</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"D:\\v2ray\\error.log"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">16823</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"2b831381d-6324-4d53-ad4f-8cda48b30811"</span>,  </span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"direct"</span>//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"adblock"</span>//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"routing"</span>: &#123;</span><br><span class="line">    <span class="attr">"domainStrategy"</span>: <span class="string">"IPOnDemand"</span>,</span><br><span class="line">    <span class="attr">"rules"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">          <span class="string">"tanx.com"</span>,</span><br><span class="line">          <span class="string">"googeadsserving.cn"</span>,</span><br><span class="line">          <span class="string">"baidu.com"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"adblock"</span>       </span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">          <span class="string">"amazon.com"</span>,</span><br><span class="line">          <span class="string">"microsoft.com"</span>,</span><br><span class="line">          <span class="string">"jd.com"</span>,</span><br><span class="line">          <span class="string">"youku.com"</span>,</span><br><span class="line">          <span class="string">"baidu.com"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [<span class="string">"geosite:cn"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"ip"</span>: [</span><br><span class="line">          <span class="string">"geoip:cn"</span>,</span><br><span class="line">          <span class="string">"geoip:private"</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相对于标准配置，其中outbounds中多了以下的内容
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">  <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"tag"</span>: <span class="string">"direct"</span>//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">   <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">    <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">"tag"</span>: <span class="string">"adblock"</span>//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 routing 中，新添加了两个规则：
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"domain"</span>: [</span><br><span class="line">    <span class="string">"tanx.com"</span>,</span><br><span class="line">    <span class="string">"baidu.com"</span>,</span><br><span class="line">    <span class="string">"googeadsserving.cn"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">  <span class="attr">"outboundTag"</span>: <span class="string">"adblock"</span>       </span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"domain"</span>: [</span><br><span class="line">    <span class="string">"amazon.com"</span>,</span><br><span class="line">    <span class="string">"microsoft.com"</span>,</span><br><span class="line">    <span class="string">"jd.com"</span>,</span><br><span class="line">    <span class="string">"youku.com"</span>,</span><br><span class="line">    <span class="string">"baidu.com"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">  <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一个规则中，域名包含有 tanx.com 或 baidu.com 的就会被阻止连接，
+如果想拦截某些网站，往 adblock 的规则中写想要拦截的域名就可以了。<br>在第二个规则当中，域名中包含有 amazon.com 或 microsoft.com 或 youku.com 或 baidu.com 的会直连。</p>
+<p>两个规则都有 baidu.com ，那么会执行哪个呢？答案是只会执行第一个（即adblock)，原因是：  </p>
+<ol>
+<li>规则是放在 routing.rules 这个数组当中，数组的内容是有顺序的，也就是说在这里规则是有顺序的，匹配规则时是从上往下匹配；  </li>
+<li>当路由匹配到一个规则时就会跳出匹配而不会对之后的规则进行匹配；</li>
+</ol>
+<p>###注意</p>
+<p>####以下代码使用通配符<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">            <span class="string">"*.taobao.com"</span>,</span><br><span class="line">            <span class="string">"*.jd.com"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>是没用的，要用以下的替代<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">            <span class="string">"domain:taobao.com"</span>,</span><br><span class="line">            <span class="string">"domain:jd.com"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h4 id="且规则与或规则"><a href="#且规则与或规则" class="headerlink" title="且规则与或规则"></a>且规则与或规则</h4><p>且规则  并不满足规则
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">            <span class="string">"domain:taobao.com"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"ip"</span>: [</span><br><span class="line">            <span class="string">"192.168.0.0/16"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>满足需求的或规则
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"domain"</span>: [</span><br><span class="line">            <span class="string">"domain:taobao.com"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;，</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"ip"</span>: [</span><br><span class="line">            <span class="string">"192.168.0.0/16"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h1 id="高级内容"><a href="#高级内容" class="headerlink" title="高级内容"></a>高级内容</h1><p>V2Ray 的相比其它工具有一大优点是可以自行选择传输层的形式，
+也就是说 V2Ray 服务器和客户端之间的传输的数据包形式我们是可以选择的。
+如我们可以选择伪装成 HTTP(TCP)流量，如果使用了 mKCP 也可以伪装成 BT 下载、视频通话、微信视频通话。
+也可以选择使用 WebSokcs 或者 TLS。以上这个都是传输层的配置决定的。  </p>
+<p>V2Ray 中传输层配置在 transport 里设定，也可以在 inbound/outbound 中的 streamSettings 设定。
+这两者的区别是 inbound/outbound 的 streamSettings 只对当前的 inbound/outbound 有效(分连接配置)，
+不影响其它的 inbound/outbound 的传输层配置。
+而 transport 是全局的，对整个配置所有的 inbound 和 outbound 都有效(全局配置)，
+如果一个 inbound/outbound 中设定了 streamSettings，transport 的全局设定不会影响这个 inbound/outbound。</p>
+<h2 id="基础信息"><a href="#基础信息" class="headerlink" title="基础信息"></a>基础信息</h2><p>所有的配置参数
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [],</span><br><span class="line">  <span class="attr">"routing"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"transport"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"dns"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"reverse"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"policy"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"stats"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"api"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>dns 、transport 和 reverse 将在高级内说明<br>api、policy 和 stats 的内容需要严格参考手册  </p>
+<p>所有支持的协议：<br>传入：HTTP、SOCKS、VMess、Shadowsocks、Dokodemo-door；传出协议有 VMess、Shadowsocks、Blackhole、Freedom、SOCKS。  </p>
+<p>无论使用了什么协议，inbounds 或者 outbounds 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。</p>
+<h2 id="Mux-多路复用"><a href="#Mux-多路复用" class="headerlink" title="Mux 多路复用"></a>Mux 多路复用</h2><p>作用：能够将多条 TCP 连接合并成一条，节省资源，提高并发能力。  </p>
+<p>例子：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">小白在大明买了主板</span><br><span class="line">小白在大明买了CPU</span><br><span class="line">小白在大明买了GPU</span><br><span class="line">小白在大明买了内存</span><br><span class="line">小白在大明买了电源</span><br><span class="line">小白在大明买了散热</span><br><span class="line">小白在大明买了机箱</span><br></pre></td></tr></table></figure></p>
+<p>MUX例子
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">小白在大明买了CPU，GPU，内存，电源，散热，机箱并要求组装好一起寄过来</span><br></pre></td></tr></table></figure></p>
+<p>说明：<br>Mux 实质上不能提高网速，但对并发连接比较有效，如浏览图片较多的网页，看直播等。
+从使用效果来说，V2Ray 的 Mux 应该类似于 Shadowsocks 的 TFO(TCP Fast Open)，因为两者的目的都是减小握手时间，只是实现方式不一样。
+只是 TFO 要设置系统内核才能打开，而 Mux 是纯粹在软件层面上实现，从配置难易度上 V2Ray 较好一些。
+注：V2ray已加入了TOF支持  </p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Mux 只需在客户端开启，服务器会自动识别，所以只给客户端的配置。
+也就是只要在 outbound 或 outboundDetour 加入 “mux”: {“enabled”: true} 即可：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 1080, // 监听端口</span><br><span class="line">      "protocol": "socks", // 入口协议为 SOCKS 5</span><br><span class="line">      "sniffing": &#123;</span><br><span class="line">        "enabled": true,</span><br><span class="line">        "destOverride": ["http", "tls"]</span><br><span class="line">      &#125;,</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "auth": "noauth"  // 不认证</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "vmess", // 出口协议</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "serveraddr.com", // 服务器地址，请修改为你自己的服务器 ip 或域名</span><br><span class="line">            "port": 16823,  // 服务器端口</span><br><span class="line">            "users": [</span><br><span class="line">              &#123;</span><br><span class="line">                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，必须与服务器端配置相同</span><br><span class="line">                "alterId": 64 // 此处的值也应当与服务器相同</span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "mux": &#123;"enabled": true&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="mKCP"><a href="#mKCP" class="headerlink" title="mKCP"></a>mKCP</h2><p>V2Ray 引入了 KCP 传输协议，并且做了一些不同的优化，称为 mKCP。如果你发现你的网络环境丢包严重，可以考虑一下使用 mKCP。
+相对于常规的 TCP 来说，mKCP 在高丢包率的网络下具有更大的优势，也正是因为此， mKCP 明显会比 TCP 耗费更多的流量，请酌情使用。
+要了解的一点是，mKCP 与 KCPTUN 同样是 KCP 协议，但两者并不兼容。</p>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>mKCP 的配置比较简单，只需在服务器的 inbounds 和 客户端的 outbounds 添加一个 streamSettings 并设置成 mkcp 即可。<br>服务端：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">16823</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"clients"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        "network": "mkcp", //此处的 mkcp 也可写成 kcp，两种写法是起同样的效果</span><br><span class="line">        "kcpSettings": &#123;</span><br><span class="line">          "uplinkCapacity": 5,</span><br><span class="line">          "downlinkCapacity": 100,</span><br><span class="line">          "congestion": true,</span><br><span class="line">          "header": &#123;</span><br><span class="line">            "type": "none"</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端：
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">16823</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>: <span class="string">"mkcp"</span>,</span><br><span class="line">        <span class="attr">"kcpSettings"</span>: &#123;</span><br><span class="line">          <span class="attr">"uplinkCapacity"</span>: <span class="number">5</span>,</span><br><span class="line">          <span class="attr">"downlinkCapacity"</span>: <span class="number">100</span>,</span><br><span class="line">          <span class="attr">"congestion"</span>: <span class="literal">true</span>,</span><br><span class="line">          <span class="attr">"header"</span>: &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"none"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="动态端口"><a href="#动态端口" class="headerlink" title="动态端口"></a>动态端口</h2><p>服务器 inbound 的端口作为主端口，在 inboundDetour 开动态监听的端口，客户端不用额外设定，客户端会先与服务器的主端口通信协商下一个使用的端口号。<br>客户端配置需配置主端口</p>
+<h3 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>:[</span><br><span class="line">  &#123; //主端口配置</span><br><span class="line">      "port": 37192,</span><br><span class="line">      "protocol": "vmess",</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"d17a1af7-efa5-42ca-b7e9-6a35282d737f"</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ],</span><br><span class="line">        "detour": &#123; //绕行配置，即指示客户端使用 dynamicPort 的配置通信</span><br><span class="line">          "to": "dynamicPort"   </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      "port": "10000-20000", // 端口范围</span><br><span class="line">      "tag": "dynamicPort",  // 与上面的 detour to 相同</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "default": &#123;</span><br><span class="line">          "alterId": 64</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      "allocate": &#123;            // 分配模式</span><br><span class="line">        "strategy": "random",  // 随机开启</span><br><span class="line">        "concurrency": 2,      // 同时开放两个端口,这个值最大不能超过端口范围的 1/3</span><br><span class="line">        "refresh": 3           // 每三分钟刷新一次</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="若动态端口使用mKCP"><a href="#若动态端口使用mKCP" class="headerlink" title="若动态端口使用mKCP"></a>若动态端口使用mKCP</h3><p>在对应的 inbounds 和 outbounds 加入 streamSettings 并将 network 设置为 kcp 即可。<br>服务端：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">37192</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"clients"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"d17a1af7-efa5-42ca-b7e9-6a35282d737f"</span>,</span><br><span class="line">            <span class="attr">"level"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"detour"</span>: &#123;        </span><br><span class="line">          <span class="attr">"to"</span>: <span class="string">"dynamicPort"</span>   </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>: <span class="string">"kcp"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      "port": "10000-20000", // 端口范围</span><br><span class="line">      "tag": "dynamicPort",       </span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "default": &#123;</span><br><span class="line">          "level": 1,</span><br><span class="line">          "alterId": 32</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      "allocate": &#123;            // 分配模式</span><br><span class="line">        "strategy": "random",  // 随机开启</span><br><span class="line">        "concurrency": 2,      // 同时开放两个端口</span><br><span class="line">        "refresh": 3           // 每三分钟刷新一次</span><br><span class="line">      &#125;,</span><br><span class="line">      "streamSettings": &#123;</span><br><span class="line">        "network": "kcp"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端：
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"1.2.3.4"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">37192</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"d17a1af7-efa5-42ca-b7e9-6a35282d737f"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>: <span class="string">"kcp"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h2><p>使用代理转发可以实现由一个 Shadowsocks 服务器或者 V2Ray(VMess) 服务器来中转你的网络流量，
+并且中转服务器只能看到你加密的数据而不知道原始的数据是什么。  </p>
+<h3 id="基础转发-客户端配置："><a href="#基础转发-客户端配置：" class="headerlink" title="基础转发 - 客户端配置："></a>基础转发 - 客户端配置：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      "settings": &#123; // settings 的根据实际情况修改</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"1.1.1.1"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">8888</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span>,</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b12614c5-5ca4-4eba-a215-c61d642116ce"</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "proxySettings": &#123;</span><br><span class="line">          "tag": "transit"  // 这里的 tag 必须跟作为代理 VPS 的 tag 一致，这里设定的是 "transit"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"shadowsocks"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"servers"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"2.2.2.2"</span>,</span><br><span class="line">            <span class="attr">"method"</span>: <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">            <span class="attr">"ota"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"password"</span>: <span class="string">"password"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">1024</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"transit"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>工作原理是：</p>
+<ol>
+<li>你在 Twitter 发了个帖子 f**k GFW，由 V2Ray 代理  </li>
+<li>V2Ray 客户端收到浏览器发出的 f**k GFW 的帖子后，首先由对其进行加密(VMess，id: b12614c5-5ca4-4eba-a215-c61d642116ce,目的服务器: 1.1.1.1:8888)  </li>
+<li>加密后数据包将被转到 transit 这个 outbound 中，在这里数据包又会加密一次(Shadowsocks, password: password, 服务器: 2.2.2.2:1024)  </li>
+<li>两次加密后的数据包被发送到了 Shadowsocks 服务器，该服务器收到后解包后得到仍是加密的数据包（步骤 2 中加密后的数据包），
+然后将数据包发到 VMess 服务器。即便这个 Shadowsocks 服务器的主人是个偷窥狂魔，他也没办法看到你的原始数据。    </li>
+<li>VMess 服务器收到 Shadowsocks 服务器发来的数据包，解密得到原始的数据包，然后把你这个帖子发到 Twitter 的网站中。</li>
+</ol>
+<h3 id="链式转发"><a href="#链式转发" class="headerlink" title="链式转发"></a>链式转发</h3><p>如果你有多个 Shadowsocks 或 VMess 账户，那么你可以这样:
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      "settings": &#123; // settings 的根据实际情况修改</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"1.1.1.1"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">8888</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span>,</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b12614c5-5ca4-4eba-a215-c61d642116ce"</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "tag": "DOUS",</span><br><span class="line">      "proxySettings": &#123;</span><br><span class="line">          "tag": "DOSG"  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"shadowsocks"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"servers"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"2.2.2.2"</span>,</span><br><span class="line">            <span class="attr">"method"</span>: <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">            <span class="attr">"ota"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"password"</span>: <span class="string">"password"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">1024</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"AliHK"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"shadowsocks"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"servers"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"3.3.3.3"</span>,</span><br><span class="line">            <span class="attr">"method"</span>: <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">            <span class="attr">"ota"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"password"</span>: <span class="string">"password"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">3442</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"AliSG"</span>,</span><br><span class="line">      <span class="attr">"proxySettings"</span>: &#123;</span><br><span class="line">          <span class="attr">"tag"</span>: <span class="string">"AliHK"</span>  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"4.4.4.4"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">8462</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span>,</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b27c24ab-2b5a-433e-902c-33f1168a7902"</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"DOSG"</span>,</span><br><span class="line">      <span class="attr">"proxySettings"</span>: &#123;</span><br><span class="line">          <span class="attr">"tag"</span>: <span class="string">"AliSG"</span>  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>数据包经过的节点依次为： PC -&gt; AliHK -&gt; AliSG -&gt; DOSG -&gt; DOUS -&gt; 目标网站  </p>
+<p>问题：
+性能 ：链式代理使用了多个节点，可能会造成延时、带宽等网络性能问题，并且客户端对每一个加解密的次数取决于代理链的长度，理论上也会有一定的影响。
+安全 ：前文提到，代理转发会一定程度上提高安全性，但安全取决于最弱一环，并不意味着代理链越长就会越安全。
+如果你需要匿名，请考虑成熟的匿名方案。 另外，使用了代理转发 streamSettings 会失效，即只能是非 TLS、无 HTTP 伪装的 TCP 传输协议。</p>
+<h2 id="国内中转"><a href="#国内中转" class="headerlink" title="国内中转"></a>国内中转</h2><p>为了方便维护，或者从速度上的考虑，可以在国内架设一台中转 VPS，
+在这台 VPS 上判断目标地址是国内还是国外的，只需把国外的流量向国外 VPS 转发，而国内的流量使用直连。
+这样的配置，在用户的电脑只需要把所有流量发往这台 VPS，而不用为每一个用户都配置白名单，较为省力。  </p>
+<p>中转配置：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span> : &#123;                                 </span><br><span class="line">    <span class="attr">"access"</span>: <span class="string">"/var/log/v2ray/access.log"</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"/var/log/v2ray/error.log"</span>,</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1234</span>,</span><br><span class="line">      "protocol": "vmess",    // 入站协议为 VMess</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", // UUID</span><br><span class="line">            "level": 1,       // 用户等级</span><br><span class="line">            "alterId": 32     // 额外ID</span><br><span class="line">          &#125;,</span><br><span class="line">          // 在这里添加更多用户，注意UUID不能重复</span><br><span class="line">          &#123;</span><br><span class="line">            "id": "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy", // UUID</span><br><span class="line">            "level": 0,       // 用户等级</span><br><span class="line">            "alterId": 32     // 额外ID</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  // ========== BEGIN STEP 1 ==========</span><br><span class="line">  // 国内中转服务器当作国外服务器的“客户端”</span><br><span class="line">  // 国际流量发往国外服务器上</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      "protocol": "vmess",        // 出口协议</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "vnext": [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "1.2.3.4", // 国外服务器地址</span><br><span class="line">            "port": 23456,        // 国外服务器端口</span><br><span class="line">            "users": [</span><br><span class="line">                &#123;"id": "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz"&#125; // 用户 ID，须与国外服务器端配置相同</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"block"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 增加 freedom 传出绕路，国内流量直接放行</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"direct"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  // ========== END STEP 1 ==========</span><br><span class="line">  "routing": &#123; // 路由设置</span><br><span class="line">   "domainStrategy": "IPOnDemand",</span><br><span class="line">    "strategy": "rules",</span><br><span class="line">    "rules": [</span><br><span class="line">      &#123;</span><br><span class="line">        "type": "field",      // 不允许客户端访问服务端的局域网地址，以提升安全性</span><br><span class="line">        "ip": [</span><br><span class="line">          <span class="string">"geoip:cn"</span></span><br><span class="line">        ],</span><br><span class="line">        "outboundTag": "block"</span><br><span class="line">      &#125;,</span><br><span class="line">      // 配置国内网站和IP直连规则</span><br><span class="line">      &#123;</span><br><span class="line">        "type": "field",  // 对于一些常见的国内网站，也使用直连模式</span><br><span class="line">        "domain": [</span><br><span class="line">          <span class="string">"geosite:cn"</span></span><br><span class="line">        ],</span><br><span class="line">        "outboundTag": "direct"</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        "type": "field", // 对于所有国内的 IP，都采用直连模式</span><br><span class="line">        "ip": [</span><br><span class="line">          <span class="string">"geoip:cn"</span></span><br><span class="line">        ]</span><br><span class="line">        "outboundTag": "direct"</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="HTTP伪装"><a href="#HTTP伪装" class="headerlink" title="HTTP伪装"></a>HTTP伪装</h2><p>人建议不要使用 HTTP 伪装： HTTP 伪装的同时完全可以使用动态端口，从实际情况来看，基本上不会有人在一个服务器上开使用多个端口的 Web 服务。<br>V2Ray 的 HTTP 伪装功能可以可以将 V2Ray 的流量伪装成正常的 HTTP 协议的。这里给出一个 HTTP 伪装的服务器端与客户端配置文件示例。</p>
+<p>###服务器
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span> : &#123;</span><br><span class="line">    <span class="attr">"access"</span>: <span class="string">"/var/log/v2ray/access.log"</span>,</span><br><span class="line">    <span class="attr">"error"</span>: <span class="string">"/var/log/v2ray/error.log"</span>,</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用</span><br><span class="line">      "protocol": "vmess",</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">            <span class="attr">"level"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "streamSettings": &#123;</span><br><span class="line">        "network": "tcp",</span><br><span class="line">        "tcpSettings": &#123;</span><br><span class="line">          "header": &#123; // header 这一项是关于数据包伪装的设置，可自定义合理的内容，但要确保服务器与客户端一致</span><br><span class="line">            "type": "http",</span><br><span class="line">            "response": &#123;</span><br><span class="line">              "version": "1.1",</span><br><span class="line">              "status": "200",</span><br><span class="line">              "reason": "OK",</span><br><span class="line">              "headers": &#123;</span><br><span class="line">                "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"],</span><br><span class="line">                "Transfer-Encoding": ["chunked"],</span><br><span class="line">                "Connection": ["keep-alive"],</span><br><span class="line">                "Pragma": "no-cache"</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"blocked"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "routing": &#123;</span><br><span class="line">    "strategy": "rules",</span><br><span class="line">    "settings": &#123;</span><br><span class="line">      "rules": [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">          <span class="attr">"ip"</span>: [</span><br><span class="line">            <span class="string">"geoip:private"</span></span><br><span class="line">          ],</span><br><span class="line">          <span class="attr">"outboundTag"</span>: <span class="string">"blocked"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"log"</span>: &#123;</span><br><span class="line">    <span class="attr">"loglevel"</span>: <span class="string">"warning"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbound"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">80</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>: <span class="string">"tcp"</span>,</span><br><span class="line">        <span class="attr">"tcpSettings"</span>: &#123;</span><br><span class="line">          "header": &#123;  //这里的 header 要与服务器保持一致</span><br><span class="line">            "type": "http",</span><br><span class="line">            "request": &#123;</span><br><span class="line">              "version": "1.1",</span><br><span class="line">              "method": "GET",</span><br><span class="line">              "path": ["/"],</span><br><span class="line">              "headers": &#123;</span><br><span class="line">                "Host": ["www.cloudflare.com", "www.amazon.com"],</span><br><span class="line">                "User-Agent": [</span><br><span class="line">                  "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",</span><br><span class="line">                          <span class="string">"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"</span></span><br><span class="line">                ],</span><br><span class="line">                "Accept-Encoding": ["gzip, deflate"],</span><br><span class="line">                "Connection": ["keep-alive"],</span><br><span class="line">                "Pragma": "no-cache"</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"tag"</span>: <span class="string">"direct"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "routing": &#123;</span><br><span class="line">    "strategy": "rules",</span><br><span class="line">    "settings": &#123;</span><br><span class="line">      "domainStrategy": "IPIfNonMatch",</span><br><span class="line">      "rules": [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">          <span class="attr">"ip"</span>: [</span><br><span class="line">            <span class="string">"geoip:private"</span></span><br><span class="line">          ],</span><br><span class="line">          <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"chinasites"</span>,</span><br><span class="line">          <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"chinaip"</span>,</span><br><span class="line">          <span class="attr">"outboundTag"</span>: <span class="string">"direct"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TLS-传输层安全"><a href="#TLS-传输层安全" class="headerlink" title="TLS 传输层安全"></a>TLS 传输层安全</h2><p>证书有两种，一种是 ECC 证书（内置公钥是 ECDSA 公钥），一种是 RSA 证书（内置 RSA 公钥）。
+简单来说，同等长度 ECC 比 RSA 更安全,也就是说在具有同样安全性的情况下，ECC 的密钥长度比 RSA 短得多（加密解密会更快）。
+但问题是 ECC 的兼容性会差一些，Android 4.x 以下和 Windows XP 不支持。只要您的设备不是非常老的老古董，建议使用 ECC 证书。  </p>
+<p>这里使用免费证书，证书认证机构为 Let’s Encrypt。
+ 证书的生成有许多方法，这里使用的是比较简单的方法：使用 acme.sh 脚本生成，本部分说明部分内容参考于acme.sh README。  </p>
+<h3 id="安装acme-sh"><a href="#安装acme-sh" class="headerlink" title="安装acme.sh"></a>安装acme.sh</h3> <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl  https://get.acme.sh | sh</span></span><br></pre></td></tr></table></figure>
+<p>安装成功后执行 source ~/.bashrc 以确保脚本所设置的命令别名生效。<br>如果安装报错，那么可能是因为系统缺少 acme.sh 所需要的依赖项，
+acme.sh 的依赖项主要是 netcat(nc)，我们通过以下命令来安装这些依赖项，然后重新安装一遍 acme.sh:
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get -y install netcat</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h3><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo ~/.acme.sh/acme.sh --issue -d mydomain.me --standalone -k ec-256</span></span><br></pre></td></tr></table></figure>
+<p>-k 表示密钥长度，后面的值可以是 ec-256 、ec-384、2048、3072、4096、8192，
+带有 ec 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。  </p>
+<h3 id="更新证书"><a href="#更新证书" class="headerlink" title="更新证书"></a>更新证书</h3><p>由于 Let’s Encrypt 的证书有效期只有 3 个月，因此需要 90 天至少要更新一次证书，acme.sh 脚本会每 60 天自动更新证书。也可以手动更新。  </p>
+<p>ECC:
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force --ecc</span></span><br></pre></td></tr></table></figure></p>
+<p>RSA:
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force</span></span><br></pre></td></tr></table></figure></p>
+<p>由于本例中将证书生成到 /etc/v2ray/ 文件夹，更新证书之后还得把新证书生成到 /etc/v2ray。</p>
+<h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><p>ECC:
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc</span></span><br></pre></td></tr></table></figure></p>
+<p>RSA:
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏，如果你不幸泄漏了密钥，可以使用 acme.sh 将原证书吊销，再生成新的证书，吊销方法请自行参考 acme.sh 的手册</strong></p>
+<h3 id="配置-3"><a href="#配置-3" class="headerlink" title="配置"></a>配置</h3><p>服务器：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      "port": 443, // 建议使用 443 端口</span><br><span class="line">      "protocol": "vmess",    </span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"</span>,  </span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "streamSettings": &#123;</span><br><span class="line">        "network": "tcp",</span><br><span class="line">        "security": "tls", // security 要设置为 tls 才会启用 TLS</span><br><span class="line">        "tlsSettings": &#123;</span><br><span class="line">          "certificates": [</span><br><span class="line">            &#123;</span><br><span class="line">              "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件</span><br><span class="line">              "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            "address": "mydomain.me", // tls 需要域名，所以这里应该填自己的域名</span><br><span class="line">            "port": 443,</span><br><span class="line">            "users": [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"23ad6b10-8d1a-40f7-8ad0-e3e35cd38297"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "streamSettings": &#123;</span><br><span class="line">        "network": "tcp",</span><br><span class="line">        "security": "tls" // 客户端的 security 也要设置为 tls</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="验证V2Ray"><a href="#验证V2Ray" class="headerlink" title="验证V2Ray"></a>验证V2Ray</h3><p>客户端能够正常联网说明 TLS 已经成功启用。但要是有个可靠的方法来验证是否正常开启 TLS 无疑更令人放心。 
+验证的方法有很多，我仅介绍一种小白化一点的，便是 <a href="https://www.ssllabs.com/ssltest/index.html" target="_blank" rel="noopener">Qualys SSL Labs’s SSL Server Test</a>。<br>打开 以上地址，在 Hostname 中输入你的域名，点提交，过一会结果就出来了。  </p>
+<h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h2><p>WebSocket 的配置其实很简单，就跟 mKCP 一样把 network 一改就行了。话不多说，直接上配置。</p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">16823</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"clients"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>:<span class="string">"ws"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="客户端-2"><a href="#客户端-2" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"serveraddr.com"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">16823</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>:&#123;</span><br><span class="line">        <span class="attr">"network"</span>:<span class="string">"ws"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="WebSocket-TLS-Web"><a href="#WebSocket-TLS-Web" class="headerlink" title="WebSocket+TLS+Web"></a>WebSocket+TLS+Web</h2><p>而本文搭配 Web 服务并同时实现 TLS 和 WebSocket。
+关于 Web 的软件本文给出了 Nginx，Caddy 和 Apache 三个例子，三选一即可，也可以选用其它的软件。  </p>
+<p>使用 Nginx / Caddy / Apache 是因为 VPS 已经有 Nginx / Caddy / Apache 可以将 V2Ray 稍作隐藏，
+使用 WebSocket 是因为搭配 Nginx / Caddy / Apache 只能用 WebSocket，使用 TLS 是因为可以流量加密，看起来更像 HTTPS。  </p>
+<p>因为本节涉及 Nginx / Caddy / Apache，只给出了配置示例而不讲具体使用方法，
+也就是说你在阅读本节内容前得会使用这三个软件的其中之一，如果你还不会，请自行 Google。  </p>
+<p>注意: V2Ray 的 Websocket+TLS 配置组合并不依赖 Nginx / Caddy / Apache，只是能与其搭配使用而已，没有它们也可以正常使用。</p>
+<h3 id="双端配置"><a href="#双端配置" class="headerlink" title="双端配置"></a>双端配置</h3><p>这次 TLS 的配置将写入 Nginx / Caddy / Apache 配置中，由这些软件来监听 443 端口（443 比较常用，并非 443 不可），
+然后将流量转发到 V2Ray 的 WebSocket 所监听的内网端口（本例是 10000），V2Ray 服务器端不需要配置 TLS。<br>服务器：
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">10000</span>,</span><br><span class="line">      "listen":"127.0.0.1",//只监听 127.0.0.1，避免除本机外的机器探测到开放了 10000 端口</span><br><span class="line">      "protocol": "vmess",</span><br><span class="line">      "settings": &#123;</span><br><span class="line">        "clients": [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">            <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "streamSettings": &#123;</span><br><span class="line">        "network": "ws",</span><br><span class="line">        "wsSettings": &#123;</span><br><span class="line">        "path": "/ray"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "outbounds": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端配置
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"inbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">1080</span>,</span><br><span class="line">      <span class="attr">"listen"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"socks"</span>,</span><br><span class="line">      <span class="attr">"sniffing"</span>: &#123;</span><br><span class="line">        <span class="attr">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"destOverride"</span>: [<span class="string">"http"</span>, <span class="string">"tls"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"auth"</span>: <span class="string">"noauth"</span>,</span><br><span class="line">        <span class="attr">"udp"</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"outbounds"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">      <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"vnext"</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">"address"</span>: <span class="string">"mydomain.me"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">443</span>,</span><br><span class="line">            <span class="attr">"users"</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">"id"</span>: <span class="string">"b831381d-6324-4d53-ad4f-8cda48b30811"</span>,</span><br><span class="line">                <span class="attr">"alterId"</span>: <span class="number">64</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"streamSettings"</span>: &#123;</span><br><span class="line">        <span class="attr">"network"</span>: <span class="string">"ws"</span>,</span><br><span class="line">        <span class="attr">"security"</span>: <span class="string">"tls"</span>,</span><br><span class="line">        <span class="attr">"wsSettings"</span>: &#123;</span><br><span class="line">          <span class="attr">"path"</span>: <span class="string">"/ray"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="服务端Web配置"><a href="#服务端Web配置" class="headerlink" title="服务端Web配置"></a>服务端Web配置</h3><h4 id="Nginx-配置"><a href="#Nginx-配置" class="headerlink" title="Nginx 配置"></a>Nginx 配置</h4><p>配置中使用的是域名和证书使用 TLS 小节的举例，请替换成自己的。
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">listen</span>  <span class="number">443</span> <span class="string">ssl;</span></span><br><span class="line">  <span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">  <span class="string">ssl_certificate</span>       <span class="string">/etc/v2ray/v2ray.crt;</span></span><br><span class="line">  <span class="string">ssl_certificate_key</span>   <span class="string">/etc/v2ray/v2ray.key;</span></span><br><span class="line">  <span class="string">ssl_protocols</span>         <span class="string">TLSv1</span> <span class="string">TLSv1.1</span> <span class="string">TLSv1.2;</span></span><br><span class="line">  <span class="string">ssl_ciphers</span>           <span class="attr">HIGH:!aNULL:!MD5;</span></span><br><span class="line">  <span class="string">server_name</span>           <span class="string">mydomain.me;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">/ray</span> <span class="string">&#123;</span> <span class="comment"># 与 V2Ray 配置中的 path 保持一致</span></span><br><span class="line">        <span class="string">proxy_redirect</span> <span class="string">off;</span></span><br><span class="line">        <span class="string">proxy_pass</span> <span class="attr">http://127.0.0.1:10000;#假设WebSocket监听在环回地址的10000端口上</span></span><br><span class="line">        <span class="string">proxy_http_version</span> <span class="number">1.1</span><span class="string">;</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">Upgrade</span> <span class="string">$http_upgrade;</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">Connection</span> <span class="string">"upgrade"</span><span class="string">;</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">Host</span> <span class="string">$http_host;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Show realip in v2ray access.log</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">X-Real-IP</span> <span class="string">$remote_addr;</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">X-Forwarded-For</span> <span class="string">$proxy_add_x_forwarded_for;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Caddy-配置"><a href="#Caddy-配置" class="headerlink" title="Caddy 配置"></a>Caddy 配置</h4><p>因为 Caddy 会自动申请证书并自动更新，所以使用 Caddy 不用指定证书、密钥。
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mydomain.me</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">  <span class="string">log</span> <span class="string">./caddy.log</span></span><br><span class="line">  <span class="string">proxy</span> <span class="string">/ray</span> <span class="attr">localhost:10000</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">websocket</span></span><br><span class="line">    <span class="string">header_upstream</span> <span class="bullet">-Origin</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Apache-配置"><a href="#Apache-配置" class="headerlink" title="Apache 配置"></a>Apache 配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">VirtualHost</span> *<span class="attr">:443</span>&gt;</span></span><br><span class="line">  ServerName mydomain.me</span><br><span class="line">  SSLCertificateFile /etc/v2ray/v2ray.crt</span><br><span class="line">  SSLCertificateKeyFile /etc/v2ray/v2ray.key</span><br><span class="line"></span><br><span class="line">  SSLProtocol -All +TLSv1 +TLSv1.1 +TLSv1.2</span><br><span class="line">  SSLCipherSuite HIGH:!aNULL</span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">Location</span> "/<span class="attr">ray</span>/"&gt;</span></span><br><span class="line">    ProxyPass ws://127.0.0.1:10000/ray/ upgrade=WebSocket</span><br><span class="line">    ProxyAddHeaders Off</span><br><span class="line">    ProxyPreserveHost On</span><br><span class="line">    RequestHeader append X-Forwarded-For %&#123;REMOTE_ADDR&#125;s</span><br><span class="line">  <span class="tag">&lt;/<span class="name">Location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">VirtualHost</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>V2Ray 暂时不支持 TLS1.3，如果开启并强制 TLS1.3 会导致 V2Ray 无法连接<br>较低版本的nginx的location需要写为 /ray/ 才能正常工作</p>
+<p>如果在设置完成之后不能成功使用，可能是由于 SElinux 机制(如果你是 CentOS 7 的用户请特别留意 SElinux 这一机制)
+阻止了 Nginx 转发向内网的数据。如果是这样的话，在 V2Ray 的日志里不会有访问信息，
+在 Nginx 的日志里会出现大量的 “Permission Denied” 字段，要解决这一问题需要在终端下键入以下命令：<br><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setsebool -P httpd_can_network_connect 1</span><br></pre></td></tr></table></figure></p>
+<p>请保持服务器和客户端的 wsSettings 严格一致，对于 V2Ray，/ray 和 /ray/ 是不一样的</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>1.开启了 TLS 之后 path 参数是被加密的，GFW 看不到；
+2.主动探测一个 path 产生 Bad request 不能证明是 V2Ray；
+3.不安全的因素在于人，自己的问题就不要甩锅，哪怕我把示例中的 path 改成一个 UUID，依然有不少人原封不动地 COPY；
+4.使用 Header 分流并不比 path 安全， 不要迷信。</p>
+<h2 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h2><h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><h2 id="不建议的配置"><a href="#不建议的配置" class="headerlink" title="不建议的配置"></a>不建议的配置</h2>
+      
+    </div>
+    
+    
+    
+
+    <div>
+          
+            
+    <div class="my_post_copyright">
+      <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+      <!-- JS库 sweetalert 可修改路径 -->
+      <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <p><span>本文标题:</span><a href="/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/">V2ray-从移动到移不动</a></p>
+      <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+      <p><span>发布时间:</span>2018年01月01日 - 00:01</p>
+      <p><span>最后更新:</span>2020年03月16日 - 21:03</p>
+      <p><span>原始链接:</span><a href="/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/" title="V2ray-从移动到移不动">http://blog.gitmmp.com/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/</a>
+        <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/01/01/工具人 ToolMan/20180101-V2ray-从移动到移不动/" aria-label="复制成功！"></i></span>
+      </p>
+      <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+    </div>
+    <script>
+        var clipboard = new Clipboard('.fa-clipboard');
+          $(".fa-clipboard").click(function(){
+          clipboard.on('success', function(){
+            swal({
+              title: "",
+              text: '复制成功',
+              icon: "success",
+              showConfirmButton: true
+              });
+            });
+        });
+    </script>
+
+
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"><i class="fa fa-tag"></i> R</a>
+          
+            <a href="/tags/ML/" rel="tag"><i class="fa fa-tag"></i> ML</a>
+          
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/12/工具人 ToolMan/20171212-ShadowSocks-从入门到出门[go版本]/" rel="next" title="ShadowSocks-从入门到出门[go版本]">
+                <i class="fa fa-chevron-left"></i> ShadowSocks-从入门到出门[go版本]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/基础 Base/20180101-字符串编码 StringCode/" rel="prev" title="字符串编码 StringCode">
+                字符串编码 StringCode <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTA2Ni8xNTU5Mw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+              <p class="site-description motion-element" itemprop="description">持续性踌躇满志  间歇性混吃等死</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hongxii" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hongxiii@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#执行脚本"><span class="nav-number">1.1.</span> <span class="nav-text">执行脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置及使用"><span class="nav-number">1.2.</span> <span class="nav-text">配置及使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多用户"><span class="nav-number">1.3.</span> <span class="nav-text">多用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux检查json-格式"><span class="nav-number">1.4.</span> <span class="nav-text">Linux检查json 格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端配置"><span class="nav-number">1.5.</span> <span class="nav-text">客户端配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.6.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shadowsocks的客户端和服务端设置"><span class="nav-number">1.7.</span> <span class="nav-text">shadowsocks的客户端和服务端设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端"><span class="nav-number">1.7.1.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端"><span class="nav-number">1.7.2.</span> <span class="nav-text">服务端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志配置"><span class="nav-number">1.8.</span> <span class="nav-text">日志配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log选项"><span class="nav-number">1.8.1.</span> <span class="nav-text">log选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由功能（客户端）"><span class="nav-number">1.9.</span> <span class="nav-text">路由功能（客户端）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#国内直连"><span class="nav-number">1.9.1.</span> <span class="nav-text">国内直连</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广告过滤"><span class="nav-number">1.9.2.</span> <span class="nav-text">广告过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#且规则与或规则"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">且规则与或规则</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级内容"><span class="nav-number">2.</span> <span class="nav-text">高级内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础信息"><span class="nav-number">2.1.</span> <span class="nav-text">基础信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mux-多路复用"><span class="nav-number">2.2.</span> <span class="nav-text">Mux 多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mKCP"><span class="nav-number">2.3.</span> <span class="nav-text">mKCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态端口"><span class="nav-number">2.4.</span> <span class="nav-text">动态端口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-2"><span class="nav-number">2.4.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若动态端口使用mKCP"><span class="nav-number">2.4.2.</span> <span class="nav-text">若动态端口使用mKCP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理转发"><span class="nav-number">2.5.</span> <span class="nav-text">代理转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础转发-客户端配置："><span class="nav-number">2.5.1.</span> <span class="nav-text">基础转发 - 客户端配置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式转发"><span class="nav-number">2.5.2.</span> <span class="nav-text">链式转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#国内中转"><span class="nav-number">2.6.</span> <span class="nav-text">国内中转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP伪装"><span class="nav-number">2.7.</span> <span class="nav-text">HTTP伪装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端-1"><span class="nav-number">2.7.1.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-传输层安全"><span class="nav-number">2.8.</span> <span class="nav-text">TLS 传输层安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装acme-sh"><span class="nav-number">2.8.1.</span> <span class="nav-text">安装acme.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成证书"><span class="nav-number">2.8.2.</span> <span class="nav-text">生成证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新证书"><span class="nav-number">2.8.3.</span> <span class="nav-text">更新证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装证书"><span class="nav-number">2.8.4.</span> <span class="nav-text">安装证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-3"><span class="nav-number">2.8.5.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证V2Ray"><span class="nav-number">2.8.6.</span> <span class="nav-text">验证V2Ray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#websocket"><span class="nav-number">2.9.</span> <span class="nav-text">websocket</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">2.9.1.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端-2"><span class="nav-number">2.9.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-TLS-Web"><span class="nav-number">2.10.</span> <span class="nav-text">WebSocket+TLS+Web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双端配置"><span class="nav-number">2.10.1.</span> <span class="nav-text">双端配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端Web配置"><span class="nav-number">2.10.2.</span> <span class="nav-text">服务端Web配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx-配置"><span class="nav-number">2.10.2.1.</span> <span class="nav-text">Nginx 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Caddy-配置"><span class="nav-number">2.10.2.2.</span> <span class="nav-text">Caddy 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache-配置"><span class="nav-number">2.10.2.3.</span> <span class="nav-text">Apache 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">2.10.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.10.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2"><span class="nav-number">2.11.</span> <span class="nav-text">HTTP/2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">2.12.</span> <span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不建议的配置"><span class="nav-number">2.13.</span> <span class="nav-text">不建议的配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://gitmmp.com">Gitmmp</a> 个人站点</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash; <a class="theme-link" target="_blank" href="https://hongxii.github.io">Blog</a> v5.1.4</div>
+
+
+
+hex
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+        appKey: 'tK5voXTFX0mLH426PkiDHTBY',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

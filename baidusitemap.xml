@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.gitmmp.com/2017/02/10/setting/plus-next-img/</loc>
-    <lastmod>2020-03-13</lastmod>
+    <loc>http://blog.gitmmp.com/2017/02/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%20Setting/20170210-Hexo%20%E5%BC%95%E7%94%A8%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/draft/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JVM.html</loc>
-    <lastmod>2020-03-09</lastmod>
+    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E5%AE%89%E8%A3%85%20Install/20160712-Jvm&Tomcat%20%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/draft/jvm/JVM.html</loc>
-    <lastmod>2019-08-27</lastmod>
+    <loc>http://blog.gitmmp.com/2017/01/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%20Setting/20170110-Hexo%20%E5%A4%87%E5%BF%98/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2018/08/28/base/base_03_DesignPattern/</loc>
-    <lastmod>2018-11-12</lastmod>
+    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E5%AE%89%E8%A3%85%20Install/20160712-Mysql%E5%AE%89%E8%A3%85%5BLinux%5D/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2018/01/01/base/base_01_StringCode/</loc>
-    <lastmod>2018-09-10</lastmod>
+    <loc>http://blog.gitmmp.com/2018/01/01/%E5%9F%BA%E7%A1%80%20Base/20180101-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E7%A0%81%20StringCode/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/06/10/SqlSwitch-Spring/</loc>
-    <lastmod>2018-09-08</lastmod>
+    <loc>http://blog.gitmmp.com/2018/08/08/%E8%99%9A%E6%8B%9F%E6%9C%BA%20Jvm/20180808-kotlin%E9%9A%90%E6%80%A7%E4%BC%98%E5%8C%96%20Kotlin's%20hidden%20costs/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/01/10/setting/setting-hexo/</loc>
-    <lastmod>2018-09-06</lastmod>
+    <loc>http://blog.gitmmp.com/2017/06/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/20170610-Spring%20%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E6%BA%90%E7%83%AD%E5%88%87%E6%8D%A2%E5%88%B0%E4%B8%8D%E6%8D%A2/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/12/12/use/shadowsocks-go/</loc>
-    <lastmod>2018-08-31</lastmod>
+    <loc>http://blog.gitmmp.com/2017/10/01/%E7%AE%97%E6%B3%95%20Algorithm/20171001-%E9%BA%BB%E5%B0%86%E8%83%A1%E7%89%8C%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2018/08/08/jvm/kotlin/better_hideCost/</loc>
-    <lastmod>2018-08-21</lastmod>
+    <loc>http://blog.gitmmp.com/2018/01/01/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/20180101-V2ray-%E4%BB%8E%E7%A7%BB%E5%8A%A8%E5%88%B0%E7%A7%BB%E4%B8%8D%E5%8A%A8/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2016/07/12/install/install_jvm&tomcat/</loc>
-    <lastmod>2018-08-21</lastmod>
+    <loc>http://blog.gitmmp.com/2017/12/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/20171212-ShadowSocks-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%87%BA%E9%97%A8%5Bgo%E7%89%88%E6%9C%AC%5D/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2016/07/12/install/install_mysql/</loc>
-    <lastmod>2018-08-21</lastmod>
+    <loc>http://blog.gitmmp.com/2018/01/05/%E5%9F%BA%E7%A1%80%20Base/20180105-%E5%85%AC%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86%20keyEncryption/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2018/01/05/base/base_02_keyEncrypt/</loc>
-    <lastmod>2018-08-21</lastmod>
-  </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/10/10/algorithm/game/%E9%BA%BB%E5%B0%86%E8%83%A1%E7%89%8C%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2018-08-21</lastmod>
+    <loc>http://blog.gitmmp.com/2018/08/28/%E5%9F%BA%E7%A1%80%20Base/20180828%20-%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%20Design%20pattern/</loc>
+    <lastmod>2020-03-16</lastmod>
   </url>
 </urlset>
