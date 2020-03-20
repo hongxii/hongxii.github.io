@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.gitmmp.com/2017/02/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%20Setting/20170210-Hexo%20%E5%BC%95%E7%94%A8%E5%9B%BE%E7%89%87/</loc>
+    <loc>http://blog.gitmmp.com/2017/02/15/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/HEXO/20170215-Hexo%201%20%E5%A4%8D%E6%B4%BB/</loc>
+    <lastmod>2020-03-20</lastmod>
+  </url>  <url>
+    <loc>http://blog.gitmmp.com/2018/01/01/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E7%BD%91%E8%B7%AF/20180101-V2ray-%E4%BB%8E%E7%A7%BB%E5%8A%A8%E5%88%B0%E7%A7%BB%E4%B8%8D%E5%8A%A8/</loc>
+    <lastmod>2020-03-20</lastmod>
+  </url>  <url>
+    <loc>http://blog.gitmmp.com/2017/02/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/HEXO/20170210-Hexo%20%E5%BC%95%E7%94%A8%E5%9B%BE%E7%89%87/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E5%AE%89%E8%A3%85%20Install/20160712-Jvm&Tomcat%20%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/Jvm%E5%88%9D%E5%A7%8B%E5%8C%96%20Init/20160712-Jvm&Tomcat%20%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/01/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%20Setting/20170110-Hexo%20%E5%A4%87%E5%BF%98/</loc>
+    <loc>http://blog.gitmmp.com/2017/01/10/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/HEXO/20170110-Hexo%20%E7%BB%BC%E5%90%88%E5%A4%87%E5%BF%98/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E5%AE%89%E8%A3%85%20Install/20160712-Mysql%E5%AE%89%E8%A3%85%5BLinux%5D/</loc>
+    <loc>http://blog.gitmmp.com/2016/07/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/Jvm%E5%88%9D%E5%A7%8B%E5%8C%96%20Init/20160712-Mysql%E5%AE%89%E8%A3%85%5BLinux%5D/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
     <loc>http://blog.gitmmp.com/2018/01/01/%E5%9F%BA%E7%A1%80%20Base/20180101-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E7%A0%81%20StringCode/</loc>
@@ -25,10 +31,7 @@
     <loc>http://blog.gitmmp.com/2017/10/01/%E7%AE%97%E6%B3%95%20Algorithm/20171001-%E9%BA%BB%E5%B0%86%E8%83%A1%E7%89%8C%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
-    <loc>http://blog.gitmmp.com/2018/01/01/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/20180101-V2ray-%E4%BB%8E%E7%A7%BB%E5%8A%A8%E5%88%B0%E7%A7%BB%E4%B8%8D%E5%8A%A8/</loc>
-    <lastmod>2020-03-16</lastmod>
-  </url>  <url>
-    <loc>http://blog.gitmmp.com/2017/12/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/20171212-ShadowSocks-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%87%BA%E9%97%A8%5Bgo%E7%89%88%E6%9C%AC%5D/</loc>
+    <loc>http://blog.gitmmp.com/2017/12/12/%E5%B7%A5%E5%85%B7%E4%BA%BA%20ToolMan/%E7%BD%91%E8%B7%AF/20171212-ShadowSocks-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%87%BA%E9%97%A8%5Bgo%E7%89%88%E6%9C%AC%5D/</loc>
     <lastmod>2020-03-16</lastmod>
   </url>  <url>
     <loc>http://blog.gitmmp.com/2018/01/05/%E5%9F%BA%E7%A1%80%20Base/20180105-%E5%85%AC%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86%20keyEncryption/</loc>
