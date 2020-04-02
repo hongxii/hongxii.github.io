@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="虹西博客">
 <meta property="og:description" content="本文主要说明Linux中配置jdk和tomcat过程,将自己在配置过程中遇到的一些问题及相关的解决方案列举出来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0@1.0.0/src/20160712-Jvm&Tomcat 安装/1.jdk-license.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0@1.0.0/src/20160712-Jvm&Tomcat 安装/1.jdk-license.png">
-<meta property="og:updated_time" content="2020-04-02T06:36:59.140Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20160712-Jvm/1.jdk-license.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20160712-Jvm/1.jdk-license.png">
+<meta property="og:updated_time" content="2020-04-02T08:35:40.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jvm&amp;Tomcat 安装">
 <meta name="twitter:description" content="本文主要说明Linux中配置jdk和tomcat过程,将自己在配置过程中遇到的一些问题及相关的解决方案列举出来">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0@1.0.0/src/20160712-Jvm&Tomcat 安装/1.jdk-license.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20160712-Jvm/1.jdk-license.png">
 
 
 
@@ -417,7 +417,7 @@
 <p><strong>WHY</strong><br>If we user command ‘tar -xzvf’ we will get
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@colinECS download]<span class="comment"># tar -xzvf jdk-8u172-linux-x64.tar.gz</span></span><br><span class="line"></span><br><span class="line">gzip: stdin: <span class="keyword">not</span> <span class="keyword">in</span> gzip format</span><br><span class="line">tar: Child returned status <span class="number">1</span></span><br><span class="line">tar: Error <span class="keyword">is</span> <span class="keyword">not</span> recoverable: exiting now</span><br></pre></td></tr></table></figure></p>
 <p>Here we can see some error out<br>Also we can feel there has something wrong in somewhere<br>Where?<br>Yes here:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">100%</span><span class="selector-attr">[======================================&gt;]</span> <span class="selector-tag">5</span>,<span class="selector-tag">307</span>       <span class="selector-tag">--</span><span class="selector-class">.-K</span>/<span class="selector-tag">s</span>   <span class="selector-tag">in</span> <span class="selector-tag">0s</span></span><br><span class="line"><span class="selector-tag">2018-06-04</span> <span class="selector-tag">09</span><span class="selector-pseudo">:36</span><span class="selector-pseudo">:09</span> (<span class="number">492</span> MB/s) <span class="selector-tag">-</span> ‘<span class="selector-tag">jdk-8u172-linux-x64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span>’ <span class="selector-tag">saved</span> <span class="selector-attr">[5307/5307]</span></span><br></pre></td></tr></table></figure></p>
-<p>The package just 5307Kb<br>The correct package cannot be so small<br>If we go the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Java Home Page</a><br>We can see if you want download you must Accept a option:<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0@1.0.0/src/20160712-Jvm&amp;Tomcat 安装/1.jdk-license.png" alt="avatar"><br>
+<p>The package just 5307Kb<br>The correct package cannot be so small<br>If we go the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Java Home Page</a><br>We can see if you want download you must Accept a option:<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20160712-Jvm/1.jdk-license.png" alt="avatar"><br>
 If we just use command ‘wget’,
 we will download the package without accept the license,
 So we cannot unpack the package</p>
@@ -447,7 +447,7 @@ So we cannot unpack the package</p>
 <p><strong>啊♂？？？</strong><br>我们解压用’wget’命令获得的jdk包会发现：
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@colinECS download]<span class="comment"># tar -xzvf jdk-8u172-linux-x64.tar.gz</span></span><br><span class="line"></span><br><span class="line">gzip: stdin: <span class="keyword">not</span> <span class="keyword">in</span> gzip format</span><br><span class="line">tar: Child returned status <span class="number">1</span></span><br><span class="line">tar: Error <span class="keyword">is</span> <span class="keyword">not</span> recoverable: exiting now</span><br></pre></td></tr></table></figure></p>
 <p>解压报错了！！！<br><strong>为啥子咧？</strong><br>总感觉那里不对怪怪的<br>那里嘞？<br>对对对，就是这里:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">100%</span><span class="selector-attr">[======================================&gt;]</span> <span class="selector-tag">5</span>,<span class="selector-tag">307</span>       <span class="selector-tag">--</span><span class="selector-class">.-K</span>/<span class="selector-tag">s</span>   <span class="selector-tag">in</span> <span class="selector-tag">0s</span></span><br><span class="line"><span class="selector-tag">2018-06-04</span> <span class="selector-tag">09</span><span class="selector-pseudo">:36</span><span class="selector-pseudo">:09</span> (<span class="number">492</span> MB/s) <span class="selector-tag">-</span> ‘<span class="selector-tag">jdk-8u172-linux-x64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span>’ <span class="selector-tag">saved</span> <span class="selector-attr">[5307/5307]</span></span><br></pre></td></tr></table></figure></p>
-<p>这咋就5307Kb这么点大啊<br>不应该这么小啊<br>咋们去官网看下 <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Java Home Page</a><br>求豆麻袋，求豆麻袋，这怎么还有选项啊<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0@1.0.0/src/20160712-Jvm&amp;Tomcat 安装/1.jdk-license.png" alt="avatar"><br>
+<p>这咋就5307Kb这么点大啊<br>不应该这么小啊<br>咋们去官网看下 <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Java Home Page</a><br>求豆麻袋，求豆麻袋，这怎么还有选项啊<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20160712-Jvm/1.jdk-license.png" alt="avatar"><br>
 <img class="[]">
 我们用’wget’的时候是没有同意这个选项的,<br>所以下载下来有问题的包是不能解压的<br>怪不得  </p>
 <h5 id="那可咋整"><a href="#那可咋整" class="headerlink" title="那可咋整"></a>那可咋整</h5><p>还能咋整，只能用浏览器下载了呗<br>然后用 Ftp/Sftp 工具把下载好的传到linux服务器去<br>不过好像用 rpm 命令安装可以避免这种情况  </p>
@@ -495,7 +495,7 @@ root     148294  0.0  0.3 14451472 117300 pts/0 Sl   10:15   0:01 java -jar ches
       <p><span>本文标题:</span><a href="/2016/07/12/工具人 ToolMan/Jvm初始化 Init/20160712-Jvm&Tomcat 安装/">Jvm&Tomcat 安装</a></p>
       <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
       <p><span>发布时间:</span>2016年07月12日 - 00:07</p>
-      <p><span>最后更新:</span>2020年04月02日 - 14:04</p>
+      <p><span>最后更新:</span>2020年04月02日 - 16:04</p>
       <p><span>原始链接:</span><a href="/2016/07/12/工具人 ToolMan/Jvm初始化 Init/20160712-Jvm&Tomcat 安装/" title="Jvm&Tomcat 安装">http://blog.gitmmp.com/2016/07/12/工具人 ToolMan/Jvm初始化 Init/20160712-Jvm&Tomcat 安装/</a>
         <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2016/07/12/工具人 ToolMan/Jvm初始化 Init/20160712-Jvm&Tomcat 安装/" aria-label="复制成功！"></i></span>
       </p>
@@ -640,7 +640,7 @@ root     148294  0.0  0.3 14451472 117300 pts/0 Sl   10:15   0:01 java -jar ches
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -651,7 +651,7 @@ root     148294  0.0  0.3 14451472 117300 pts/0 Sl   10:15   0:01 java -jar ches
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
