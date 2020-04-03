@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.gitmmp.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="越来越多的Java后端逐渐转向kotlin,因其有诸多方便的特性： 空指针安全、方法扩展、函数式编程、大量语法糖等。 我们初步使用时会使得我们的代码信雅达，有很高的可读和可维护性。 但实际工程环境中使用我们会发现kotlin中有不少的隐形开销，而我们需要避免。">
+<meta name="keywords" content="R,Java,Kotlin,Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin隐性优化 Kotlin&#39;s hidden costs">
+<meta property="og:url" content="http://blog.gitmmp.com/2018/2XDGHC5/index.html">
+<meta property="og:site_name" content="虹西博客">
+<meta property="og:description" content="越来越多的Java后端逐渐转向kotlin,因其有诸多方便的特性： 空指针安全、方法扩展、函数式编程、大量语法糖等。 我们初步使用时会使得我们的代码信雅达，有很高的可读和可维护性。 但实际工程环境中使用我们会发现kotlin中有不少的隐形开销，而我们需要避免。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-16T13:37:43.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin隐性优化 Kotlin&#39;s hidden costs">
+<meta name="twitter:description" content="越来越多的Java后端逐渐转向kotlin,因其有诸多方便的特性： 空指针安全、方法扩展、函数式编程、大量语法糖等。 我们初步使用时会使得我们的代码信雅达，有很高的可读和可维护性。 但实际工程环境中使用我们会发现kotlin中有不少的隐形开销，而我们需要避免。">
+
+<link rel="canonical" href="http://blog.gitmmp.com/2018/2XDGHC5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>kotlin隐性优化 Kotlin's hidden costs | 虹西博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">虹西博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">霜落熊升树 | 林空鹿饮溪</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hongxii" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2018/2XDGHC5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="持续性踌躇满志  间歇性混吃等死">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kotlin隐性优化 Kotlin's hidden costs
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-08T00:00:00+08:00">2018-08-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-16 21:37:43" itemprop="dateModified" datetime="2020-03-16T21:37:43+08:00">2020-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/虚拟机-Jvm/" itemprop="url" rel="index"><span itemprop="name">虚拟机 Jvm</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/2XDGHC5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/2XDGHC5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>越来越多的Java后端逐渐转向kotlin,因其有诸多方便的特性：
+空指针安全、方法扩展、函数式编程、大量语法糖等。
+我们初步使用时会使得我们的代码信雅达，有很高的可读和可维护性。
+但实际工程环境中使用我们会发现kotlin中有不少的隐形开销，而我们需要避免。
+<a id="more"></a></p>
+<h2 id="Kotlin隐性开销优化"><a href="#Kotlin隐性开销优化" class="headerlink" title="Kotlin隐性开销优化"></a>Kotlin隐性开销优化</h2><h3 id="局部函数-Local-functions"><a href="#局部函数-Local-functions" class="headerlink" title="局部函数 Local functions"></a>局部函数 Local functions</h3><p>有时候我们会用常规语法在一些函数中声明函数，局部内部函数，我们这里叫他局部函数(local function)：</p>
+<pre><code>fun someMath(a: Int): Int {
+
+    fun sumSquare(b: Int) = (a + b) * (a + b)
+    return sumSquare(1) + sumSquare(2)
+}
+</code></pre><p>首先我们要知道，局部函数无法声明为内联函数(inline)，
+同时包含该局部函数的主函数也不能声明为内联函数，这样会有很多非内联函数的限制，不可避免的要多一次函数调用。  </p>
+<p>在编译之后，局部函数会被转换为Fuction对象，同lambda一样。我们看到编译后对应的Java代码：</p>
+<pre><code>public static final int someMath(final int a) {
+   Function1 sumSquare$ = new Function1(1) {
+      // $FF: synthetic method
+      // $FF: bridge method
+      public Object invoke(Object var1) {
+         return Integer.valueOf(this.invoke(((Number)var1).intValue()));
+      }
+
+      public final int invoke(int b) {
+         return (a + b) * (a + b);
+      }
+   };
+   return sumSquare$.invoke(1) + sumSquare$.invoke(2);
+}
+</code></pre><p>其实与传统lambda相比，性能损失已经更少了，
+局部函数的最终实例是由其所在函数直接调用的，
+这样的调用避免了原始类型的强制转换或装箱处理。
+我们可以看到字节码：  </p>
+<pre><code>ALOAD 1
+ICONST_1
+INVOKEVIRTUAL be/myapplication/MyClassKt$someMath$1.invoke (I)I
+ALOAD 1
+ICONST_2
+INVOKEVIRTUAL be/myapplication/MyClassKt$someMath$1.invoke (I)I
+IADD
+IRETURN
+</code></pre><p>两次的方法调用都是直接返回int,中间没有任何拆箱操作。  </p>
+<p>不过Function在每次方法调用期间依然要new对象,
+我们将主函数参数传进局部函数可以避免这种情况：</p>
+<pre><code>fun someMath（a：Int）：Int { 
+    fun sumSquare（a：Int，b：Int）=（a + b）*（a + b）
+
+    return sumSquare（a，1）+ sumSquare（a，2）
+}
+</code></pre><p>这样两个invoke间依然不会有类型转换或装箱。
+与私有函数相比，局部函数的唯一不足是在使用时会生成一个额外的类。</p>
+<p><strong>本地函数是私有函数的替代函数，
+具有能够访问外部函数的局部变量的优势。
+但同时也伴随着外部函数的每次调用需要创建对象的隐藏成本，
+因此使用本地函数时需要添加其主函数参数来优化。</strong></p>
+<h3 id="伴生对象-companion-object"><a href="#伴生对象-companion-object" class="headerlink" title="伴生对象 companion object"></a>伴生对象 companion object</h3><p>Kotlin中没有静态成员，而是通过伴生对象来实现。我们会在伴生对象中声明常量，
+可如果姿势不对，会产生额外开销。如以下version常量：
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getVersion</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Version</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">val</span> Version = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果将这一段转化成Java代码，会复杂很多：
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> int Version = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Demo.Companion Companion = <span class="keyword">new</span> Demo.Companion();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> int getVersion() &#123;</span><br><span class="line">        <span class="keyword">return</span> Companion.access$getVersion$p(Companion);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> int access$getVersion$cp() &#123;</span><br><span class="line">        <span class="keyword">return</span> Version;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Companion</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> int access$getVersion$p(Companion companion) &#123;</span><br><span class="line">            <span class="keyword">return</span> companion.getVersion();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> int getVersion() &#123;</span><br><span class="line">            <span class="keyword">return</span> Demo.access$getVersion$cp();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果在Java一般会直接读取常量，但上面这种写法会导致其经过下面4个方法拿到常量：<br>+调用伴生对象的静态方法<br>+调用伴生对象的实例方法<br>+调用主类的静态方法<br>+读取主类中的静态字段    </p>
+<p>解决方案：<br>1.基本类型和字符串，可以使用const关键字将常量声明为编译时常量。<br>2.对于公共字段，可以使用@JvmField注解。<br>3.对于其他类型的常量，最好在主类对象中存储全局常量而不是伴生对象。   </p>
+<h3 id="Lazy-委托属性-lazy-’s-Attr"><a href="#Lazy-委托属性-lazy-’s-Attr" class="headerlink" title="Lazy()委托属性  lazy()’s Attr"></a>Lazy()委托属性  lazy()’s Attr</h3><p>lazy()委托属性可以用于只读属性的惰性加载，
+但是在使用lazy()时经常被忽视的地方就是有一个可选的model参数:<br>+LazyThreadSafetyMode.SYNCHRONIZED：
+    初始化属性时会有双重锁检查，保证该值只在一个线程中计算，并且所有线程会得到相同的值。<br>+LazyThreadSafetyMode.PUBLICATION：
+    多个线程会同时执行，初始化属性的函数会被多次调用，但是只有第一个返回的值被当做委托属性的值。<br>+LazyThreadSafetyMode.NONE：没有双重锁检查，不应该用在多线程下。  </p>
+<p>lazy()默认情况下会指定LazyThreadSafetyMode.SYNCHRONIZED，
+    这可能会造成不必要线程安全的开销，应该根据实际情况，指定合适的model来避免不需要的同步锁。</p>
+<h3 id="基本数组-baseArr"><a href="#基本数组-baseArr" class="headerlink" title="基本数组 baseArr"></a>基本数组 baseArr</h3><p>在Kotlin中有3种数组类型：  </p>
+<p>+IntArray，FloatArray，其他：基本类型数组，被编译成int[]，float[]，其他<br>+Array<t>：非空对象数组<br>+Array&lt;T?&gt;：可空对象数组<br> 我们使用这三种来声明数组，会发现区别：</t></p>
+<pre><code>val a: IntArray = intArrayOf(1)
+val b: Array&lt;Int&gt; = arrayOf(1)
+val c: Array&lt;Int?&gt;=arrayOf(null)
+</code></pre><p>同等Java代码为：</p>
+<pre><code>@NotNull
+private final int[] a = new int[]{1};
+@NotNull
+private final Integer[] b = new Integer[]{Integer.valueOf(1)};
+@NotNull
+private final Integer[] c = new Integer[]{(Integer)null};
+</code></pre><p>我们可以看到后两种数组创建时已经进行了自动装箱处理，我们声明非空基本数组时，只使用xxxArray就好，避免自动装箱。</p>
+<h3 id="for循环函数"><a href="#for循环函数" class="headerlink" title="for循环函数"></a>for循环函数</h3><p>我们在kotlin的for循环中使用downTo、step、until、reversed等函数辅助简单的使用for循环。
+我们单独使用时确实简洁高效，但是相互调用呢？</p>
+<pre><code>for (i in 10 downTo 1 step 2) {
+                println(i)
+}
+</code></pre><p>等同的Java代码</p>
+<pre><code>public final void loop(){
+    IntProgression var10000 = RangesKit.step(RangesKt,downTo(10,1));
+    int i=var10000.getFirst();
+    int var2=var10000.getLast();
+    int var3=var10000.getStep();
+    if(var3&gt;0){
+        if(i&gt;var2){ return; }
+    } else if( i &lt; var2){
+        return;
+    }
+
+    while(i != var2){
+        i+= var3;
+    }
+}
+
+我们看到第二行已经多创建了两个IntProgresion 临时对象，增了了消耗。
+</code></pre><h3 id="Kotlin-检查工具"><a href="#Kotlin-检查工具" class="headerlink" title="Kotlin 检查工具"></a>Kotlin 检查工具</h3><p>工具简介：  </p>
+<blockquote>
+<p><a href="https://github.com/shyiko/ktlint" target="_blank" rel="noopener">ktlint</a>:检查kotlin代码风格，要使用需要大量改造。<br> <a href="https://github.com/arturbosch/detekt" target="_blank" rel="noopener">detekt</a>:静态分析kotlin代码，但也有缺陷（不能指定 [variant//变种] 检查,只支持控制台输出）。<br> lint //AndroidStuido 自带，可自定义检查规则</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+          
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/2XDGHC5/">kotlin隐性优化 Kotlin's hidden costs</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+  <p><span>发布时间:</span>2018年08月08日 - 00:08</p>
+  <p><span>最后更新:</span>2020年03月16日 - 21:03</p>
+  <p><span>原始链接:</span><a href="/2018/2XDGHC5/" title="kotlin隐性优化 Kotlin's hidden costs">http://blog.gitmmp.com/2018/2XDGHC5/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/2XDGHC5/"  aria-label="复制成功！"></i></span>
+  </p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+          
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/R/" rel="tag"># R</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/3ZRCK3K/" rel="prev" title="CDN-Jsdelivr">
+      <i class="fa fa-chevron-left"></i> CDN-Jsdelivr
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/61CXHF/" rel="next" title="设计模式 Design pattern">
+      设计模式 Design pattern <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin隐性开销优化"><span class="nav-number">1.</span> <span class="nav-text">Kotlin隐性开销优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部函数-Local-functions"><span class="nav-number">1.1.</span> <span class="nav-text">局部函数 Local functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伴生对象-companion-object"><span class="nav-number">1.2.</span> <span class="nav-text">伴生对象 companion object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lazy-委托属性-lazy-’s-Attr"><span class="nav-number">1.3.</span> <span class="nav-text">Lazy()委托属性  lazy()’s Attr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数组-baseArr"><span class="nav-number">1.4.</span> <span class="nav-text">基本数组 baseArr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环函数"><span class="nav-number">1.5.</span> <span class="nav-text">for循环函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin-检查工具"><span class="nav-number">1.6.</span> <span class="nav-text">Kotlin 检查工具</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="虹西/Hongxii"
+      src="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+  <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+  <div class="site-description" itemprop="description">持续性踌躇满志  间歇性混吃等死</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hongxii" title="GitHub → https://github.com/hongxii" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+      appKey     : 'tK5voXTFX0mLH426PkiDHTBY',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.gitmmp.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一般遇到编码问题我们一两行代码就能解决，但有时需试错。 这里细说一点原理来备忘，但遇到编码问题还是要试错。原理：映射表选错。本文提一点映射表规范。">
+<meta name="keywords" content="R,ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串编码 StringCode">
+<meta property="og:url" content="http://blog.gitmmp.com/2018/13TWPFW/index.html">
+<meta property="og:site_name" content="虹西博客">
+<meta property="og:description" content="一般遇到编码问题我们一两行代码就能解决，但有时需试错。 这里细说一点原理来备忘，但遇到编码问题还是要试错。原理：映射表选错。本文提一点映射表规范。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-16T13:37:43.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串编码 StringCode">
+<meta name="twitter:description" content="一般遇到编码问题我们一两行代码就能解决，但有时需试错。 这里细说一点原理来备忘，但遇到编码问题还是要试错。原理：映射表选错。本文提一点映射表规范。">
+
+<link rel="canonical" href="http://blog.gitmmp.com/2018/13TWPFW/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>字符串编码 StringCode | 虹西博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">虹西博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">霜落熊升树 | 林空鹿饮溪</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hongxii" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2018/13TWPFW/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="持续性踌躇满志  间歇性混吃等死">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串编码 StringCode
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-01T00:00:00+08:00">2018-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-16 21:37:43" itemprop="dateModified" datetime="2020-03-16T21:37:43+08:00">2020-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础-Base/" itemprop="url" rel="index"><span itemprop="name">基础 Base</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/13TWPFW/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/13TWPFW/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一般遇到编码问题我们一两行代码就能解决，但有时需试错。
+这里细说一点原理来备忘，但遇到编码问题还是要试错。<br>原理：映射表选错。本文提一点映射表规范。
+<a id="more"></a></p>
+<h2 id="Base"><a href="#Base" class="headerlink" title="Base"></a>Base</h2><h3 id="字符-char"><a href="#字符-char" class="headerlink" title="字符 char"></a>字符 char</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> D f</span><br></pre></td></tr></table></figure>
+<p>以上三种，代表基本文字</p>
+<h3 id="字符串-String"><a href="#字符串-String" class="headerlink" title="字符串 String"></a>字符串 String</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice <span class="keyword">to</span> meet you</span><br></pre></td></tr></table></figure>
+<p>多个字符组集合</p>
+<h3 id="键值表-map"><a href="#键值表-map" class="headerlink" title="键值表 map"></a>键值表 map</h3><pre><code>y = x * 2
+</code></pre><p>每个x对应唯一y，x与y组成键值表(HashTable)，如：</p>
+<pre><code>1 -&gt; 2
+2 -&gt; 4
+3 -&gt; 6
+</code></pre><h3 id="编码-amp-解码-cod-amp-decode"><a href="#编码-amp-解码-cod-amp-decode" class="headerlink" title="编码&amp;解码 cod &amp; decode"></a>编码&amp;解码 cod &amp; decode</h3><p>编码:字符串按照一定规则（map）转换成二进制存储。
+字符串”123”存起来，先要转换成”246”。
+实际存储的值：    </p>
+<pre><code>0010 0100 0110
+</code></pre><p>字符串解码(decode)就是把二进制数据按一定规则转换成字符串显示。</p>
+<h2 id="计算机数据存储-cache"><a href="#计算机数据存储-cache" class="headerlink" title="计算机数据存储 cache"></a>计算机数据存储 cache</h2><p>计算机都是以”0”或”1”存储的。
+如果要存储”GEB”，它会先转换成二进制再存储。
+我们使用EngineGo表，他用3位的二进制数字表示8种不同的字符。<br>EngineGo表：</p>
+<table>
+<thead>
+<tr>
+<th>二进制</th>
+<th>字符</th>
+<th>二进制</th>
+<th>字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>A</td>
+<td>100</td>
+<td>E</td>
+</tr>
+<tr>
+<td>001</td>
+<td>B</td>
+<td>101</td>
+<td>F</td>
+</tr>
+<tr>
+<td>010</td>
+<td>C</td>
+<td>110</td>
+<td>G</td>
+</tr>
+<tr>
+<td>011</td>
+<td>D</td>
+<td>111</td>
+<td>H</td>
+</tr>
+</tbody>
+</table>
+<p>我们在编辑器添加”GEB”字符串保存时，计算机根据EngineGo表存储数据</p>
+<pre><code>110 100 001
+  G   E   B 
+</code></pre><p>读取时，计算机会主动猜测应该使用哪个表来还原，
+假如它猜对了，使用EngineGo表还原，便会成功得到“GEB”。
+猜错了，就乱码了。</p>
+<p>##ASCII编码
+ASCII编码由西方国家设计，用英文作常用字符集，包括大小写字母，数字加一些标点符号和运算符号约120个。
+3位二进制只能表示8个不同的字符，于是我们扩充位数，7位可以表示128个字符，加1位用错误检查。
+最终使用8位，称为一个字节。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>字符</th>
+<th>编号</th>
+<th>字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（省略）…</td>
+<td>…</td>
+<td>64</td>
+<td>@</td>
+</tr>
+<tr>
+<td>48</td>
+<td>0</td>
+<td>65</td>
+<td>A</td>
+</tr>
+<tr>
+<td>49</td>
+<td>1</td>
+<td>66(1000010)</td>
+<td>B</td>
+</tr>
+<tr>
+<td>50</td>
+<td>2</td>
+<td>67</td>
+<td>C</td>
+</tr>
+<tr>
+<td>51</td>
+<td>3</td>
+<td>68</td>
+<td>D</td>
+</tr>
+<tr>
+<td>52</td>
+<td>4</td>
+<td>69(1000101)</td>
+<td>E</td>
+</tr>
+<tr>
+<td>53</td>
+<td>5</td>
+<td>70</td>
+<td>F</td>
+</tr>
+<tr>
+<td>54</td>
+<td>6</td>
+<td>71(01100111)</td>
+<td>G</td>
+</tr>
+<tr>
+<td>55</td>
+<td>7</td>
+<td>72</td>
+<td>H</td>
+</tr>
+<tr>
+<td>56</td>
+<td>8</td>
+<td>73</td>
+<td>I</td>
+</tr>
+<tr>
+<td>57</td>
+<td>9</td>
+<td>74</td>
+<td>J</td>
+</tr>
+<tr>
+<td>58</td>
+<td>:</td>
+<td>75</td>
+<td>K</td>
+</tr>
+<tr>
+<td>59</td>
+<td>;</td>
+<td>76</td>
+<td>L</td>
+</tr>
+<tr>
+<td>60</td>
+<td>&lt;</td>
+<td>77</td>
+<td>M</td>
+</tr>
+<tr>
+<td>61</td>
+<td>=</td>
+<td>78</td>
+<td>N</td>
+</tr>
+<tr>
+<td>62</td>
+<td>&gt;</td>
+<td>79</td>
+<td>O</td>
+</tr>
+<tr>
+<td>63</td>
+<td>?</td>
+<td>（省略）…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>此时“GEB”被存储为：</p>
+<pre><code>01100111 1000101 1000010
+      B       E       B
+</code></pre><h2 id="GBK编码"><a href="#GBK编码" class="headerlink" title="GBK编码"></a>GBK编码</h2><p>但ASCII编码容量只有128。遇到中文无法处理，故国内使用GBK编码（一张更大的表）。
+GBK是可变长度的编码，为兼容ASCII编码，使用了单、双字节编码和双字节编码，
+小于127的字符，同ASCII表，大于127的，两个字节表示一个汉字。
+故处理英文字符串时，和使用ASCII表存储的二进制数据一样。  </p>
+<p>但处理中文时，如存储”你好”，GBK编码会把这个字符串编码成：</p>
+<pre><code>11000100 11100011 10111010 11000011
+</code></pre><p>“你”和”好”这分别用两个字节保存。此时使用ASCII编码保存就会报错，因ASCII编码中无”你”和”好”对应值。      </p>
+<p>我们用GBK码保存文件，如果包含中文，别人使用ASCII就无法解码。
+GBK文件只存ASCII码字符，解码时也正确，一般在文档中注明编码，打开时用对应的解码就好，但若文档中无编码信息，计算机就会猜测这是什么编码。
+即使是中文，还有繁体中文，简体中文类别。即使知道文档是中文，也不知道用哪个中文编码才能正确打开。</p>
+<h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p>其实最简单方法是，用很多二进制位来存储世界上所有字符。<br>Unicode便是如此，它把每个国家的字符都编进去。如你好，对应 U+4F60 U+597D。
+不同于其他编码，Unicode只是一个标准，规定了表现形式，而编码和解码则有其他方式。  </p>
+<p>Unicode中每个字符都定义了对应表现形式：</p>
+<pre><code>4f60 597d
+你   好
+</code></pre><p>Unicode只指定表示形式，存储形式可据需选择。
+如果每个字符都保存为4字节二进制（你好==00004f60，0000597d），这就是UTF-32编码。
+已经可以用4个字节表达所有字符，没有其他技术问题。</p>
+<h2 id="UTF-8编码"><a href="#UTF-8编码" class="headerlink" title="UTF-8编码"></a>UTF-8编码</h2><p>但传输”A”字符，用UTF-32要用4个字节。而ASCII只要一个字节，这样会浪费存储空间和减缓传输速度。
+UTF-8为减少存储，将常用字符（英文）用一个字节表示（ASCII），其他用两到四个字节表示。</p>
+<p>UTF-8 UTF-32 对比</p>
+<table>
+<thead>
+<tr>
+<th>character</th>
+<th>encoding</th>
+<th>bits</th>
+<th>character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>ASCII</td>
+<td>01000001</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Unicode</td>
+<td>10011110 01000001(U+0041)</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>UTF-32</td>
+<td>00000000 00000000 00000000 01000001</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>UTF-8</td>
+<td>01000001</td>
+<td>A</td>
+</tr>
+<tr>
+<td>你</td>
+<td>ASCII</td>
+<td>无法表示</td>
+<td>你</td>
+</tr>
+<tr>
+<td>你</td>
+<td>Unicode</td>
+<td>1001111 01100000(U+4f60)</td>
+<td>你</td>
+</tr>
+<tr>
+<td>你</td>
+<td>UTF-32</td>
+<td>00000000 00000000 10011110 01100000</td>
+<td>你</td>
+</tr>
+<tr>
+<td>你</td>
+<td>UTF-8</td>
+<td>11100100 10111101 10100000(e4bda0)</td>
+<td>你</td>
+</tr>
+<tr>
+<td>character</td>
+<td>encoding</td>
+<td>bits</td>
+<td>character</td>
+</tr>
+<tr>
+<td>A</td>
+<td>ASCII</td>
+<td>01000001</td>
+<td>A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Unicode</td>
+<td>10011110 01000001(U+0041)</td>
+<td>A</td>
+</tr>
+<tr>
+<td>58</td>
+<td>:</td>
+<td>75</td>
+<td>K</td>
+</tr>
+<tr>
+<td>59</td>
+<td>;</td>
+<td>76</td>
+<td>L</td>
+</tr>
+<tr>
+<td>60</td>
+<td>&lt;</td>
+<td>77</td>
+<td>M</td>
+</tr>
+<tr>
+<td>61</td>
+<td>=</td>
+<td>78</td>
+<td>N</td>
+</tr>
+<tr>
+<td>62</td>
+<td>&gt;</td>
+<td>79</td>
+<td>O</td>
+</tr>
+<tr>
+<td>63</td>
+<td>?</td>
+<td>（省略）…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>使用UTF-8编码后，”A”只要一个字节，汉字”你”从4个字节减少为3个。
+Unicode转换成UTF-8非只要一张转换表：</p>
+<p>Unicode范围    转换规则</p>
+<table>
+<thead>
+<tr>
+<th>Unicode范围</th>
+<th>转换规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00000000 - 0x0000007F</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>0x00000080 - 0x000007FF</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0x00000800 - 0x0000FFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0x00010000 - 0x001FFFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody>
+</table>
+<p>以”你”为例，Unicode编码是U+4f60，对应第三列（07FF&lt;4f60&lt;FFFF），对比右边转换规则。
+把4f60的二进制1001111 01100000从右到左填入转换规则的x中，空的填0。</p>
+<pre><code>1001111 01100000 -&gt; 1110xxxx 10xxxxxx 10xxxxxx -&gt; 11100100 10111101 10100000
+</code></pre><p>最后得到的11100100 10111101 10100000(e4bda0)也就是”你”的UTF-8编码了。</p>
+<h2 id="HTML实体编码"><a href="#HTML实体编码" class="headerlink" title="HTML实体编码"></a>HTML实体编码</h2><p>浏览器解析HTML的时候会把特殊的字符串理解成非字面的含义，所以当需要显示这些特殊字符串的时候，需要经过下表的转换：</p>
+<table>
+<thead>
+<tr>
+<th>显示结果</th>
+<th>描述</th>
+<th>实体名称</th>
+<th>实体编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格</td>
+<td>&nbsp;</td>
+<td>&#160;</td>
+<td>空格</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于号</td>
+<td>&lt;</td>
+<td>&#60;</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于号</td>
+<td>&gt;</td>
+<td>&#62;</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>和</td>
+<td>&amp;</td>
+<td>&#38;</td>
+</tr>
+<tr>
+<td>“</td>
+<td>双引号</td>
+<td>&quot;</td>
+<td>&#34;</td>
+</tr>
+<tr>
+<td>‘</td>
+<td>单引号</td>
+<td>&apos;</td>
+<td>&#39;</td>
+</tr>
+<tr>
+<td>′</td>
+<td>重音符</td>
+<td>&acute;</td>
+<td>&#96;</td>
+</tr>
+<tr>
+<td>©</td>
+<td>版权</td>
+<td>&copy;</td>
+<td>&#169;</td>
+</tr>
+<tr>
+<td>®</td>
+<td>注册商标</td>
+<td>&reg;</td>
+<td>&#174;</td>
+</tr>
+<tr>
+<td>™</td>
+<td>商标</td>
+<td>&trade;</td>
+<td>&#8482;</td>
+</tr>
+<tr>
+<td>你</td>
+<td>中文</td>
+<td>&#x4F60;</td>
+<td>&#x4F60;或&amp;#20320</td>
+</tr>
+<tr>
+<td>好</td>
+<td>中文</td>
+<td>&#x597D;</td>
+<td>&#x597D;或&amp;#22909</td>
+</tr>
+</tbody>
+</table>
+<p>从上表可以看到，特殊字符串是强制需要转换的，而且实际上，所有字符都可以经过转换表示，只需要用</p>
+<pre><code>&amp;#x加上其16进制Unicode编码或者
+&amp;#加上其10进制Unicode编码
+</code></pre><p>作为实体编号即可，浏览器既能解析字符串本身，也能解析其UTF-8编码。</p>
+<h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>RFC3986中规定了URI中不能出现</p>
+<pre><code>: / ? # [ ] @ ! $ &amp; &apos; ( ) * + , ; = 
+</code></pre><p>当表示这些时，使用%加该字符的16进制UTF-8编码表示，出现非ASCII表的字符也一样，例如在浏览器输入</p>
+<pre><code>https://io.hongxi.io/你好
+</code></pre><p>浏览器会自动把不合规定的字符转换成%加UTF-8编码再进行请求（地址栏还是显示原本”你好”），当你粘贴在文本编辑器的时候就可以看到原本的URL变成：</p>
+<pre><code>https://io.hongxi.io/%E4%BD%A0%E5%A5%BD
+</code></pre><p>这里可以看到”你好”使用了它的UTF-8编码表示</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>单纯从二进制数据是无法判断用什么编码存储的。但也有用AI来判断的，结果很出色。</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+          
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/13TWPFW/">字符串编码 StringCode</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+  <p><span>发布时间:</span>2018年01月01日 - 00:01</p>
+  <p><span>最后更新:</span>2020年03月16日 - 21:03</p>
+  <p><span>原始链接:</span><a href="/2018/13TWPFW/" title="字符串编码 StringCode">http://blog.gitmmp.com/2018/13TWPFW/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2018/13TWPFW/"  aria-label="复制成功！"></i></span>
+  </p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+          
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/R/" rel="tag"># R</a>
+              <a href="/tags/ML/" rel="tag"># ML</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/1Z2DMMP/" rel="prev" title="V2ray-从移动到移不动">
+      <i class="fa fa-chevron-left"></i> V2ray-从移动到移不动
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/37BT71T/" rel="next" title="公私钥加密 Public/private keyEncryption">
+      公私钥加密 Public/private keyEncryption <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Base"><span class="nav-number">1.</span> <span class="nav-text">Base</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符-char"><span class="nav-number">1.1.</span> <span class="nav-text">字符 char</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串-String"><span class="nav-number">1.2.</span> <span class="nav-text">字符串 String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键值表-map"><span class="nav-number">1.3.</span> <span class="nav-text">键值表 map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码-amp-解码-cod-amp-decode"><span class="nav-number">1.4.</span> <span class="nav-text">编码&amp;解码 cod &amp; decode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机数据存储-cache"><span class="nav-number">2.</span> <span class="nav-text">计算机数据存储 cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBK编码"><span class="nav-number">3.</span> <span class="nav-text">GBK编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode编码"><span class="nav-number">4.</span> <span class="nav-text">Unicode编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-8编码"><span class="nav-number">5.</span> <span class="nav-text">UTF-8编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML实体编码"><span class="nav-number">6.</span> <span class="nav-text">HTML实体编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL编码"><span class="nav-number">7.</span> <span class="nav-text">URL编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="虹西/Hongxii"
+      src="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+  <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+  <div class="site-description" itemprop="description">持续性踌躇满志  间歇性混吃等死</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hongxii" title="GitHub → https://github.com/hongxii" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+      appKey     : 'tK5voXTFX0mLH426PkiDHTBY',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
