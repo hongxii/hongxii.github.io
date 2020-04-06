@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.gitmmp.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="问题打开某个文件夹，是这样的 混乱，不利于整理与辨识···但可以这样作：右键， 属性 → 自定义 → 更改图标 → 选择 → 更改图标 达成下图效果 就这！就这？？ 图标就这么点？">
+<meta name="keywords" content="R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win10图标">
+<meta property="og:url" content="http://blog.gitmmp.com/2020/7H6PCQ/index.html">
+<meta property="og:site_name" content="虹西博客">
+<meta property="og:description" content="问题打开某个文件夹，是这样的 混乱，不利于整理与辨识···但可以这样作：右键， 属性 → 自定义 → 更改图标 → 选择 → 更改图标 达成下图效果 就这！就这？？ 图标就这么点？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/0_sample.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/1_step.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/2_sampleInit.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/3_shell32_mini_icons.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_ddores.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_dmdskres.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_0-35.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_36-71.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_72-107.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_108-143.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_144-179.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_180-215.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_216-251.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_252-287.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_288-323.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_324-359.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_360-387.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_mmres.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_networkexplorer.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_pnidui.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_sensorscpl.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_setupapi.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_0-35.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_36-71.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_72-107.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_108-143.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_144-179.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_180-215.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_216-251.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_252-287.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_288-332.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_wmploc.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_wpdshext.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_accessibilitycpl.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_dsuiext.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_gameux.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_gameux2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_ieframe.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_mstscax.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_netcenter.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_compstui.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_mmcndmgr.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_moricons.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_pifmgr.png">
+<meta property="og:updated_time" content="2020-04-06T15:53:53.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Win10图标">
+<meta name="twitter:description" content="问题打开某个文件夹，是这样的 混乱，不利于整理与辨识···但可以这样作：右键， 属性 → 自定义 → 更改图标 → 选择 → 更改图标 达成下图效果 就这！就这？？ 图标就这么点？">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/0_sample.png">
+
+<link rel="canonical" href="http://blog.gitmmp.com/2020/7H6PCQ/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Win10图标 | 虹西博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">虹西博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">霜落熊升树 | 林空鹿饮溪</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/hongxii" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.gitmmp.com/2020/7H6PCQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+      <meta itemprop="name" content="虹西/Hongxii">
+      <meta itemprop="description" content="持续性踌躇满志  间歇性混吃等死">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="虹西博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Win10图标
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-20T00:00:00+08:00">2020-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-06 23:53:53" itemprop="dateModified" datetime="2020-04-06T23:53:53+08:00">2020-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具人-ToolMan/" itemprop="url" rel="index"><span itemprop="name">工具人 ToolMan</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/7H6PCQ/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/7H6PCQ/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>打开某个文件夹，是这样的<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/0_sample.png" alt="sample"></p>
+<p>混乱，不利于整理与辨识···<br>但可以这样作：右键， <code>属性</code> → <code>自定义</code> → <code>更改图标</code> → <code>选择</code> → <code>更改图标</code><br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/1_step.png" alt="sample">
+达成下图效果<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/2_sampleInit.png" alt="sample">
+就这！就这？？ 图标就这么点？<br><img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/3_shell32_mini_icons.png" alt="sample">
+<a id="more"></a></p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>OF COURSE NOT!<br>查找后<br>以下dll包含大量图标  </p>
+<p>dll根位置：<br><code>%systemroot%\system32\*.dll</code>  </p>
+<p>Win10风格:  </p>
+<ul>
+<li><code>%systemroot%\system32\ddores.dll</code></li>
+<li><code>%systemroot%\system32\dmdskres.dll</code></li>
+<li><code>%systemroot%\system32\imageres.dll</code></li>
+<li><code>%systemroot%\system32\mmres.dll</code></li>
+<li><code>%systemroot%\system32\networkexplorer.dll</code></li>
+<li><code>%systemroot%\system32\pnidui.dll</code></li>
+<li><code>%systemroot%\system32\sensorscpl.dll</code></li>
+<li><code>%systemroot%\system32\setupapi.dll</code></li>
+<li><code>%systemroot%\system32\shell32.dll</code></li>
+<li><code>%systemroot%\system32\wmploc.dll</code></li>
+<li><code>%systemroot%\system32\wpdshext.dll</code></li>
+</ul>
+<p>Win7风格:  </p>
+<ul>
+<li><code>%systemroot%\system32\accessibilitycpl.dll</code></li>
+<li><code>%systemroot%\system32\dsuiext.dll</code></li>
+<li><code>%systemroot%\system32\gameux.dll</code></li>
+<li><code>%systemroot%\system32\ieframe.dll</code></li>
+<li><code>%systemroot%\system32\mstscax.dll</code></li>
+<li><code>%systemroot%\system32\netcenter.dll</code></li>
+</ul>
+<p>WinXP风格:  </p>
+<ul>
+<li><code>%systemroot%\system32\compstui.dll</code></li>
+<li><code>%systemroot%\system32\mmcndmgr.dll</code></li>
+<li><code>%systemroot%\system32\moricons.dll</code></li>
+<li><code>%systemroot%\system32\pifmgr.dll</code></li>
+</ul>
+<p>就这？！<br>他们到底长啥样？  </p>
+<h3 id="Win10风格"><a href="#Win10风格" class="headerlink" title="Win10风格"></a>Win10风格</h3><p>以下为截至2020年4月微软已定义数量<br>ddores.dll ▼   总数 149
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_ddores.png" alt="ddores.dll"></p>
+<p>dmdskres.dll ▼   总数 21
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_dmdskres.png" alt="dmdskres.dll"></p>
+<p>imageres.dll ▼   总数 388
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_0-35.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_36-71.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_72-107.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_108-143.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_144-179.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_180-215.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_216-251.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_252-287.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_288-323.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_324-359.png" alt="imageres.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_imageres_360-387.png" alt="imageres.dll"></p>
+<p>mmres.dll ▼   总数 18
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_mmres.png" alt="mmres.dll"></p>
+<p>networkexplorer.dll ▼   总数 20
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_networkexplorer.png" alt="networkexplorer.dll"></p>
+<p>pnidui.dll ▼   总数 43
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_pnidui.png" alt="pnidui.dll"></p>
+<p>sensorscpl.dll ▼   总数 22
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_sensorscpl.png" alt="sensorscpl.dll"></p>
+<p>setupapi.dll ▼   总数 62
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_setupapi.png" alt="setupapi.dll"></p>
+<p>shell32.dll ▼   总数 329
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_0-35.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_36-71.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_72-107.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_108-143.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_144-179.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_180-215.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_216-251.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_252-287.png" alt="shell32.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_shell32_288-332.png" alt="shell32.dll"></p>
+<p>wmploc.dll ▼   总数 159
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_wmploc.png" alt="wmploc.dll"></p>
+<p>wpdshext.dll ▼   总数 22
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_10_wpdshext.png" alt="wpdshext.dll"></p>
+<h3 id="Win7风格"><a href="#Win7风格" class="headerlink" title="Win7风格"></a>Win7风格</h3><p>accessibilitycpl.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_accessibilitycpl.png" alt="accessibilitycpl.dll"></p>
+<p>dsuiext.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_dsuiext.png" alt="dsuiext.dll"></p>
+<p>gameux.dll ▼ Win10无 Win7有 （需有游戏模块）
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_gameux.png" alt="gameux.dll">
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_gameux2.png" alt="gameux.dll"></p>
+<p>ieframe.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_ieframe.png" alt="ieframe.dll"></p>
+<p>mstscax.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_mstscax.png" alt="mstscax.dll"></p>
+<p>netcenter.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_7_netcenter.png" alt="netcenter.dll"></p>
+<h3 id="WinXP风格"><a href="#WinXP风格" class="headerlink" title="WinXP风格"></a>WinXP风格</h3><p>compstui.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_compstui.png" alt="compstui.dll"></p>
+<p>mmcndmgr.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_mmcndmgr.png" alt="mmcndmgr.dll"></p>
+<p>moricons.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_moricons.png" alt="moricons.dll"></p>
+<p>pifmgr.dll ▼
+<img src="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/4_xp_pifmgr.png" alt="pifmgr.dll"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>这么多，怎么拿出来用？<br>总不能重复： <code>属性</code> → <code>自定义</code> → <code>更改图标</code> → <code>选择</code> → <code>更改图标</code><br>这个步骤在那个小框框里找半天吧！！！（吐槽巨硬）  </p>
+<p>不用！<br>自定更改文件夹后，点进去发现，空文件夹！！<br>真是空文件夹？<br>更改文件夹选项，显示隐藏文件<br>里面躺着一个<code>desktop.ini</code>文件  </p>
+<p>打开后
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[.ShellClassInfo]</span><br><span class="line">IconResource=C:\WINDOWS\System32\ddores.dll,0</span><br><span class="line">[ViewState]</span><br><span class="line">Mode=</span><br><span class="line">Vid=</span><br><span class="line">FolderType=Generic</span><br></pre></td></tr></table></figure></p>
+<p>第二行！！！<br>没错 可以直接改动这个数据<br>上文中选择想要改动的图标记住其序号 直接修改即可</p>
+<h3 id="再简单一点"><a href="#再简单一点" class="headerlink" title="再简单一点"></a>再简单一点</h3><p>就这？！<br>要是把所有图标通过文件夹枚举，直接复制文件夹就好了！！！<br>直接复制对应的文件夹就好了！！！  </p>
+<p>可以是可以，不过，数量有点多！仅Win10就有<br>1222个！！！<br>1222个！！！<br>1222个！！！  </p>
+<p>不过，用魔法几分钟就搞定<br>几分钟？<br>1，2，3，4，5···<br>嗯 搞定！上文所有图标文件夹的<a href="https://cdn.jsdelivr.net/gh/hongxii/ObjectServer0/src/20200120-Win10Icon/ini.7z" target="_blank" rel="noopener">下载链接</a>在此<br>解压后为所有文件夹（带icon）<br>喜欢哪个icon呢，可在下方留言！</p>
+<h3 id="魔法残像"><a href="#魔法残像" class="headerlink" title="魔法残像"></a>魔法残像</h3><p><code>desktop.ini</code>文件修改复制到文件夹后<br>先文件夹目录执行<code>隐藏</code>  </p>
+<pre><code>attrib desktop.ini +s +h +r
+</code></pre><p>在上层执行 <code>文件夹只读</code>  </p>
+<pre><code>cd ../
+attrib +r /fileName
+</code></pre><p>图标及时生效  </p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+          
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/7H6PCQ/">Win10图标</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 虹西/Hongxii 的个人博客">虹西/Hongxii</a></p>
+  <p><span>发布时间:</span>2020年01月20日 - 00:01</p>
+  <p><span>最后更新:</span>2020年04月06日 - 23:04</p>
+  <p><span>原始链接:</span><a href="/2020/7H6PCQ/" title="Win10图标">http://blog.gitmmp.com/2020/7H6PCQ/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.gitmmp.com/2020/7H6PCQ/"  aria-label="复制成功！"></i></span>
+  </p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+        });
+    });
+</script>
+
+          
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/R/" rel="tag"># R</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/61CXHF/" rel="prev" title="设计模式 Design pattern">
+      <i class="fa fa-chevron-left"></i> 设计模式 Design pattern
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">2.</span> <span class="nav-text">资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Win10风格"><span class="nav-number">2.1.</span> <span class="nav-text">Win10风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Win7风格"><span class="nav-number">2.2.</span> <span class="nav-text">Win7风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WinXP风格"><span class="nav-number">2.3.</span> <span class="nav-text">WinXP风格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#再简单一点"><span class="nav-number">3.1.</span> <span class="nav-text">再简单一点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#魔法残像"><span class="nav-number">3.2.</span> <span class="nav-text">魔法残像</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="虹西/Hongxii"
+      src="http://q2.qlogo.cn/headimg_dl?dst_uin=851687664&spec=5">
+  <p class="site-author-name" itemprop="name">虹西/Hongxii</p>
+  <div class="site-description" itemprop="description">持续性踌躇满志  间歇性混吃等死</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hongxii" title="GitHub → https://github.com/hongxii" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">虹西/Hongxii</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'dU4DFkRRQqU30bvT0uXQmhSw-gzGzoHsz',
+      appKey     : 'tK5voXTFX0mLH426PkiDHTBY',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
