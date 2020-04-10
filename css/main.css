@@ -1270,7 +1270,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff6cda;
+  background: #fffca8;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2071,7 +2071,7 @@ pre .javascript .function {
   font-size: 0.93rem;
   line-height: 1.6em;
   word-break: break-all;
-  background: rgba(255,255,255,0.4);
+  background: rgba(40,40,40,0.4);
 }
 .my_post_copyright p {
   margin: 0;
